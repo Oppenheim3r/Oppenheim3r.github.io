@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Husam Gameel | Oppenheim3r - Cybersecurity Blog</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+    <!-- Floating Binaries Background -->
+    <div class="floating-binaries" id="floating-binaries"></div>
+    
+    <!-- Spider Web Overlay -->
+    <div class="spider-web" id="spider-web">
+        <div class="web-line" style="top: 20%; left: 0; width: 100%;"></div>
+        <div class="web-line" style="top: 40%; left: 0; width: 100%;"></div>
+        <div class="web-line" style="top: 60%; left: 0; width: 100%;"></div>
+        <div class="web-line" style="top: 80%; left: 0; width: 100%;"></div>
+        <div class="web-line vertical" style="left: 15%; top: 0;"></div>
+        <div class="web-line vertical" style="left: 35%; top: 0;"></div>
+        <div class="web-line vertical" style="left: 55%; top: 0;"></div>
+        <div class="web-line vertical" style="left: 75%; top: 0;"></div>
+        <div class="web-line vertical" style="left: 85%; top: 0;"></div>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>Oppenheim3r</h1>
+                    <p>Husam Gameel</p>
+                </div>
+                <nav class="nav" id="nav">
+                    <button class="nav-btn active" data-category="home">
+                        <i class="fas fa-home"></i>
+                        Home
+                    </button>
+                    <button class="nav-btn" data-category="about">
+                        <i class="fas fa-user"></i>
+                        About
+                    </button>
+                    <button class="nav-btn" data-category="offensive">
+                        <i class="fas fa-sword"></i>
+                        Offensive Security
+                    </button>
+                    <button class="nav-btn" data-category="defensive">
+                        <i class="fas fa-shield-alt"></i>
+                        Defensive Security
+                    </button>
+                    <button class="nav-btn" data-category="adversary">
+                        <i class="fas fa-crosshairs"></i>
+                        Adversary Emulation
+                    </button>
+                </nav>
+                <div class="mobile-menu-toggle" id="mobile-menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main">
+            <!-- Home Section -->
+            <section id="home" class="section active">
+                <div class="hero">
+                    <div class="hero-content">
+                        <h2>Welcome to My Cybersecurity Blog</h2>
+                        <p>Exploring the depths of offensive security, defensive strategies, and adversary emulation techniques through hands on research and real world applications.</p>
+                        <div class="hero-stats">
+                            <div class="stat">
+                                <span class="stat-number" id="offensive-count">0</span>
+                                <span class="stat-label">Offensive Posts</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number" id="defensive-count">0</span>
+                                <span class="stat-label">Defensive Posts</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number" id="adversary-count">0</span>
+                                <span class="stat-label">Adversary Posts</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hero-visual">
+                        <div class="code-animation">
+                            <div class="code-line"></div>
+                            <div class="code-line"></div>
+                            <div class="code-line"></div>
+                            <div class="code-line"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="recent-posts">
+                    <h3>Recent Posts</h3>
+                    <div class="posts-grid" id="recent-posts">
+                        <!-- Recent posts will be loaded here -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- About Section -->
+            <section id="about" class="section">
+                <div class="about-header">
+                    <h2><i class="fas fa-user"></i> About Husam Gameel</h2>
+                    <p>Cybersecurity Engineer & Security Researcher</p>
+                </div>
+                
+                <div class="about-content">
+                    <div class="about-intro">
+                        <div class="intro-avatar">
+                            <div class="avatar-placeholder">
+                                <span>HG</span>
+                            </div>
+                        </div>
+                        <div class="intro-text">
+                            <h3>Oppenheim3r</h3>
+                            <p class="intro-subtitle">Cybersecurity Engineer & Security Researcher</p>
+                           <p>
+    Welcome! I'm Husam Gameel, known in the cybersecurity community as <strong>Oppenheim3r</strong>.  
+    I'm a cybersecurity professional with a passion for offensive and defensive security, combining real-world attack simulation with deep forensic analysis and threat detection.
+</p>
+<p>
+    My expertise spans red teaming, penetration testing, digital forensics (DFIR), threat hunting, and malware analysis. I specialize in process creation analysis, reverse engineering malicious behaviors, and developing detection rules using Sigma, YARA, and custom threat hunting techniques. Additionally, I focus on the security of modern APIs, including REST and GraphQL, identifying vulnerabilities and helping secure critical application layers against real-world attack vectors.
+</p>
+<p>
+    Through this blog, I share technical research, practical experiences, and insights gained from hands-on security assessments and continuous learning. My goal is to contribute to the cybersecurity community by providing actionable, technical content that empowers both aspiring and experienced security professionals in the fields of offensive security, DFIR, and defensive engineering.
+</p>
+
+                        </div>
+                    </div>
+
+                    <div class="expertise-section">
+                        <h4>Areas of Expertise</h4>
+                        <div class="expertise-grid">
+                            <div class="expertise-card">
+                                <i class="fas fa-user-secret"></i>
+                                <h5>Red Team Operations</h5>
+                                <p>Advanced adversary simulation and attack scenarios</p>
+                            </div>
+                           
+                            <div class="expertise-card">
+                                <i class="fas fa-shield-alt"></i>
+                                <h5>SIEM & Detection</h5>
+                                <p>Security monitoring and incident response strategies</p>
+                            </div>
+                            <div class="expertise-card">
+                                <i class="fas fa-search"></i>
+                                <h5>Threat Hunting</h5>
+                                <p>Proactive threat detection and analysis techniques</p>
+                            </div>
+                            <div class="expertise-card">
+                                <i class="fas fa-crosshairs"></i>
+                                <h5>MITRE ATT&CK</h5>
+                                <p>Framework implementation and adversary emulation</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="certifications-section">
+                        <h4>Skills</h4>
+                        <div class="skills-tags">
+                            <span class="skill-tag">Red Team Operations</span>         
+                            <span class="skill-tag">SIEM & Detection</span>
+                            <span class="skill-tag">Threat Hunting</span>
+                            <span class="skill-tag">MITRE ATT&CK</span>
+                            <span class="skill-tag">Incident Response</span>
+                            <span class="skill-tag">Reverse Engineering</span>
+                            <span class="skill-tag">Purple Team</span>
+                            <span class="skill-tag">Security Research</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Category Sections -->
+            <section id="offensive" class="section">
+                <div class="category-header">
+                    <h2><i class="fas fa-sword"></i> Offensive Security</h2>
+                    <p>Red team operations</p>
+                </div>
+                <div class="posts-grid" id="offensive-posts">
+                    <!-- Offensive security posts will be loaded here -->
+                </div>
+            </section>
+
+            <section id="defensive" class="section">
+                <div class="category-header">
+                    <h2><i class="fas fa-shield-alt"></i> Defensive Security</h2>
+                    <p>Blue team strategies, incident response, and security monitoring</p>
+                </div>
+                <div class="posts-grid" id="defensive-posts">
+                    <!-- Defensive security posts will be loaded here -->
+                </div>
+            </section>
+
+            <section id="adversary" class="section">
+                <div class="category-header">
+                    <h2><i class="fas fa-crosshairs"></i> Adversary Emulation</h2>
+                    <p>Threat hunting, adversary simulation, and purple team exercises</p>
+                </div>
+                <div class="posts-grid" id="adversary-posts">
+                    <!-- Adversary emulation posts will be loaded here -->
+                </div>
+            </section>
+
+            <!-- Blog Post View -->
+            <section id="blog-post" class="section">
+                <div class="post-header">
+                    <button class="back-btn" id="back-btn">
+                        <i class="fas fa-arrow-left"></i>
+                        Back
+                    </button>
+                </div>
+                <article class="post-content" id="post-content">
+                    <!-- Blog post content will be loaded here -->
+                </article>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <p>&copy; 2025 Husam Gameel (Oppenheim3r). All rights reserved.</p>
+                <div class="social-links">
+                    <a href="#" class="social-link" title="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="#" class="social-link" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" class="social-link" title="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link" title="Email"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
