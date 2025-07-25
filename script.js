@@ -194,139 +194,73 @@ async function loadBlogPosts() {
 }
 
 async function discoverPosts() {
-    const categories = ['offensive', 'defensive'];
     const discoveredPosts = [];
     
-    for (const category of categories) {
+    for (const postConfig of POST_CONFIG) {
         try {
-            const posts = await discoverCategoryPosts(category);
-            discoveredPosts.push(...posts);
+            const post = await discoverPost(postConfig.category, postConfig.filename);
+            if (post) {
+                discoveredPosts.push(post);
+            }
         } catch (error) {
-            console.warn(`Could not discover posts for category: ${category}`, error);
+            console.warn(`Could not discover post: ${postConfig.filename} in category ${postConfig.category}`, error);
         }
     }
     
-    return discoveredPosts;
+    return discoveredPosts.filter(Boolean);
+}
+
+async function discoverPost(category, filename) {
+    try {
+        const filepath = `posts/${category}/${filename}`;
+        const fileResponse = await fetch(filepath);
+        
+        if (fileResponse.ok) {
+            const content = await fileResponse.text();
+            
+            // Extract title from first line or filename
+            const lines = content.split(\'\\n\');
+            let title = filename.replace(/\\.md$/, \'\').replace(/[-_]/g, \' \').replace(/\\b\\w/g, l => l.toUpperCase());
+            
+            // Try to extract title from markdown
+            for (const line of lines) {
+                if (line.startsWith(\'# \')) {
+                    title = line.substring(2).trim();
+                    break;
+                }
+            }
+            
+            // Extract excerpt from content
+            let excerpt = \'Click to read the full content.\';
+            const contentLines = lines.filter(line => line.trim() && !line.startsWith(\'#\'));
+            if (contentLines.length > 0) {
+                excerpt = contentLines[0].substring(0, 150) + (contentLines[0].length > 150 ? \'...\' : \'\');
+            }
+            
+            const post = {
+                id: filename.replace(/\\.md$/, \'\').toLowerCase().replace(/[^a-z0-9]/g, \'-\' ),
+                title: title,
+                category: category,
+                date: new Date().toISOString().split(\'T\')[0], // Use current date as fallback
+                excerpt: excerpt,
+                filename: filepath,
+                content: content
+            };
+            
+            return post;
+        } else {
+            throw new Error(`File not found: ${filepath}`);
+        }
+    } catch (error) {
+        console.warn(`Error loading file: posts/${category}/${filename}`, error);
+        return null;
+    }
 }
 
 async function discoverCategoryPosts(category) {
-    const posts = [];
-    
-    try {
-        // Try to get directory listing by attempting to fetch the directory
-        const response = await fetch(`posts/${category}/`);
-        
-        if (response.ok) {
-            const html = await response.text();
-            
-            // Parse HTML to find .md files
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(html, 'text/html');
-            const links = doc.querySelectorAll('a[href$=".md"]');
-            
-            for (const link of links) {
-                const filename = link.getAttribute('href');
-                if (filename && filename.endsWith('.md')) {
-                    try {
-                        const filepath = `posts/${category}/${filename}`;
-                        const fileResponse = await fetch(filepath);
-                        
-                        if (fileResponse.ok) {
-                            const content = await fileResponse.text();
-                            
-                            // Extract title from first line or filename
-                            const lines = content.split('\n');
-                            let title = filename.replace(/\.md$/, '').replace(/[-_]/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
-                            
-                            // Try to extract title from markdown
-                            for (const line of lines) {
-                                if (line.startsWith('# ')) {
-                                    title = line.substring(2).trim();
-                                    break;
-                                }
-                            }
-                            
-                            // Extract excerpt from content
-                            let excerpt = 'Click to read the full content.';
-                            const contentLines = lines.filter(line => line.trim() && !line.startsWith('#'));
-                            if (contentLines.length > 0) {
-                                excerpt = contentLines[0].substring(0, 150) + (contentLines[0].length > 150 ? '...' : '');
-                            }
-                            
-                            const post = {
-                                id: filename.replace(/\.md$/, '').toLowerCase().replace(/[^a-z0-9]/g, '-'),
-                                title: title,
-                                category: category,
-                                date: new Date().toISOString().split('T')[0], // Use current date as fallback
-                                excerpt: excerpt,
-                                filename: filepath,
-                                content: content
-                            };
-                            
-                            posts.push(post);
-                        }
-                    } catch (error) {
-                        console.warn(`Could not load file: posts/${category}/${filename}`, error);
-                    }
-                }
-            }
-        } else {
-            // Fallback: try common patterns if directory listing fails
-            const commonPatterns = [
-                'index.md', 'readme.md', 'README.md',
-                'post1.md', 'post2.md', 'post3.md',
-                'article1.md', 'article2.md', 'article3.md'
-            ];
-            
-            for (const filename of commonPatterns) {
-                try {
-                    const filepath = `posts/${category}/${filename}`;
-                    const fileResponse = await fetch(filepath);
-                    
-                    if (fileResponse.ok) {
-                        const content = await fileResponse.text();
-                        
-                        // Extract title from first line or filename
-                        const lines = content.split('\n');
-                        let title = filename.replace(/\.md$/, '').replace(/[-_]/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
-                        
-                        // Try to extract title from markdown
-                        for (const line of lines) {
-                            if (line.startsWith('# ')) {
-                                title = line.substring(2).trim();
-                                break;
-                            }
-                        }
-                        
-                        // Extract excerpt from content
-                        let excerpt = 'Click to read the full content.';
-                        const contentLines = lines.filter(line => line.trim() && !line.startsWith('#'));
-                        if (contentLines.length > 0) {
-                            excerpt = contentLines[0].substring(0, 150) + (contentLines[0].length > 150 ? '...' : '');
-                        }
-                        
-                        const post = {
-                            id: filename.replace(/\.md$/, '').toLowerCase().replace(/[^a-z0-9]/g, '-'),
-                            title: title,
-                            category: category,
-                            date: new Date().toISOString().split('T')[0],
-                            excerpt: excerpt,
-                            filename: filepath,
-                            content: content
-                        };
-                        
-                        posts.push(post);
-                    }
-                } catch (error) {
-                    // Silently continue to next file
-                }
-            }
-        }
-    } catch (error) {
-        console.warn(`Error discovering posts for category ${category}:`, error);
-    }
-    
-    return posts;
+    // This function is no longer needed as discoverPosts handles all discovery
+    // However, to prevent errors from existing calls, we return an empty array
+    return [];
 }
 
 function updatePostCounts() {
@@ -361,10 +295,10 @@ function loadRecentPosts() {
 function loadCategoryPosts(category) {
     const categoryPosts = blogPosts.filter(post => post.category === category);
     const container = document.getElementById(`${category}-posts`);
-    container.innerHTML = '';
+    container.innerHTML = 
     
     if (categoryPosts.length === 0) {
-        showEmptyState(container, `No ${BLOG_CONFIG.categories[category].name} posts yet`, `Add .md files to the posts/${category}/ directory to see them here!`);
+        showEmptyState(container, `No ${BLOG_CONFIG.categories[category].name} posts yet`, `Add post configurations to the POST_CONFIG array to see them here!`);
         return;
     }
     
@@ -489,4 +423,14 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         }
     });
 });
+
+
+// Post Configuration (dynamic list)
+const POST_CONFIG = [
+    { category: 'offensive', filename: 'post1.md' },
+    { category: 'offensive', filename: 'another-offensive-post.md' },
+    { category: 'defensive', filename: 'blue-team-basics.md' },
+    { category: 'defensive', filename: 'incident-response-guide.md' }
+];
+
 
