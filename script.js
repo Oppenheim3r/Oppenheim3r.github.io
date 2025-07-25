@@ -427,10 +427,8 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
 // Post Configuration (dynamic list)
 const POST_CONFIG = [
-    { category: 'offensive', filename: 'post1.md' },
-    { category: 'offensive', filename: 'another-offensive-post.md' },
-    { category: 'defensive', filename: 'blue-team-basics.md' },
-    { category: 'defensive', filename: 'incident-response-guide.md' }
+    { category: 'offensive', filename: 'graphrec.md' },
+
 ];
 
 
