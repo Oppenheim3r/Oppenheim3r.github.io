@@ -1,11 +1,4 @@
----
-title: "Advanced Malware Analysis Techniques"
-category: research
-date: 2025-01-12
-excerpt: "Deep dive into modern malware analysis methodologies and reverse engineering techniques for contemporary threats."
-author: "Husam Gameel (Oppenheim3r)"
-tags: "malware analysis, reverse engineering, threat research, YARA"
----
+
 
 # Advanced Malware Analysis Techniques
 
