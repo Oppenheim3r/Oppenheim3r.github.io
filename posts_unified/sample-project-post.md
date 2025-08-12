@@ -1,11 +1,3 @@
----
-title: "Building a Custom SIEM Connector"
-category: projects
-date: 2025-01-14
-excerpt: "Development of a custom Python-based connector for integrating threat intelligence feeds with SIEM platforms."
-author: "Husam Gameel (Oppenheim3r)"
-tags: "python, siem, threat intelligence, automation, security tools"
----
 
 # Building a Custom SIEM Connector
 
