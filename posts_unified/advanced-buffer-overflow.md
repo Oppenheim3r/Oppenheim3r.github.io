@@ -119,39 +119,28 @@ if __name__ == "__main__":
     exploit()
 ```
 
-## Detection and Prevention
+## Bypassing Detection and Prevention
 
-### Static Analysis
+Attackers employ various strategies to evade detection and bypass prevention mechanisms:
 
-- **Code Review**: Manual inspection of critical functions
-- **Automated Tools**: Using tools like Coverity, PVS-Studio
-- **Compiler Warnings**: Enabling all relevant warning flags
+### Evading Static Analysis
 
-### Dynamic Analysis
+- **Code Obfuscation**: Techniques like packing, encryption, and anti-disassembly to hide malicious code.
+- **Polymorphism and Metamorphism**: Changing code structure while retaining functionality to avoid signature-based detection.
 
-- **Fuzzing**: Using tools like AFL, libFuzzer
-- **Runtime Checks**: AddressSanitizer, Valgrind
-- **Penetration Testing**: Regular security assessments
+### Evading Dynamic Analysis
 
-### Secure Coding Practices
+- **Anti-Debugging/Anti-Analysis**: Detecting and thwarting analysis environments (e.g., virtual machines, debuggers, sandboxes).
+- **Timing Attacks**: Exploiting time-based differences to bypass security checks or leak information.
 
-```c
-// Secure string handling
-#include <string.h>
+### Bypassing Secure Coding Practices
 
-void secure_copy(const char *src, char *dst, size_t dst_size) {
-    strncpy(dst, src, dst_size - 1);
-    dst[dst_size - 1] = '\0';  // Ensure null termination
-}
-
-// Using safer alternatives
-char buffer[256];
-snprintf(buffer, sizeof(buffer), "User input: %s", user_input);
-```
+- **Exploiting Edge Cases**: Finding vulnerabilities in seemingly secure code by testing unusual inputs or boundary conditions.
+- **Chaining Vulnerabilities**: Combining multiple minor vulnerabilities to achieve a significant exploit, even if individual flaws are mitigated.
 
 ## Conclusion
 
-Buffer overflow exploitation continues to evolve alongside defensive mechanisms. Understanding both attack and defense perspectives is crucial for cybersecurity professionals. While modern protections make exploitation more challenging, determined attackers can still find ways to bypass these mechanisms.
+Buffer overflow exploitation continues to evolve alongside offensive security. Understanding both attack and defense perspectives is crucial for cybersecurity professionals. While modern protections make exploitation more challenging, determined attackers can still find ways to bypass these mechanisms.
 
 Key takeaways:
 - Always assume multiple layers of protection

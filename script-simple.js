@@ -30,7 +30,8 @@ const POST_FILES = [
     'effective-siem-rules.md',
     'advanced-buffer-overflow.md',
     'sample-research-post.md',
-    'sample-project-post.md'
+    'sample-project-post.md',
+    'lumma-stealer-research.md'
     // Add new files here like: 'your-new-post.md',
 ];
 // ===================================
