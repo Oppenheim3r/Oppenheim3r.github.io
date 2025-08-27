@@ -1,0 +1,21 @@
+{
+  "posts": [
+    {
+      "id": "effective-siem-rules",
+      "title": "Building Effective SIEM Rules",
+      "category": "defensive",
+      "date": "2025-01-10",
+      "excerpt": "Security Information and Event Management (SIEM) systems are the backbone of modern cybersecurity operations. However, their effectiveness heavily depends on the quality of detection rules.",
+      "filename": "posts_unified/effective-siem-rules.md"
+    },
+    {
+      "id": "advanced-buffer-overflow",
+      "title": "Advanced Buffer Overflow Techniques",
+      "category": "offensive",
+      "date": "2025-01-08",
+      "excerpt": "Exploring advanced buffer overflow exploitation techniques and modern mitigation bypasses in contemporary systems.",
+      "filename": "posts_unified/advanced-buffer-overflow.md"
+    }
+  ]
+}
+
