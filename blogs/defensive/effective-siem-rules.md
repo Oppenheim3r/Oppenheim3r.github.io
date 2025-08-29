@@ -1,7 +1,12 @@
 
-# Building Effective SIEM Rules
-
-*Published on January 10, 2025 by Husam Gameel (Oppenheim3r)*
+---
+layout: post
+title: "Building Effective SIEM Rules"
+date: 2025-01-10
+category: defensive
+author: "Husam Gameel (Oppenheim3r)"
+permalink: /blogs/defensive/effective-siem-rules/
+---
 
 Security Information and Event Management (SIEM) systems are the backbone of modern cybersecurity operations. However, their effectiveness heavily depends on the quality of detection rules. This guide explores best practices for creating and tuning SIEM rules that provide accurate threat detection while minimizing false positives.
 

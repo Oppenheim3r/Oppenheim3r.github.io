@@ -1,7 +1,12 @@
 
-# Building a Custom SIEM Connector
-
-*Published on January 14, 2025 by Husam Gameel (Oppenheim3r)*
+---
+layout: post
+title: "Building a Custom SIEM Connector"
+date: 2025-01-14
+category: projects
+author: "Husam Gameel (Oppenheim3r)"
+permalink: /projects/custom-siem-connector/
+---
 
 This project demonstrates the development of a custom Python-based connector that integrates multiple threat intelligence feeds with SIEM platforms, enabling automated enrichment of security events with contextual threat data.
 

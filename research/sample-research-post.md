@@ -1,8 +1,13 @@
 
 
-# Advanced Malware Analysis Techniques
-
-*Published on January 12, 2025 by Husam Gameel (Oppenheim3r)*
+---
+layout: post
+title: "Advanced Malware Analysis Techniques"
+date: 2025-01-12
+category: research
+author: "Husam Gameel (Oppenheim3r)"
+permalink: /research/advanced-malware-analysis/
+---
 
 Modern malware has evolved significantly in complexity and sophistication, requiring advanced analysis techniques to understand their behavior and develop effective countermeasures. This research explores cutting-edge methodologies for analyzing contemporary malware samples.
 

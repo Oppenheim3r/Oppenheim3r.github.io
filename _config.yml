@@ -1,0 +1,51 @@
+title: Husam Gameel | Oppenheim3r
+description: Cybersecurity Blog - Exploring offensive and defensive security
+baseurl: ""
+url: "https://oppenheim3r.github.io"
+
+markdown: kramdown
+highlighter: rouge
+theme: minima
+
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+
+permalink: pretty
+
+collections:
+  posts:
+    output: true
+    permalink: /:collection/:name/
+
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+  - scope:
+      path: "blogs/defensive"
+      type: "pages"
+    values:
+      layout: "post"
+      category: "defensive"
+  - scope:
+      path: "blogs/offensive"
+      type: "pages"
+    values:
+      layout: "post"
+      category: "offensive"
+  - scope:
+      path: "projects"
+      type: "pages"
+    values:
+      layout: "post"
+      category: "projects"
+  - scope:
+      path: "research"
+      type: "pages"
+    values:
+      layout: "post"
+      category: "research"
+

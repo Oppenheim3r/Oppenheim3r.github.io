@@ -1,7 +1,12 @@
 
-# Advanced Buffer Overflow Techniques
-
-*Published on January 15, 2025 by Husam Gameel (Oppenheim3r)*
+---
+layout: post
+title: "Advanced Buffer Overflow Techniques"
+date: 2025-01-15
+category: defensive
+author: "Husam Gameel (Oppenheim3r)"
+permalink: /blogs/defensive/advanced-buffer-overflow/
+---
 
 Buffer overflow vulnerabilities remain one of the most critical security issues in modern software development. This post explores advanced techniques for exploiting buffer overflows and bypassing contemporary security mechanisms.
 
