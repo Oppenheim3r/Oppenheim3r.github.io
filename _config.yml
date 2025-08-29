@@ -34,3 +34,8 @@ defaults:
     values:
       layout: "post"
 
+collections:
+  posts:
+    output: true
+    permalink: /:collection/:name/
+

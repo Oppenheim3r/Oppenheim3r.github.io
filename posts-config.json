@@ -3,26 +3,50 @@
     {
       "id": "effective-siem-rules",
       "title": "Building Effective SIEM Rules",
-      "category": "offensive",
+      "category": "defensive",
       "date": "2025-01-10",
       "excerpt": "Security Information and Event Management (SIEM) systems are the backbone of modern cybersecurity operations. However, their effectiveness heavily depends on the quality of detection rules.",
-      "filename": "posts_unified/effective-siem-rules.md"
+      "filename": "blogs/defensive/effective-siem-rules.md"
     },
     {
       "id": "advanced-buffer-overflow",
       "title": "Advanced Buffer Overflow Techniques",
-      "category": "offensive",
+      "category": "defensive",
       "date": "2025-01-08",
       "excerpt": "Exploring advanced buffer overflow exploitation techniques and modern mitigation bypasses in contemporary systems.",
-      "filename": "posts_unified/advanced-buffer-overflow.md"
+      "filename": "blogs/defensive/advanced-buffer-overflow.md"
     },
     {
-      "id": "lumma-stealer-research",
-      "title": "Lumma Stealer Research",
+      "id": "test-defensive-post",
+      "title": "Test Defensive Post",
+      "category": "defensive",
+      "date": "2025-08-29",
+      "excerpt": "This is a test post for the defensive security blog.",
+      "filename": "blogs/defensive/test-post.md"
+    },
+    {
+      "id": "test-offensive-post",
+      "title": "Test Offensive Post",
+      "category": "offensive",
+      "date": "2025-08-29",
+      "excerpt": "This is a test post for the offensive security blog.",
+      "filename": "blogs/offensive/test-post.md"
+    },
+    {
+      "id": "test-project",
+      "title": "Test Project",
+      "category": "projects",
+      "date": "2025-08-29",
+      "excerpt": "This is a test project.",
+      "filename": "projects/test-project.md"
+    },
+    {
+      "id": "lumma-research",
+      "title": "Lumma Stealer Analysis",
       "category": "research",
       "date": "2025-08-29",
-      "excerpt": "A deep dive into the Lumma Stealer malware, analyzing its capabilities and impact.",
-      "filename": "posts_unified/lumma-stealer-research.md"
+      "excerpt": "This research focuses on the analysis of Lumma Stealer, a prominent information-stealing malware.",
+      "filename": "research/lumma-research.md"
     }
   ]
 }
