@@ -3,7 +3,7 @@
     {
       "id": "effective-siem-rules",
       "title": "Building Effective SIEM Rules",
-      "category": "defensive",
+      "category": "offensive",
       "date": "2025-01-10",
       "excerpt": "Security Information and Event Management (SIEM) systems are the backbone of modern cybersecurity operations. However, their effectiveness heavily depends on the quality of detection rules.",
       "filename": "posts_unified/effective-siem-rules.md"
@@ -15,6 +15,14 @@
       "date": "2025-01-08",
       "excerpt": "Exploring advanced buffer overflow exploitation techniques and modern mitigation bypasses in contemporary systems.",
       "filename": "posts_unified/advanced-buffer-overflow.md"
+    },
+    {
+      "id": "lumma-stealer-research",
+      "title": "Lumma Stealer Research",
+      "category": "research",
+      "date": "2025-08-29",
+      "excerpt": "A deep dive into the Lumma Stealer malware, analyzing its capabilities and impact.",
+      "filename": "posts_unified/lumma-stealer-research.md"
     }
   ]
 }
