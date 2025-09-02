@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offensive Security - Husam Gameel | Oppenheim3r</title>
+    <meta name="description" content="Offensive security blog posts covering penetration testing, red team operations, and advanced attack techniques.">
+    
+    <link rel="stylesheet" href="../../assets/css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Floating Binaries Background -->
+    <div class="floating-binaries" id="floating-binaries"></div>
+    
+    <!-- Spider Web Overlay -->
+    <div class="spider-web" id="spider-web">
+        <div class="web-line" style="top: 20%; left: 0; width: 100%;"></div>
+        <div class="web-line" style="top: 40%; left: 0; width: 100%;"></div>
+        <div class="web-line" style="top: 60%; left: 0; width: 100%;"></div>
+        <div class="web-line" style="top: 80%; left: 0; width: 100%;"></div>
+        <div class="web-line vertical" style="left: 15%; top: 0;"></div>
+        <div class="web-line vertical" style="left: 35%; top: 0;"></div>
+        <div class="web-line vertical" style="left: 55%; top: 0;"></div>
+        <div class="web-line vertical" style="left: 75%; top: 0;"></div>
+        <div class="web-line vertical" style="left: 85%; top: 0;"></div>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>Oppenheim3r</h1>
+                    <p>Husam Gameel</p>
+                </div>
+                <nav class="nav">
+                    <a href="/" class="nav-btn">
+                        <i class="fas fa-home"></i>
+                        Home
+                    </a>
+                    <a href="/about/" class="nav-btn">
+                        <i class="fas fa-user"></i>
+                        About
+                    </a>
+                    <a href="/blogs/" class="nav-btn">
+                        <i class="fas fa-blog"></i>
+                        All Blogs
+                    </a>
+                    <a href="/blogs/offensive/" class="nav-btn active">
+                        <i class="fas fa-sword"></i>
+                        Offensive
+                    </a>
+                    <a href="/blogs/defensive/" class="nav-btn">
+                        <i class="fas fa-shield-alt"></i>
+                        Defensive
+                    </a>
+                    <a href="/research/" class="nav-btn">
+                        <i class="fas fa-flask"></i>
+                        Research
+                    </a>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Breadcrumb -->
+        <div class="breadcrumb" id="breadcrumb">
+            <a href="/">Home</a> <span class="breadcrumb-separator">></span> <a href="/blogs/">Blogs</a> <span class="breadcrumb-separator">></span> <span>Offensive</span>
+        </div>
+
+        <!-- Main Content -->
+        <main class="main">
+            <div class="page-header">
+                <h1><i class="fas fa-sword"></i> Offensive Security</h1>
+                <p>Red team operations, penetration testing, and advanced attack techniques</p>
+            </div>
+
+            <!-- Posts Grid -->
+            <div class="posts-grid">
+                <div class="post-card" onclick="window.location.href='advanced-buffer-overflow.html'">
+                    <div class="post-meta">
+                        <span class="post-category">Offensive Security</span>
+                        <span>January 15, 2025</span>
+                    </div>
+                    <h3>Advanced Buffer Overflow Techniques</h3>
+                    <p>Deep dive into modern buffer overflow exploitation techniques, including stack canaries bypass, ASLR circumvention, and ROP chain construction. Learn how to exploit memory corruption vulnerabilities in modern applications with comprehensive examples and practical demonstrations.</p>
+                    <a href="advanced-buffer-overflow.html" class="read-more">
+                        Read More <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <div class="post-card" onclick="window.location.href='lateral-movement.html'">
+                    <div class="post-meta">
+                        <span class="post-category">Offensive Security</span>
+                        <span>January 5, 2025</span>
+                    </div>
+                    <h3>Advanced Lateral Movement Techniques</h3>
+                    <p>Exploring sophisticated methods for lateral movement in enterprise environments, including living-off-the-land techniques, credential harvesting, and evasion strategies. Master the art of moving through networks undetected.</p>
+                    <a href="lateral-movement.html" class="read-more">
+                        Read More <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <!-- Placeholder for future posts -->
+                <div class="post-card" style="opacity: 0.6; cursor: not-allowed;" onclick="return false;">
+                    <div class="post-meta">
+                        <span class="post-category">Offensive Security</span>
+                        <span>Coming Soon</span>
+                    </div>
+                    <h3>Web Application Exploitation Masterclass</h3>
+                    <p>Comprehensive guide to modern web application security testing, including OWASP Top 10, advanced injection techniques, and client-side attacks.</p>
+                    <span class="read-more" style="color: var(--text-muted);">
+                        Coming Soon <i class="fas fa-clock"></i>
+                    </span>
+                </div>
+
+                <div class="post-card" style="opacity: 0.6; cursor: not-allowed;" onclick="return false;">
+                    <div class="post-meta">
+                        <span class="post-category">Offensive Security</span>
+                        <span>Coming Soon</span>
+                    </div>
+                    <h3>Active Directory Exploitation</h3>
+                    <p>Advanced techniques for compromising Active Directory environments, including Kerberoasting, Golden Tickets, and domain persistence methods.</p>
+                    <span class="read-more" style="color: var(--text-muted);">
+                        Coming Soon <i class="fas fa-clock"></i>
+                    </span>
+                </div>
+
+                <div class="post-card" style="opacity: 0.6; cursor: not-allowed;" onclick="return false;">
+                    <div class="post-meta">
+                        <span class="post-category">Offensive Security</span>
+                        <span>Coming Soon</span>
+                    </div>
+                    <h3>Cloud Security Assessment</h3>
+                    <p>Penetration testing methodologies for cloud environments, including AWS, Azure, and GCP security misconfigurations and attack vectors.</p>
+                    <span class="read-more" style="color: var(--text-muted);">
+                        Coming Soon <i class="fas fa-clock"></i>
+                    </span>
+                </div>
+
+                <div class="post-card" style="opacity: 0.6; cursor: not-allowed;" onclick="return false;">
+                    <div class="post-meta">
+                        <span class="post-category">Offensive Security</span>
+                        <span>Coming Soon</span>
+                    </div>
+                    <h3>Mobile Application Security Testing</h3>
+                    <p>Comprehensive approach to mobile app penetration testing, covering both Android and iOS platforms with practical exploitation techniques.</p>
+                    <span class="read-more" style="color: var(--text-muted);">
+                        Coming Soon <i class="fas fa-clock"></i>
+                    </span>
+                </div>
+            </div>
+
+            <!-- Call to Action -->
+            <div class="cta-section" style="background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 1rem; padding: 3rem; margin: 4rem 0; text-align: center;">
+                <h2 style="margin-bottom: 1rem; background: var(--gradient-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Stay Updated</h2>
+                <p style="color: var(--text-secondary); margin-bottom: 2rem;">New offensive security content is published regularly. Follow along for the latest techniques and research.</p>
+                <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                    <a href="/blogs/" class="nav-btn" style="display: inline-flex;">
+                        <i class="fas fa-blog"></i>
+                        View All Posts
+                    </a>
+                    <a href="/research/" class="nav-btn" style="display: inline-flex;">
+                        <i class="fas fa-flask"></i>
+                        Research Papers
+                    </a>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <p>&copy; 2025 Husam Gameel (Oppenheim3r). All rights reserved.</p>
+                <div class="social-links">
+                    <a href="#" class="social-link" title="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="#" class="social-link" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" class="social-link" title="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link" title="Email"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="../../assets/js/main.js"></script>
+</body>
+</html>
+
