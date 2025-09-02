@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Blogs - Husam Gameel | Oppenheim3r</title>
+    <meta name="description" content="Browse all cybersecurity blog posts by Husam Gameel covering offensive security, defensive strategies, and security research.">
+    
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Floating Binaries Background -->
+    <div class="floating-binaries" id="floating-binaries"></div>
+    
+    <!-- Spider Web Overlay -->
+    <div class="spider-web" id="spider-web">
+        <div class="web-line" style="top: 20%; left: 0; width: 100%;"></div>
+        <div class="web-line" style="top: 40%; left: 0; width: 100%;"></div>
+        <div class="web-line" style="top: 60%; left: 0; width: 100%;"></div>
+        <div class="web-line" style="top: 80%; left: 0; width: 100%;"></div>
+        <div class="web-line vertical" style="left: 15%; top: 0;"></div>
+        <div class="web-line vertical" style="left: 35%; top: 0;"></div>
+        <div class="web-line vertical" style="left: 55%; top: 0;"></div>
+        <div class="web-line vertical" style="left: 75%; top: 0;"></div>
+        <div class="web-line vertical" style="left: 85%; top: 0;"></div>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>Oppenheim3r</h1>
+                    <p>Husam Gameel</p>
+                </div>
+                <nav class="nav">
+                    <a href="/" class="nav-btn">
+                        <i class="fas fa-home"></i>
+                        Home
+                    </a>
+                    <a href="/about/" class="nav-btn">
+                        <i class="fas fa-user"></i>
+                        About
+                    </a>
+                    <a href="/blogs/" class="nav-btn active">
+                        <i class="fas fa-blog"></i>
+                        All Blogs
+                    </a>
+                    <a href="/blogs/offensive/" class="nav-btn">
+                        <i class="fas fa-sword"></i>
+                        Offensive
+                    </a>
+                    <a href="/blogs/defensive/" class="nav-btn">
+                        <i class="fas fa-shield-alt"></i>
+                        Defensive
+                    </a>
+                    <a href="/research/" class="nav-btn">
+                        <i class="fas fa-flask"></i>
+                        Research
+                    </a>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Breadcrumb -->
+        <div class="breadcrumb" id="breadcrumb">
+            <a href="/">Home</a> <span class="breadcrumb-separator">></span> <span>Blogs</span>
+        </div>
+
+        <!-- Main Content -->
+        <main class="main">
+            <div class="page-header">
+                <h1><i class="fas fa-blog"></i> All Blog Posts</h1>
+                <p>Comprehensive collection of cybersecurity insights, techniques, and research</p>
+            </div>
+
+            <!-- Category Filter -->
+            <div class="category-filter" style="display: flex; justify-content: center; gap: 1rem; margin-bottom: 3rem; flex-wrap: wrap;">
+                <button class="filter-btn active" data-category="all" style="background: var(--gradient-primary); color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 2rem; cursor: pointer; font-weight: 600; transition: all 0.3s ease;">
+                    All Posts
+                </button>
+                <button class="filter-btn" data-category="offensive" style="background: var(--card-bg); color: var(--text-secondary); border: 1px solid var(--border-color); padding: 0.75rem 1.5rem; border-radius: 2rem; cursor: pointer; font-weight: 600; transition: all 0.3s ease;">
+                    Offensive Security
+                </button>
+                <button class="filter-btn" data-category="defensive" style="background: var(--card-bg); color: var(--text-secondary); border: 1px solid var(--border-color); padding: 0.75rem 1.5rem; border-radius: 2rem; cursor: pointer; font-weight: 600; transition: all 0.3s ease;">
+                    Defensive Security
+                </button>
+            </div>
+
+            <!-- Posts Grid -->
+            <div class="posts-grid" id="posts-grid">
+                <!-- Offensive Security Posts -->
+                <div class="post-card" data-category="offensive" onclick="window.location.href='/blogs/offensive/advanced-buffer-overflow.html'">
+                    <div class="post-meta">
+                        <span class="post-category">Offensive Security</span>
+                        <span>January 15, 2025</span>
+                    </div>
+                    <h3>Advanced Buffer Overflow Techniques</h3>
+                    <p>Deep dive into modern buffer overflow exploitation techniques, including stack canaries bypass, ASLR circumvention, and ROP chain construction.</p>
+                    <a href="/blogs/offensive/advanced-buffer-overflow.html" class="read-more">
+                        Read More <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <!-- Defensive Security Posts -->
+                <div class="post-card" data-category="defensive" onclick="window.location.href='/blogs/defensive/effective-siem-rules.html'">
+                    <div class="post-meta">
+                        <span class="post-category">Defensive Security</span>
+                        <span>January 10, 2025</span>
+                    </div>
+                    <h3>Building Effective SIEM Rules</h3>
+                    <p>Comprehensive guide to creating robust SIEM detection rules that minimize false positives while maximizing threat detection capabilities.</p>
+                    <a href="/blogs/defensive/effective-siem-rules.html" class="read-more">
+                        Read More <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <!-- More posts can be added here -->
+                <div class="post-card" data-category="offensive" onclick="window.location.href='/blogs/offensive/lateral-movement.html'">
+                    <div class="post-meta">
+                        <span class="post-category">Offensive Security</span>
+                        <span>January 5, 2025</span>
+                    </div>
+                    <h3>Advanced Lateral Movement Techniques</h3>
+                    <p>Exploring sophisticated methods for lateral movement in enterprise environments, including living-off-the-land techniques and evasion strategies.</p>
+                    <a href="/blogs/offensive/lateral-movement.html" class="read-more">
+                        Read More <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Empty State (hidden by default) -->
+            <div class="empty-state" id="empty-state" style="display: none;">
+                <i class="fas fa-search"></i>
+                <h3>No posts found</h3>
+                <p>No posts match the selected category. Try selecting a different filter.</p>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <p>&copy; 2025 Husam Gameel (Oppenheim3r). All rights reserved.</p>
+                <div class="social-links">
+                    <a href="#" class="social-link" title="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="#" class="social-link" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" class="social-link" title="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link" title="Email"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="../assets/js/main.js"></script>
+    <script>
+        // Category filtering functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const postCards = document.querySelectorAll('.post-card');
+            const emptyState = document.getElementById('empty-state');
+            const postsGrid = document.getElementById('posts-grid');
+
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const category = this.dataset.category;
+                    
+                    // Update active button
+                    filterButtons.forEach(btn => {
+                        btn.classList.remove('active');
+                        btn.style.background = 'var(--card-bg)';
+                        btn.style.color = 'var(--text-secondary)';
+                    });
+                    
+                    this.classList.add('active');
+                    this.style.background = 'var(--gradient-primary)';
+                    this.style.color = 'white';
+                    
+                    // Filter posts
+                    let visibleCount = 0;
+                    postCards.forEach(card => {
+                        if (category === 'all' || card.dataset.category === category) {
+                            card.style.display = 'block';
+                            visibleCount++;
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                    
+                    // Show/hide empty state
+                    if (visibleCount === 0) {
+                        emptyState.style.display = 'block';
+                        postsGrid.style.display = 'none';
+                    } else {
+                        emptyState.style.display = 'none';
+                        postsGrid.style.display = 'grid';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+
