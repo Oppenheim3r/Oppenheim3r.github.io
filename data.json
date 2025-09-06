@@ -16,7 +16,14 @@
       "file": "lazarus-group-analysis.md",
       "category": "Threat Intelligence",
       "description": "Deep dive into the Opulous campaign attributed to the Lazarus Group, including TTPs, infrastructure analysis, and IOCs."
-    }
+    },
+ {
+      "title": "Lumma Stealer SandBox Evasion Analysis",
+      "file": "LummaAAResearch.md",
+      "category": "Malware Research",
+      "description": "Exploring Lumma sandbox evasion techniques with a PoC."
+    },
+    
   ],
   "projects": []
 }
