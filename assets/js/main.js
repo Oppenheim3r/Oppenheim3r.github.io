@@ -171,20 +171,20 @@ class WebsiteManager {
         const path = window.location.pathname;
         console.log('Current path:', path);
         
-        // More flexible path matching
-        if (path.includes('/blogs/offensive/') || path.endsWith('/blogs/offensive/') || path.endsWith('/blogs/offensive/index.html')) {
+        // More flexible path matching - check for specific patterns
+        if (path.includes('blogs/offensive') || path.endsWith('blogs/offensive/') || path.endsWith('blogs/offensive/index.html')) {
             console.log('Loading offensive posts');
             await this.loadOffensivePosts();
-        } else if (path.includes('/blogs/defensive/') || path.endsWith('/blogs/defensive/') || path.endsWith('/blogs/defensive/index.html')) {
+        } else if (path.includes('blogs/defensive') || path.endsWith('blogs/defensive/') || path.endsWith('blogs/defensive/index.html')) {
             console.log('Loading defensive posts');
             await this.loadDefensivePosts();
-        } else if (path.includes('/research/') || path.endsWith('/research/') || path.endsWith('/research/index.html')) {
+        } else if (path.includes('research') && !path.includes('blogs') && (path.endsWith('research/') || path.endsWith('research/index.html'))) {
             console.log('Loading research posts');
             await this.loadResearchPosts();
-        } else if (path.includes('/projects/') || path.endsWith('/projects/') || path.endsWith('/projects/index.html')) {
+        } else if (path.includes('projects') && !path.includes('blogs') && (path.endsWith('projects/') || path.endsWith('projects/index.html'))) {
             console.log('Loading project posts');
             await this.loadProjectPosts();
-        } else if (path.includes('/blogs/') || path.endsWith('/blogs/') || path.endsWith('/blogs/index.html')) {
+        } else if (path.includes('blogs') && !path.includes('offensive') && !path.includes('defensive') && (path.endsWith('blogs/') || path.endsWith('blogs/index.html'))) {
             console.log('Loading all blog posts');
             await this.loadAllBlogPosts();
         }
@@ -249,11 +249,20 @@ class WebsiteManager {
 
     async loadResearchPosts() {
         const container = document.getElementById('research-posts');
-        if (!container) return;
+        if (!container) {
+            console.log('No research-posts container found');
+            return;
+        }
 
         try {
-            const response = await fetch(this.getDataJsonPath());
+            const dataPath = this.getDataJsonPath();
+            console.log('Fetching research data from:', dataPath);
+            const response = await fetch(dataPath);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
             const data = await response.json();
+            console.log('Loaded research data:', data);
             const posts = data.research;
             
             if (posts.length === 0) {
