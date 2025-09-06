@@ -188,7 +188,7 @@ class WebsiteManager {
         if (!container) return;
 
         try {
-            const response = await fetch('/data.json');
+            const response = await fetch(this.getDataJsonPath());
             const data = await response.json();
             const posts = data.blogs.offensive;
             
@@ -212,7 +212,7 @@ class WebsiteManager {
         if (!container) return;
 
         try {
-            const response = await fetch('/data.json');
+            const response = await fetch(this.getDataJsonPath());
             const data = await response.json();
             const posts = data.blogs.defensive;
             
@@ -236,7 +236,7 @@ class WebsiteManager {
         if (!container) return;
 
         try {
-            const response = await fetch('/data.json');
+            const response = await fetch(this.getDataJsonPath());
             const data = await response.json();
             const posts = data.research;
             
@@ -260,7 +260,7 @@ class WebsiteManager {
         if (!container) return;
 
         try {
-            const response = await fetch('/data.json');
+            const response = await fetch(this.getDataJsonPath());
             const data = await response.json();
             const posts = data.projects;
             
@@ -284,7 +284,7 @@ class WebsiteManager {
         if (!container) return;
 
         try {
-            const response = await fetch('/data.json');
+            const response = await fetch(this.getDataJsonPath());
             const data = await response.json();
             const allPosts = [...data.blogs.offensive, ...data.blogs.defensive];
             
@@ -395,14 +395,15 @@ class WebsiteManager {
         try {
             // Determine the correct path based on category
             let mdPath = '';
+            const basePath = this.getDataJsonPath().replace('data.json', '');
             if (category === 'offensive') {
-                mdPath = `/blogs/offensive/${filename}`;
+                mdPath = `${basePath}blogs/offensive/${filename}`;
             } else if (category === 'defensive') {
-                mdPath = `/blogs/defensive/${filename}`;
+                mdPath = `${basePath}blogs/defensive/${filename}`;
             } else if (category === 'research') {
-                mdPath = `/research/${filename}`;
+                mdPath = `${basePath}research/${filename}`;
             } else if (category === 'project') {
-                mdPath = `/projects/${filename}`;
+                mdPath = `${basePath}projects/${filename}`;
             }
 
             // Fetch the markdown content
@@ -414,8 +415,8 @@ class WebsiteManager {
             const markdown = await response.text();
             const html = marked.parse(markdown);
             
-            // Create a new page with the post content
-            this.showPostPage(title, html, category);
+            // Show post content inline instead of opening new window
+            this.showPostInline(title, html, category);
             
         } catch (error) {
             console.error('Error loading post:', error);
@@ -423,121 +424,67 @@ class WebsiteManager {
         }
     }
 
-    // Show post page
-    showPostPage(title, content, category) {
-        // Create the post page HTML
-        const postPageHTML = `
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>${title} | Oppenheim3r - Cybersecurity Blog</title>
-    <meta name="description" content="${title}">
+    // Show post content inline
+    showPostInline(title, content, category) {
+        // Update page title
+        document.title = `${title} | Oppenheim3r - Cybersecurity Blog`;
+        
+        // Create post content container
+        const main = document.querySelector('.main');
+        if (!main) return;
+        
+        // Clear existing content
+        main.innerHTML = '';
+        
+        // Create back button
+        const backBtn = document.createElement('a');
+        backBtn.href = 'javascript:history.back()';
+        backBtn.className = 'back-btn';
+        backBtn.innerHTML = '<i class="fas fa-arrow-left"></i> Back';
+        
+        // Create article container
+        const article = document.createElement('article');
+        article.className = 'article-content';
+        
+        // Create header
+        const header = document.createElement('div');
+        header.className = 'page-header';
+        header.innerHTML = `
+            <h1>${title}</h1>
+            <p>${this.getCategoryDescription(category)}</p>
+        `;
+        
+        // Create content container
+        const contentDiv = document.createElement('div');
+        contentDiv.id = 'markdown-content';
+        contentDiv.innerHTML = content;
+        
+        // Assemble the article
+        article.appendChild(header);
+        article.appendChild(contentDiv);
+        
+        // Add to main
+        main.appendChild(backBtn);
+        main.appendChild(article);
+        
+        // Scroll to top
+        window.scrollTo(0, 0);
+    }
     
-    <link rel="stylesheet" href="../assets/css/styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-</head>
-<body>
-    <!-- Spider Web Overlay -->
-    <div class="spider-web" id="spider-web">
-        <div class="web-line" style="top: 20%; left: 0; width: 100%;"></div>
-        <div class="web-line" style="top: 40%; left: 0; width: 100%;"></div>
-        <div class="web-line" style="top: 60%; left: 0; width: 100%;"></div>
-        <div class="web-line" style="top: 80%; left: 0; width: 100%;"></div>
-        <div class="web-line vertical" style="left: 15%; top: 0;"></div>
-        <div class="web-line vertical" style="left: 35%; top: 0;"></div>
-        <div class="web-line vertical" style="left: 55%; top: 0;"></div>
-        <div class="web-line vertical" style="left: 75%; top: 0;"></div>
-        <div class="web-line vertical" style="left: 85%; top: 0;"></div>
-    </div>
-
-    <div class="container">
-        <!-- Header -->
-        <header class="header">
-            <div class="header-content">
-                <div class="logo">
-                    <h1>Oppenheim3r</h1>
-                    <p>Husam Gameel</p>
-                </div>
-                <nav class="nav">
-                    <a href="/" class="nav-btn">
-                        <i class="fas fa-home"></i>
-                        <span>Home</span>
-                    </a>
-                    <a href="/about/" class="nav-btn">
-                        <i class="fas fa-user"></i>
-                        <span>About</span>
-                    </a>
-                    <a href="/blogs/" class="nav-btn">
-                        <i class="fas fa-blog"></i>
-                        <span>Blogs</span>
-                    </a>
-                    <a href="/blogs/offensive/" class="nav-btn">
-                        <i class="fas fa-sword"></i>
-                        <span>Offensive</span>
-                    </a>
-                    <a href="/blogs/defensive/" class="nav-btn">
-                        <i class="fas fa-shield-alt"></i>
-                        <span>Defensive</span>
-                    </a>
-                    <a href="/research/" class="nav-btn">
-                        <i class="fas fa-flask"></i>
-                        <span>Research</span>
-                    </a>
-                    <a href="/projects/" class="nav-btn">
-                        <i class="fas fa-code"></i>
-                        <span>Projects</span>
-                    </a>
-                </nav>
-            </div>
-        </header>
-
-        <!-- Breadcrumb -->
-        <div class="breadcrumb" id="breadcrumb">
-            <a href="/">Home</a>
-        </div>
-
-        <!-- Main Content -->
-        <main class="main">
-            <!-- Back Button -->
-            <a href="javascript:history.back()" class="back-btn">
-                <i class="fas fa-arrow-left"></i>
-                Back
-            </a>
-
-            <!-- Article Content -->
-            <article class="article-content">
-                <div id="markdown-content">
-                    ${content}
-                </div>
-            </article>
-        </main>
-
-        <!-- Footer -->
-        <footer class="footer">
-            <div class="footer-content">
-                <p>&copy; 2025 Husam Gameel (Oppenheim3r). All rights reserved.</p>
-                <div class="social-links">
-                    <a href="https://github.com/oppenheim3r" class="social-link" title="GitHub"><i class="fab fa-github"></i></a>
-                    <a href="#" class="social-link" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                    <a href="#" class="social-link" title="Twitter"><i class="fab fa-twitter"></i></a>
-                    <a href="#" class="social-link" title="Email"><i class="fas fa-envelope"></i></a>
-                </div>
-            </div>
-        </footer>
-    </div>
-
-    <script src="../assets/js/main.js"></script>
-</body>
-</html>`;
-
-        // Open the post in a new window/tab
-        const newWindow = window.open('', '_blank');
-        newWindow.document.write(postPageHTML);
-        newWindow.document.close();
+    getCategoryDescription(category) {
+        const descriptions = {
+            'offensive': 'Red team operations, penetration testing, and exploit development techniques.',
+            'defensive': 'Blue team strategies, incident response, and security monitoring.',
+            'research': 'Original security research and vulnerability analysis.',
+            'project': 'Security tools, automation scripts, and open-source projects.'
+        };
+        return descriptions[category] || 'Cybersecurity content and insights.';
+    }
+    
+    getDataJsonPath() {
+        const path = window.location.pathname;
+        const depth = path.split('/').length - 2; // -2 because of leading slash and empty string
+        return '../'.repeat(depth) + 'data.json';
     }
 
     // Utility methods
