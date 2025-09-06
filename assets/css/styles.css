@@ -198,27 +198,27 @@ body {
 .header-content {
     max-width: var(--container-7xl);
     margin: 0 auto;
-    padding: var(--space-sm) var(--space-md);
+    padding: 0.5rem 1rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: var(--space-md);
+    gap: 1rem;
     flex-wrap: wrap;
 }
 
 .logo h1 {
-    font-size: var(--fs-2xl);
+    font-size: 1.5rem;
     font-weight: 800;
     background: var(--gradient-primary);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    margin-bottom: 0.1rem;
+    margin-bottom: 0;
     letter-spacing: -0.02em;
 }
 
 .logo p {
-    font-size: var(--fs-xs);
+    font-size: 0.7rem;
     color: var(--text-secondary);
     font-weight: 500;
     letter-spacing: 0.02em;
@@ -226,10 +226,10 @@ body {
 
 .nav {
     display: flex;
-    gap: var(--space-xs);
+    gap: 0.25rem;
     background: var(--card-bg);
-    padding: var(--space-xs);
-    border-radius: 0.75rem;
+    padding: 0.25rem;
+    border-radius: 0.5rem;
     border: 1px solid var(--border-color);
     flex-wrap: wrap;
 }
@@ -238,15 +238,15 @@ body {
     background: transparent;
     border: none;
     color: var(--text-secondary);
-    padding: var(--space-xs) var(--space-sm);
-    border-radius: 0.5rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
     cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    font-size: var(--fs-xs);
+    transition: all 0.2s ease;
+    font-size: 0.7rem;
     font-weight: 600;
     display: flex;
     align-items: center;
-    gap: var(--space-xs);
+    gap: 0.25rem;
     position: relative;
     white-space: nowrap;
     min-width: max-content;
@@ -619,33 +619,37 @@ body {
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
     .header-content {
-        flex-direction: column;
-        gap: var(--space-sm);
-        padding: var(--space-xs) var(--space-sm);
+        flex-direction: row;
+        gap: 0.5rem;
+        padding: 0.25rem 0.5rem;
     }
     
     .logo h1 {
-        font-size: var(--fs-xl);
+        font-size: 1.2rem;
+    }
+    
+    .logo p {
+        font-size: 0.6rem;
     }
     
     .nav {
-        width: 100%;
+        width: auto;
         justify-content: center;
-        padding: var(--space-xs);
+        padding: 0.125rem;
     }
     
     .nav-btn {
-        padding: var(--space-xs);
-        font-size: 0.75rem;
+        padding: 0.125rem 0.25rem;
+        font-size: 0.6rem;
     }
     
     .nav-btn i {
-        font-size: 0.8rem;
+        font-size: 0.7rem;
     }
     
     .posts-grid {
         grid-template-columns: 1fr;
-        gap: var(--space-md);
+        gap: 1rem;
     }
     
     .footer-content {
@@ -654,44 +658,50 @@ body {
     }
     
     .article-content {
-        padding: var(--space-md);
+        padding: 1rem;
     }
     
     .main {
-        padding: var(--space-md) var(--space-sm);
+        padding: 1rem 0.5rem;
     }
     
     .page-header {
-        padding: var(--space-md) 0;
-        margin-bottom: var(--space-lg);
+        padding: 1rem 0;
+        margin-bottom: 2rem;
     }
     
     .page-header h1 {
-        font-size: var(--fs-2xl);
+        font-size: 1.8rem;
     }
 }
 
 @media (max-width: 480px) {
     .header-content {
-        padding: var(--space-xs);
+        padding: 0.25rem;
+        flex-direction: row;
     }
     
     .logo h1 {
-        font-size: var(--fs-lg);
+        font-size: 1rem;
+    }
+    
+    .logo p {
+        display: none;
     }
     
     .nav {
         flex-direction: row;
         flex-wrap: wrap;
         justify-content: center;
+        gap: 0.125rem;
     }
     
     .nav-btn {
         flex: 1;
         min-width: 0;
         justify-content: center;
-        padding: var(--space-xs);
-        font-size: 0.7rem;
+        padding: 0.125rem;
+        font-size: 0.5rem;
     }
     
     .nav-btn span {
@@ -699,23 +709,23 @@ body {
     }
     
     .nav-btn i {
-        font-size: 1rem;
+        font-size: 0.8rem;
     }
     
     .posts-grid {
         grid-template-columns: 1fr;
-        gap: var(--space-sm);
+        gap: 0.5rem;
     }
     
     .post-card {
-        padding: var(--space-md);
+        padding: 1rem;
     }
     
     .article-content {
-        padding: var(--space-sm);
+        padding: 0.5rem;
     }
     
     .main {
-        padding: var(--space-sm);
+        padding: 0.5rem;
     }
 }

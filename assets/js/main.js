@@ -48,12 +48,12 @@ class WebsiteManager {
         };
         
         // Create initial binaries
-        for (let i = 0; i < 15; i++) {
-            setTimeout(() => createBinary(), i * 1000);
+        for (let i = 0; i < 8; i++) {
+            setTimeout(() => createBinary(), i * 500);
         }
         
         // Continue creating binaries
-        setInterval(createBinary, 2000);
+        setInterval(createBinary, 3000);
     }
 
     // Spider Web Effect
