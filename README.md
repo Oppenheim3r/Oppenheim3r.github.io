@@ -42,28 +42,86 @@ A modern, mobile-responsive cybersecurity blog built for GitHub Pages hosting.
 
 ## Adding New Content
 
-### Blog Posts
+### How to Add New Posts/Research/Projects
 
-1. Create a new `.md` file in the appropriate directory:
-   - `blogs/offensive/` for offensive security posts
-   - `blogs/defensive/` for defensive security posts
-   - `blogs/` for general blog posts
+1. **Create your content files:**
+   - Create a `.md` file (e.g., `my-new-post.md`)
+   - Create a corresponding `.html` file (e.g., `my-new-post.html`)
 
-2. Create a corresponding `.html` file that loads the markdown content
+2. **Update the data.json file:**
+   - Open `data.json` in the root directory
+   - Add your new content to the appropriate section:
 
-3. Update the category index page to include the new post
+**For Blog Posts:**
+```json
+{
+  "blogs": {
+    "offensive": [
+      {
+        "title": "Your Post Title",
+        "file": "your-post.md",
+        "html": "your-post.html",
+        "category": "Your Category",
+        "description": "Brief description of your post"
+      }
+    ],
+    "defensive": []
+  }
+}
+```
 
-### Research Papers
+**For Research:**
+```json
+{
+  "research": [
+    {
+      "title": "Your Research Title",
+      "file": "your-research.md",
+      "html": "your-research.html",
+      "category": "Your Category",
+      "description": "Brief description of your research"
+    }
+  ]
+}
+```
 
-1. Create a new `.md` file in `research/`
-2. Create a corresponding `.html` file
-3. Update `research/index.html` to include the new research
+**For Projects:**
+```json
+{
+  "projects": [
+    {
+      "title": "Your Project Title",
+      "file": "your-project.md",
+      "html": "your-project.html",
+      "category": "Your Category",
+      "description": "Brief description of your project"
+    }
+  ]
+}
+```
 
-### Projects
+3. **The website will automatically display your new content!**
 
-1. Create a new `.md` file in `projects/`
-2. Create a corresponding `.html` file
-3. Update `projects/index.html` to include the new project
+### File Structure Example
+
+```
+/blogs/offensive/
+  ├── my-new-post.md
+  ├── my-new-post.html
+  └── index.html
+
+/research/
+  ├── my-new-research.md
+  ├── my-new-research.html
+  └── index.html
+
+/projects/
+  ├── my-new-project.md
+  ├── my-new-project.html
+  └── index.html
+
+/data.json (update this file)
+```
 
 ## URL Structure
 

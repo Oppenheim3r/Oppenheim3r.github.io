@@ -1,0 +1,24 @@
+{
+  "blogs": {
+    "offensive": [
+      {
+        "title": "Advanced Buffer Overflow Techniques",
+        "file": "advanced-buffer-overflow.md",
+        "html": "advanced-buffer-overflow.html",
+        "category": "Exploit Development",
+        "description": "Deep dive into modern buffer overflow exploitation techniques, including ROP chains, ASLR bypass, and DEP evasion."
+      }
+    ],
+    "defensive": []
+  },
+  "research": [
+    {
+      "title": "Opulous Campaign - A Lazarus Group Analysis",
+      "file": "lazarus-group-analysis.md",
+      "html": "lazarus-group-analysis.html",
+      "category": "Threat Intelligence",
+      "description": "Deep dive into the Opulous campaign attributed to the Lazarus Group, including TTPs, infrastructure analysis, and IOCs."
+    }
+  ],
+  "projects": []
+}

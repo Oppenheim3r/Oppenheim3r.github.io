@@ -180,9 +180,8 @@ class WebsiteManager {
             await this.loadMarkdownPost();
         }
         
-        // Load dynamic content and update counters
+        // Load dynamic content
         await this.loadDynamicContent();
-        await this.updateCounters();
     }
 
     async loadMarkdownPost() {
@@ -227,24 +226,18 @@ class WebsiteManager {
         if (!container) return;
 
         try {
-            const response = await fetch('/blogs/offensive/');
-            const html = await response.text();
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(html, 'text/html');
+            const response = await fetch('/data.json');
+            const data = await response.json();
+            const posts = data.blogs.offensive;
             
-            // Find all .md files in the offensive directory
-            const links = Array.from(doc.querySelectorAll('a[href$=".html"]'))
-                .filter(link => link.href.includes('/blogs/offensive/'))
-                .filter(link => !link.href.includes('index.html'));
-            
-            if (links.length === 0) {
+            if (posts.length === 0) {
                 container.innerHTML = '<div class="empty-state"><i class="fas fa-sword"></i><h3>No Posts Yet</h3><p>Offensive security posts will appear here when published.</p></div>';
                 return;
             }
 
             container.innerHTML = '';
-            for (const link of links) {
-                const postCard = await this.createPostCard(link);
+            for (const post of posts) {
+                const postCard = this.createPostCardFromData(post, 'offensive');
                 container.appendChild(postCard);
             }
         } catch (error) {
@@ -257,23 +250,18 @@ class WebsiteManager {
         if (!container) return;
 
         try {
-            const response = await fetch('/blogs/defensive/');
-            const html = await response.text();
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(html, 'text/html');
+            const response = await fetch('/data.json');
+            const data = await response.json();
+            const posts = data.blogs.defensive;
             
-            const links = Array.from(doc.querySelectorAll('a[href$=".html"]'))
-                .filter(link => link.href.includes('/blogs/defensive/'))
-                .filter(link => !link.href.includes('index.html'));
-            
-            if (links.length === 0) {
+            if (posts.length === 0) {
                 container.innerHTML = '<div class="empty-state"><i class="fas fa-shield-alt"></i><h3>No Posts Yet</h3><p>Defensive security posts will appear here when published.</p></div>';
                 return;
             }
 
             container.innerHTML = '';
-            for (const link of links) {
-                const postCard = await this.createPostCard(link);
+            for (const post of posts) {
+                const postCard = this.createPostCardFromData(post, 'defensive');
                 container.appendChild(postCard);
             }
         } catch (error) {
@@ -286,23 +274,18 @@ class WebsiteManager {
         if (!container) return;
 
         try {
-            const response = await fetch('/research/');
-            const html = await response.text();
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(html, 'text/html');
+            const response = await fetch('/data.json');
+            const data = await response.json();
+            const posts = data.research;
             
-            const links = Array.from(doc.querySelectorAll('a[href$=".html"]'))
-                .filter(link => link.href.includes('/research/'))
-                .filter(link => !link.href.includes('index.html'));
-            
-            if (links.length === 0) {
+            if (posts.length === 0) {
                 container.innerHTML = '<div class="empty-state"><i class="fas fa-flask"></i><h3>No Research Yet</h3><p>Research papers will appear here when published.</p></div>';
                 return;
             }
 
             container.innerHTML = '';
-            for (const link of links) {
-                const postCard = await this.createPostCard(link);
+            for (const post of posts) {
+                const postCard = this.createPostCardFromData(post, 'research');
                 container.appendChild(postCard);
             }
         } catch (error) {
@@ -315,23 +298,18 @@ class WebsiteManager {
         if (!container) return;
 
         try {
-            const response = await fetch('/projects/');
-            const html = await response.text();
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(html, 'text/html');
+            const response = await fetch('/data.json');
+            const data = await response.json();
+            const posts = data.projects;
             
-            const links = Array.from(doc.querySelectorAll('a[href$=".html"]'))
-                .filter(link => link.href.includes('/projects/'))
-                .filter(link => !link.href.includes('index.html'));
-            
-            if (links.length === 0) {
+            if (posts.length === 0) {
                 container.innerHTML = '<div class="empty-state"><i class="fas fa-code"></i><h3>No Projects Yet</h3><p>Projects will appear here when published.</p></div>';
                 return;
             }
 
             container.innerHTML = '';
-            for (const link of links) {
-                const postCard = await this.createPostCard(link);
+            for (const post of posts) {
+                const postCard = this.createPostCardFromData(post, 'project');
                 container.appendChild(postCard);
             }
         } catch (error) {
@@ -344,38 +322,19 @@ class WebsiteManager {
         if (!container) return;
 
         try {
-            // Load both offensive and defensive posts
-            const [offensiveResponse, defensiveResponse] = await Promise.all([
-                fetch('/blogs/offensive/'),
-                fetch('/blogs/defensive/')
-            ]);
-
-            const [offensiveHtml, defensiveHtml] = await Promise.all([
-                offensiveResponse.text(),
-                defensiveResponse.text()
-            ]);
-
-            const parser = new DOMParser();
-            const offensiveDoc = parser.parseFromString(offensiveHtml, 'text/html');
-            const defensiveDoc = parser.parseFromString(defensiveHtml, 'text/html');
+            const response = await fetch('/data.json');
+            const data = await response.json();
+            const allPosts = [...data.blogs.offensive, ...data.blogs.defensive];
             
-            const allLinks = [
-                ...Array.from(offensiveDoc.querySelectorAll('a[href$=".html"]'))
-                    .filter(link => link.href.includes('/blogs/offensive/'))
-                    .filter(link => !link.href.includes('index.html')),
-                ...Array.from(defensiveDoc.querySelectorAll('a[href$=".html"]'))
-                    .filter(link => link.href.includes('/blogs/defensive/'))
-                    .filter(link => !link.href.includes('index.html'))
-            ];
-            
-            if (allLinks.length === 0) {
+            if (allPosts.length === 0) {
                 container.innerHTML = '<div class="empty-state"><i class="fas fa-blog"></i><h3>No Posts Yet</h3><p>Blog posts will appear here when published.</p></div>';
                 return;
             }
 
             container.innerHTML = '';
-            for (const link of allLinks) {
-                const postCard = await this.createPostCard(link);
+            for (const post of allPosts) {
+                const category = data.blogs.offensive.includes(post) ? 'offensive' : 'defensive';
+                const postCard = this.createPostCardFromData(post, category);
                 container.appendChild(postCard);
             }
         } catch (error) {
@@ -423,60 +382,49 @@ class WebsiteManager {
         return postCard;
     }
 
-    async updateCounters() {
-        try {
-            // Count blog posts
-            const [offensiveResponse, defensiveResponse] = await Promise.all([
-                fetch('/blogs/offensive/'),
-                fetch('/blogs/defensive/')
-            ]);
-
-            const [offensiveHtml, defensiveHtml] = await Promise.all([
-                offensiveResponse.text(),
-                defensiveResponse.text()
-            ]);
-
-            const parser = new DOMParser();
-            const offensiveDoc = parser.parseFromString(offensiveHtml, 'text/html');
-            const defensiveDoc = parser.parseFromString(defensiveHtml, 'text/html');
-            
-            const blogCount = [
-                ...Array.from(offensiveDoc.querySelectorAll('a[href$=".html"]'))
-                    .filter(link => link.href.includes('/blogs/offensive/'))
-                    .filter(link => !link.href.includes('index.html')),
-                ...Array.from(defensiveDoc.querySelectorAll('a[href$=".html"]'))
-                    .filter(link => link.href.includes('/blogs/defensive/'))
-                    .filter(link => !link.href.includes('index.html'))
-            ].length;
-
-            // Count research posts
-            const researchResponse = await fetch('/research/');
-            const researchHtml = await researchResponse.text();
-            const researchDoc = parser.parseFromString(researchHtml, 'text/html');
-            const researchCount = Array.from(researchDoc.querySelectorAll('a[href$=".html"]'))
-                .filter(link => link.href.includes('/research/'))
-                .filter(link => !link.href.includes('index.html')).length;
-
-            // Count project posts
-            const projectResponse = await fetch('/projects/');
-            const projectHtml = await projectResponse.text();
-            const projectDoc = parser.parseFromString(projectHtml, 'text/html');
-            const projectCount = Array.from(projectDoc.querySelectorAll('a[href$=".html"]'))
-                .filter(link => link.href.includes('/projects/'))
-                .filter(link => !link.href.includes('index.html')).length;
-
-            // Update counters on homepage
-            const blogCountEl = document.getElementById('blog-count');
-            const researchCountEl = document.getElementById('research-count');
-            const projectCountEl = document.getElementById('project-count');
-
-            if (blogCountEl) blogCountEl.textContent = blogCount;
-            if (researchCountEl) researchCountEl.textContent = researchCount;
-            if (projectCountEl) projectCountEl.textContent = projectCount;
-
-        } catch (error) {
-            console.error('Error updating counters:', error);
+    createPostCardFromData(post, category) {
+        const postCard = document.createElement('div');
+        postCard.className = 'post-card';
+        
+        // Determine the correct URL based on category
+        let url = '';
+        if (category === 'offensive') {
+            url = `/blogs/offensive/${post.html}`;
+        } else if (category === 'defensive') {
+            url = `/blogs/defensive/${post.html}`;
+        } else if (category === 'research') {
+            url = `/research/${post.html}`;
+        } else if (category === 'project') {
+            url = `/projects/${post.html}`;
         }
+        
+        postCard.onclick = () => window.location.href = url;
+        
+        // Determine icon based on category
+        let icon = 'fas fa-blog';
+        if (category === 'offensive') {
+            icon = 'fas fa-sword';
+        } else if (category === 'defensive') {
+            icon = 'fas fa-shield-alt';
+        } else if (category === 'research') {
+            icon = 'fas fa-flask';
+        } else if (category === 'project') {
+            icon = 'fas fa-code';
+        }
+
+        postCard.innerHTML = `
+            <div class="post-meta">
+                <span class="post-category">${post.category}</span>
+                <i class="${icon}"></i>
+            </div>
+            <h3>${post.title}</h3>
+            <p>${post.description}</p>
+            <a href="${url}" class="read-more">
+                Read More <i class="fas fa-arrow-right"></i>
+            </a>
+        `;
+
+        return postCard;
     }
 
     // Utility methods
