@@ -348,19 +348,20 @@ class WebsiteManager {
         const postCard = document.createElement('div');
         postCard.className = 'post-card';
         
-        // Determine the correct URL based on category
+        // Generate URL based on category and filename
         let url = '';
+        const filename = post.file.replace('.md', '');
         if (category === 'offensive') {
-            url = `/blogs/offensive/${post.html}`;
+            url = `/blogs/offensive/${filename}.html`;
         } else if (category === 'defensive') {
-            url = `/blogs/defensive/${post.html}`;
+            url = `/blogs/defensive/${filename}.html`;
         } else if (category === 'research') {
-            url = `/research/${post.html}`;
+            url = `/research/${filename}.html`;
         } else if (category === 'project') {
-            url = `/projects/${post.html}`;
+            url = `/projects/${filename}.html`;
         }
         
-        postCard.onclick = () => window.location.href = url;
+        postCard.onclick = () => this.loadPost(post.file, category, post.title);
         
         // Determine icon based on category
         let icon = 'fas fa-blog';
@@ -381,12 +382,162 @@ class WebsiteManager {
             </div>
             <h3>${post.title}</h3>
             <p>${post.description}</p>
-            <a href="${url}" class="read-more">
+            <a href="#" class="read-more" onclick="event.preventDefault(); window.websiteManager.loadPost('${post.file}', '${category}', '${post.title}')">
                 Read More <i class="fas fa-arrow-right"></i>
             </a>
         `;
 
         return postCard;
+    }
+
+    // Load post dynamically
+    async loadPost(filename, category, title) {
+        try {
+            // Determine the correct path based on category
+            let mdPath = '';
+            if (category === 'offensive') {
+                mdPath = `/blogs/offensive/${filename}`;
+            } else if (category === 'defensive') {
+                mdPath = `/blogs/defensive/${filename}`;
+            } else if (category === 'research') {
+                mdPath = `/research/${filename}`;
+            } else if (category === 'project') {
+                mdPath = `/projects/${filename}`;
+            }
+
+            // Fetch the markdown content
+            const response = await fetch(mdPath);
+            if (!response.ok) {
+                throw new Error('Failed to load post');
+            }
+            
+            const markdown = await response.text();
+            const html = marked.parse(markdown);
+            
+            // Create a new page with the post content
+            this.showPostPage(title, html, category);
+            
+        } catch (error) {
+            console.error('Error loading post:', error);
+            alert('Error loading post. Please try again.');
+        }
+    }
+
+    // Show post page
+    showPostPage(title, content, category) {
+        // Create the post page HTML
+        const postPageHTML = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${title} | Oppenheim3r - Cybersecurity Blog</title>
+    <meta name="description" content="${title}">
+    
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+    <!-- Spider Web Overlay -->
+    <div class="spider-web" id="spider-web">
+        <div class="web-line" style="top: 20%; left: 0; width: 100%;"></div>
+        <div class="web-line" style="top: 40%; left: 0; width: 100%;"></div>
+        <div class="web-line" style="top: 60%; left: 0; width: 100%;"></div>
+        <div class="web-line" style="top: 80%; left: 0; width: 100%;"></div>
+        <div class="web-line vertical" style="left: 15%; top: 0;"></div>
+        <div class="web-line vertical" style="left: 35%; top: 0;"></div>
+        <div class="web-line vertical" style="left: 55%; top: 0;"></div>
+        <div class="web-line vertical" style="left: 75%; top: 0;"></div>
+        <div class="web-line vertical" style="left: 85%; top: 0;"></div>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>Oppenheim3r</h1>
+                    <p>Husam Gameel</p>
+                </div>
+                <nav class="nav">
+                    <a href="/" class="nav-btn">
+                        <i class="fas fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    <a href="/about/" class="nav-btn">
+                        <i class="fas fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    <a href="/blogs/" class="nav-btn">
+                        <i class="fas fa-blog"></i>
+                        <span>Blogs</span>
+                    </a>
+                    <a href="/blogs/offensive/" class="nav-btn">
+                        <i class="fas fa-sword"></i>
+                        <span>Offensive</span>
+                    </a>
+                    <a href="/blogs/defensive/" class="nav-btn">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Defensive</span>
+                    </a>
+                    <a href="/research/" class="nav-btn">
+                        <i class="fas fa-flask"></i>
+                        <span>Research</span>
+                    </a>
+                    <a href="/projects/" class="nav-btn">
+                        <i class="fas fa-code"></i>
+                        <span>Projects</span>
+                    </a>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Breadcrumb -->
+        <div class="breadcrumb" id="breadcrumb">
+            <a href="/">Home</a>
+        </div>
+
+        <!-- Main Content -->
+        <main class="main">
+            <!-- Back Button -->
+            <a href="javascript:history.back()" class="back-btn">
+                <i class="fas fa-arrow-left"></i>
+                Back
+            </a>
+
+            <!-- Article Content -->
+            <article class="article-content">
+                <div id="markdown-content">
+                    ${content}
+                </div>
+            </article>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <p>&copy; 2025 Husam Gameel (Oppenheim3r). All rights reserved.</p>
+                <div class="social-links">
+                    <a href="https://github.com/oppenheim3r" class="social-link" title="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="#" class="social-link" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" class="social-link" title="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link" title="Email"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="../assets/js/main.js"></script>
+</body>
+</html>`;
+
+        // Open the post in a new window/tab
+        const newWindow = window.open('', '_blank');
+        newWindow.document.write(postPageHTML);
+        newWindow.document.close();
     }
 
     // Utility methods
@@ -401,7 +552,7 @@ class WebsiteManager {
 
 // Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-    new WebsiteManager();
+    window.websiteManager = new WebsiteManager();
 });
 
 // Handle smooth scrolling for anchor links

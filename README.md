@@ -44,9 +44,13 @@ A modern, mobile-responsive cybersecurity blog built for GitHub Pages hosting.
 
 ### How to Add New Posts/Research/Projects
 
-1. **Create your content files:**
+1. **Create your markdown file:**
    - Create a `.md` file (e.g., `my-new-post.md`)
-   - Create a corresponding `.html` file (e.g., `my-new-post.html`)
+   - Place it in the appropriate directory:
+     - `blogs/offensive/` for offensive security posts
+     - `blogs/defensive/` for defensive security posts
+     - `research/` for research papers
+     - `projects/` for projects
 
 2. **Update the data.json file:**
    - Open `data.json` in the root directory
@@ -60,7 +64,6 @@ A modern, mobile-responsive cybersecurity blog built for GitHub Pages hosting.
       {
         "title": "Your Post Title",
         "file": "your-post.md",
-        "html": "your-post.html",
         "category": "Your Category",
         "description": "Brief description of your post"
       }
@@ -77,7 +80,6 @@ A modern, mobile-responsive cybersecurity blog built for GitHub Pages hosting.
     {
       "title": "Your Research Title",
       "file": "your-research.md",
-      "html": "your-research.html",
       "category": "Your Category",
       "description": "Brief description of your research"
     }
@@ -92,7 +94,6 @@ A modern, mobile-responsive cybersecurity blog built for GitHub Pages hosting.
     {
       "title": "Your Project Title",
       "file": "your-project.md",
-      "html": "your-project.html",
       "category": "Your Category",
       "description": "Brief description of your project"
     }
@@ -100,28 +101,30 @@ A modern, mobile-responsive cybersecurity blog built for GitHub Pages hosting.
 }
 ```
 
-3. **The website will automatically display your new content!**
+3. **That's it! The website will automatically:**
+   - Display your new content
+   - Generate the HTML page dynamically
+   - Handle all the routing and styling
 
 ### File Structure Example
 
 ```
 /blogs/offensive/
   ├── my-new-post.md
-  ├── my-new-post.html
   └── index.html
 
 /research/
   ├── my-new-research.md
-  ├── my-new-research.html
   └── index.html
 
 /projects/
   ├── my-new-project.md
-  ├── my-new-project.html
   └── index.html
 
 /data.json (update this file)
 ```
+
+**Note:** You only need to create the `.md` file! The HTML is generated automatically.
 
 ## URL Structure
 
