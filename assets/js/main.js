@@ -169,27 +169,43 @@ class WebsiteManager {
     // Dynamic content loading
     async loadDynamicContent() {
         const path = window.location.pathname;
+        console.log('Current path:', path);
         
-        if (path === '/blogs/offensive/' || path === '/blogs/offensive/index.html') {
+        // More flexible path matching
+        if (path.includes('/blogs/offensive/') || path.endsWith('/blogs/offensive/') || path.endsWith('/blogs/offensive/index.html')) {
+            console.log('Loading offensive posts');
             await this.loadOffensivePosts();
-        } else if (path === '/blogs/defensive/' || path === '/blogs/defensive/index.html') {
+        } else if (path.includes('/blogs/defensive/') || path.endsWith('/blogs/defensive/') || path.endsWith('/blogs/defensive/index.html')) {
+            console.log('Loading defensive posts');
             await this.loadDefensivePosts();
-        } else if (path === '/research/' || path === '/research/index.html') {
+        } else if (path.includes('/research/') || path.endsWith('/research/') || path.endsWith('/research/index.html')) {
+            console.log('Loading research posts');
             await this.loadResearchPosts();
-        } else if (path === '/projects/' || path === '/projects/index.html') {
+        } else if (path.includes('/projects/') || path.endsWith('/projects/') || path.endsWith('/projects/index.html')) {
+            console.log('Loading project posts');
             await this.loadProjectPosts();
-        } else if (path === '/blogs/' || path === '/blogs/index.html') {
+        } else if (path.includes('/blogs/') || path.endsWith('/blogs/') || path.endsWith('/blogs/index.html')) {
+            console.log('Loading all blog posts');
             await this.loadAllBlogPosts();
         }
     }
 
     async loadOffensivePosts() {
         const container = document.getElementById('offensive-posts');
-        if (!container) return;
+        if (!container) {
+            console.log('No offensive-posts container found');
+            return;
+        }
 
         try {
-            const response = await fetch(this.getDataJsonPath());
+            const dataPath = this.getDataJsonPath();
+            console.log('Fetching data from:', dataPath);
+            const response = await fetch(dataPath);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
             const data = await response.json();
+            console.log('Loaded data:', data);
             const posts = data.blogs.offensive;
             
             if (posts.length === 0) {
@@ -483,8 +499,20 @@ class WebsiteManager {
     
     getDataJsonPath() {
         const path = window.location.pathname;
-        const depth = path.split('/').length - 2; // -2 because of leading slash and empty string
-        return '../'.repeat(depth) + 'data.json';
+        const segments = path.split('/').filter(segment => segment);
+        
+        // Calculate the depth from root
+        let depth = 0;
+        if (segments.length > 0) {
+            depth = segments.length;
+        }
+        
+        // Build the relative path
+        if (depth === 0) {
+            return './data.json';
+        } else {
+            return '../'.repeat(depth) + 'data.json';
+        }
     }
 
     // Utility methods
