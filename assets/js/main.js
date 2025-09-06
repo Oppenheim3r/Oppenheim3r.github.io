@@ -7,6 +7,7 @@ class WebsiteManager {
     }
 
     init() {
+        console.log('WebsiteManager init() called');
         this.initializeGUIElements();
         this.setupNavigation();
         this.loadContent();
@@ -132,6 +133,7 @@ class WebsiteManager {
 
     // Content loading
     async loadContent() {
+        console.log('loadContent() called');
         const path = window.location.pathname;
         
         if (path.includes('/blogs/') && path.endsWith('.html')) {
@@ -143,6 +145,7 @@ class WebsiteManager {
         }
         
         // Load dynamic content
+        console.log('About to call loadDynamicContent()');
         await this.loadDynamicContent();
     }
 
@@ -536,7 +539,9 @@ class WebsiteManager {
 
 // Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
+    console.log('DOM loaded, initializing WebsiteManager');
     window.websiteManager = new WebsiteManager();
+    console.log('WebsiteManager initialized:', window.websiteManager);
 });
 
 // Handle smooth scrolling for anchor links
