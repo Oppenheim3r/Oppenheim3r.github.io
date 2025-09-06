@@ -89,37 +89,8 @@
 
             <!-- Posts Grid -->
             <section class="featured-categories">
-                <div class="posts-grid">
-                    <!-- Sample Post Card -->
-                    <div class="post-card" onclick="window.location.href='advanced-buffer-overflow.html'">
-                        <div class="post-meta">
-                            <span class="post-category">Exploit Development</span>
-                            <i class="fas fa-bug"></i>
-                        </div>
-                        <h3>Advanced Buffer Overflow Techniques</h3>
-                        <p>Deep dive into modern buffer overflow exploitation techniques, including ROP chains, ASLR bypass, and DEP evasion.</p>
-                        <a href="advanced-buffer-overflow.html" class="read-more">
-                            Read More <i class="fas fa-arrow-right"></i>
-                        </a>
-                    </div>
-
-                    <!-- More posts will be added here -->
-                </div>
-            </section>
-
-            <!-- Coming Soon Section -->
-            <section class="recent-posts">
-                <div class="empty-state">
-                    <i class="fas fa-sword"></i>
-                    <h3>More Posts Coming Soon</h3>
-                    <p>Additional offensive security content will be published here. Topics will include:</p>
-                    <ul style="text-align: left; max-width: 400px; margin: 2rem auto;">
-                        <li>Web Application Penetration Testing</li>
-                        <li>Network Penetration Testing</li>
-                        <li>Privilege Escalation Techniques</li>
-                        <li>Post-Exploitation Strategies</li>
-                        <li>Red Team Infrastructure</li>
-                    </ul>
+                <div class="posts-grid" id="offensive-posts">
+                    <!-- Posts will be loaded dynamically -->
                 </div>
             </section>
         </main>

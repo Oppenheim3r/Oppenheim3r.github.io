@@ -179,6 +179,10 @@ class WebsiteManager {
         } else if (path.includes('/projects/') && path.endsWith('.html')) {
             await this.loadMarkdownPost();
         }
+        
+        // Load dynamic content and update counters
+        await this.loadDynamicContent();
+        await this.updateCounters();
     }
 
     async loadMarkdownPost() {
@@ -198,6 +202,280 @@ class WebsiteManager {
             }
         } catch (error) {
             console.error('Error loading markdown:', error);
+        }
+    }
+
+    // Dynamic content loading
+    async loadDynamicContent() {
+        const path = window.location.pathname;
+        
+        if (path === '/blogs/offensive/' || path === '/blogs/offensive/index.html') {
+            await this.loadOffensivePosts();
+        } else if (path === '/blogs/defensive/' || path === '/blogs/defensive/index.html') {
+            await this.loadDefensivePosts();
+        } else if (path === '/research/' || path === '/research/index.html') {
+            await this.loadResearchPosts();
+        } else if (path === '/projects/' || path === '/projects/index.html') {
+            await this.loadProjectPosts();
+        } else if (path === '/blogs/' || path === '/blogs/index.html') {
+            await this.loadAllBlogPosts();
+        }
+    }
+
+    async loadOffensivePosts() {
+        const container = document.getElementById('offensive-posts');
+        if (!container) return;
+
+        try {
+            const response = await fetch('/blogs/offensive/');
+            const html = await response.text();
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            
+            // Find all .md files in the offensive directory
+            const links = Array.from(doc.querySelectorAll('a[href$=".html"]'))
+                .filter(link => link.href.includes('/blogs/offensive/'))
+                .filter(link => !link.href.includes('index.html'));
+            
+            if (links.length === 0) {
+                container.innerHTML = '<div class="empty-state"><i class="fas fa-sword"></i><h3>No Posts Yet</h3><p>Offensive security posts will appear here when published.</p></div>';
+                return;
+            }
+
+            container.innerHTML = '';
+            for (const link of links) {
+                const postCard = await this.createPostCard(link);
+                container.appendChild(postCard);
+            }
+        } catch (error) {
+            console.error('Error loading offensive posts:', error);
+        }
+    }
+
+    async loadDefensivePosts() {
+        const container = document.getElementById('defensive-posts');
+        if (!container) return;
+
+        try {
+            const response = await fetch('/blogs/defensive/');
+            const html = await response.text();
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            
+            const links = Array.from(doc.querySelectorAll('a[href$=".html"]'))
+                .filter(link => link.href.includes('/blogs/defensive/'))
+                .filter(link => !link.href.includes('index.html'));
+            
+            if (links.length === 0) {
+                container.innerHTML = '<div class="empty-state"><i class="fas fa-shield-alt"></i><h3>No Posts Yet</h3><p>Defensive security posts will appear here when published.</p></div>';
+                return;
+            }
+
+            container.innerHTML = '';
+            for (const link of links) {
+                const postCard = await this.createPostCard(link);
+                container.appendChild(postCard);
+            }
+        } catch (error) {
+            console.error('Error loading defensive posts:', error);
+        }
+    }
+
+    async loadResearchPosts() {
+        const container = document.getElementById('research-posts');
+        if (!container) return;
+
+        try {
+            const response = await fetch('/research/');
+            const html = await response.text();
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            
+            const links = Array.from(doc.querySelectorAll('a[href$=".html"]'))
+                .filter(link => link.href.includes('/research/'))
+                .filter(link => !link.href.includes('index.html'));
+            
+            if (links.length === 0) {
+                container.innerHTML = '<div class="empty-state"><i class="fas fa-flask"></i><h3>No Research Yet</h3><p>Research papers will appear here when published.</p></div>';
+                return;
+            }
+
+            container.innerHTML = '';
+            for (const link of links) {
+                const postCard = await this.createPostCard(link);
+                container.appendChild(postCard);
+            }
+        } catch (error) {
+            console.error('Error loading research posts:', error);
+        }
+    }
+
+    async loadProjectPosts() {
+        const container = document.getElementById('project-posts');
+        if (!container) return;
+
+        try {
+            const response = await fetch('/projects/');
+            const html = await response.text();
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            
+            const links = Array.from(doc.querySelectorAll('a[href$=".html"]'))
+                .filter(link => link.href.includes('/projects/'))
+                .filter(link => !link.href.includes('index.html'));
+            
+            if (links.length === 0) {
+                container.innerHTML = '<div class="empty-state"><i class="fas fa-code"></i><h3>No Projects Yet</h3><p>Projects will appear here when published.</p></div>';
+                return;
+            }
+
+            container.innerHTML = '';
+            for (const link of links) {
+                const postCard = await this.createPostCard(link);
+                container.appendChild(postCard);
+            }
+        } catch (error) {
+            console.error('Error loading project posts:', error);
+        }
+    }
+
+    async loadAllBlogPosts() {
+        const container = document.getElementById('all-blog-posts');
+        if (!container) return;
+
+        try {
+            // Load both offensive and defensive posts
+            const [offensiveResponse, defensiveResponse] = await Promise.all([
+                fetch('/blogs/offensive/'),
+                fetch('/blogs/defensive/')
+            ]);
+
+            const [offensiveHtml, defensiveHtml] = await Promise.all([
+                offensiveResponse.text(),
+                defensiveResponse.text()
+            ]);
+
+            const parser = new DOMParser();
+            const offensiveDoc = parser.parseFromString(offensiveHtml, 'text/html');
+            const defensiveDoc = parser.parseFromString(defensiveHtml, 'text/html');
+            
+            const allLinks = [
+                ...Array.from(offensiveDoc.querySelectorAll('a[href$=".html"]'))
+                    .filter(link => link.href.includes('/blogs/offensive/'))
+                    .filter(link => !link.href.includes('index.html')),
+                ...Array.from(defensiveDoc.querySelectorAll('a[href$=".html"]'))
+                    .filter(link => link.href.includes('/blogs/defensive/'))
+                    .filter(link => !link.href.includes('index.html'))
+            ];
+            
+            if (allLinks.length === 0) {
+                container.innerHTML = '<div class="empty-state"><i class="fas fa-blog"></i><h3>No Posts Yet</h3><p>Blog posts will appear here when published.</p></div>';
+                return;
+            }
+
+            container.innerHTML = '';
+            for (const link of allLinks) {
+                const postCard = await this.createPostCard(link);
+                container.appendChild(postCard);
+            }
+        } catch (error) {
+            console.error('Error loading all blog posts:', error);
+        }
+    }
+
+    async createPostCard(link) {
+        const postCard = document.createElement('div');
+        postCard.className = 'post-card';
+        postCard.onclick = () => window.location.href = link.href;
+        
+        // Extract title from link text or href
+        const title = link.textContent.trim() || link.href.split('/').pop().replace('.html', '').replace(/-/g, ' ');
+        
+        // Determine category based on URL
+        let category = 'Blog Post';
+        let icon = 'fas fa-blog';
+        if (link.href.includes('/offensive/')) {
+            category = 'Offensive Security';
+            icon = 'fas fa-sword';
+        } else if (link.href.includes('/defensive/')) {
+            category = 'Defensive Security';
+            icon = 'fas fa-shield-alt';
+        } else if (link.href.includes('/research/')) {
+            category = 'Research';
+            icon = 'fas fa-flask';
+        } else if (link.href.includes('/projects/')) {
+            category = 'Project';
+            icon = 'fas fa-code';
+        }
+
+        postCard.innerHTML = `
+            <div class="post-meta">
+                <span class="post-category">${category}</span>
+                <i class="${icon}"></i>
+            </div>
+            <h3>${title}</h3>
+            <p>Click to read more about this ${category.toLowerCase()} topic.</p>
+            <a href="${link.href}" class="read-more">
+                Read More <i class="fas fa-arrow-right"></i>
+            </a>
+        `;
+
+        return postCard;
+    }
+
+    async updateCounters() {
+        try {
+            // Count blog posts
+            const [offensiveResponse, defensiveResponse] = await Promise.all([
+                fetch('/blogs/offensive/'),
+                fetch('/blogs/defensive/')
+            ]);
+
+            const [offensiveHtml, defensiveHtml] = await Promise.all([
+                offensiveResponse.text(),
+                defensiveResponse.text()
+            ]);
+
+            const parser = new DOMParser();
+            const offensiveDoc = parser.parseFromString(offensiveHtml, 'text/html');
+            const defensiveDoc = parser.parseFromString(defensiveHtml, 'text/html');
+            
+            const blogCount = [
+                ...Array.from(offensiveDoc.querySelectorAll('a[href$=".html"]'))
+                    .filter(link => link.href.includes('/blogs/offensive/'))
+                    .filter(link => !link.href.includes('index.html')),
+                ...Array.from(defensiveDoc.querySelectorAll('a[href$=".html"]'))
+                    .filter(link => link.href.includes('/blogs/defensive/'))
+                    .filter(link => !link.href.includes('index.html'))
+            ].length;
+
+            // Count research posts
+            const researchResponse = await fetch('/research/');
+            const researchHtml = await researchResponse.text();
+            const researchDoc = parser.parseFromString(researchHtml, 'text/html');
+            const researchCount = Array.from(researchDoc.querySelectorAll('a[href$=".html"]'))
+                .filter(link => link.href.includes('/research/'))
+                .filter(link => !link.href.includes('index.html')).length;
+
+            // Count project posts
+            const projectResponse = await fetch('/projects/');
+            const projectHtml = await projectResponse.text();
+            const projectDoc = parser.parseFromString(projectHtml, 'text/html');
+            const projectCount = Array.from(projectDoc.querySelectorAll('a[href$=".html"]'))
+                .filter(link => link.href.includes('/projects/'))
+                .filter(link => !link.href.includes('index.html')).length;
+
+            // Update counters on homepage
+            const blogCountEl = document.getElementById('blog-count');
+            const researchCountEl = document.getElementById('research-count');
+            const projectCountEl = document.getElementById('project-count');
+
+            if (blogCountEl) blogCountEl.textContent = blogCount;
+            if (researchCountEl) researchCountEl.textContent = researchCount;
+            if (projectCountEl) projectCountEl.textContent = projectCount;
+
+        } catch (error) {
+            console.error('Error updating counters:', error);
         }
     }
 
