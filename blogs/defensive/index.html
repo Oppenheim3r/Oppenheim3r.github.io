@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Defensive Security - Husam Gameel | Oppenheim3r</title>
-    <meta name="description" content="Defensive security blog posts covering SIEM rules, incident response, threat hunting, and security monitoring.">
+    <title>Defensive Security | Oppenheim3r - Cybersecurity Blog</title>
+    <meta name="description" content="Blue team strategies, SIEM rules, incident response, threat hunting, and security monitoring.">
     
     <link rel="stylesheet" href="../../assets/css/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
     <!-- Floating Binaries Background -->
@@ -38,27 +39,31 @@
                 <nav class="nav">
                     <a href="/" class="nav-btn">
                         <i class="fas fa-home"></i>
-                        Home
+                        <span>Home</span>
                     </a>
                     <a href="/about/" class="nav-btn">
                         <i class="fas fa-user"></i>
-                        About
+                        <span>About</span>
                     </a>
                     <a href="/blogs/" class="nav-btn">
                         <i class="fas fa-blog"></i>
-                        All Blogs
+                        <span>Blogs</span>
                     </a>
                     <a href="/blogs/offensive/" class="nav-btn">
                         <i class="fas fa-sword"></i>
-                        Offensive
+                        <span>Offensive</span>
                     </a>
                     <a href="/blogs/defensive/" class="nav-btn active">
                         <i class="fas fa-shield-alt"></i>
-                        Defensive
+                        <span>Defensive</span>
                     </a>
                     <a href="/research/" class="nav-btn">
                         <i class="fas fa-flask"></i>
-                        Research
+                        <span>Research</span>
+                    </a>
+                    <a href="/projects/" class="nav-btn">
+                        <i class="fas fa-code"></i>
+                        <span>Projects</span>
                     </a>
                 </nav>
             </div>
@@ -66,107 +71,45 @@
 
         <!-- Breadcrumb -->
         <div class="breadcrumb" id="breadcrumb">
-            <a href="/">Home</a> <span class="breadcrumb-separator">></span> <a href="/blogs/">Blogs</a> <span class="breadcrumb-separator">></span> <span>Defensive</span>
+            <a href="/">Home</a>
         </div>
 
         <!-- Main Content -->
         <main class="main">
             <div class="page-header">
-                <h1><i class="fas fa-shield-alt"></i> Defensive Security</h1>
-                <p>Blue team strategies, incident response, and security monitoring</p>
+                <h1>Defensive Security</h1>
+                <p>Blue team strategies, SIEM rules, incident response, threat hunting, and security monitoring.</p>
             </div>
+
+            <!-- Back Button -->
+            <a href="/blogs/" class="back-btn">
+                <i class="fas fa-arrow-left"></i>
+                Back to All Blogs
+            </a>
 
             <!-- Posts Grid -->
-            <div class="posts-grid">
-                <div class="post-card" onclick="window.location.href='effective-siem-rules.html'">
-                    <div class="post-meta">
-                        <span class="post-category">Defensive Security</span>
-                        <span>January 10, 2025</span>
-                    </div>
-                    <h3>Building Effective SIEM Rules</h3>
-                    <p>Comprehensive guide to creating robust SIEM detection rules that minimize false positives while maximizing threat detection capabilities. Learn advanced techniques for rule optimization and tuning.</p>
-                    <a href="effective-siem-rules.html" class="read-more">
-                        Read More <i class="fas fa-arrow-right"></i>
-                    </a>
+            <section class="featured-categories">
+                <div class="posts-grid">
+                    <!-- Posts will be added here -->
                 </div>
+            </section>
 
-                <!-- Placeholder for future posts -->
-                <div class="post-card" style="opacity: 0.6; cursor: not-allowed;" onclick="return false;">
-                    <div class="post-meta">
-                        <span class="post-category">Defensive Security</span>
-                        <span>Coming Soon</span>
-                    </div>
-                    <h3>Advanced Threat Hunting Techniques</h3>
-                    <p>Proactive threat hunting methodologies using MITRE ATT&CK framework, behavioral analytics, and custom detection logic.</p>
-                    <span class="read-more" style="color: var(--text-muted);">
-                        Coming Soon <i class="fas fa-clock"></i>
-                    </span>
+            <!-- Coming Soon Section -->
+            <section class="recent-posts">
+                <div class="empty-state">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Defensive Content Coming Soon</h3>
+                    <p>Blue team strategies and defensive security content will be published here. Topics will include:</p>
+                    <ul style="text-align: left; max-width: 400px; margin: 2rem auto;">
+                        <li>SIEM Rule Development</li>
+                        <li>Incident Response Procedures</li>
+                        <li>Threat Hunting Techniques</li>
+                        <li>Security Monitoring Best Practices</li>
+                        <li>Digital Forensics & IR</li>
+                        <li>Malware Analysis</li>
+                    </ul>
                 </div>
-
-                <div class="post-card" style="opacity: 0.6; cursor: not-allowed;" onclick="return false;">
-                    <div class="post-meta">
-                        <span class="post-category">Defensive Security</span>
-                        <span>Coming Soon</span>
-                    </div>
-                    <h3>Incident Response Playbooks</h3>
-                    <p>Comprehensive incident response procedures for common attack scenarios, including containment, eradication, and recovery strategies.</p>
-                    <span class="read-more" style="color: var(--text-muted);">
-                        Coming Soon <i class="fas fa-clock"></i>
-                    </span>
-                </div>
-
-                <div class="post-card" style="opacity: 0.6; cursor: not-allowed;" onclick="return false;">
-                    <div class="post-meta">
-                        <span class="post-category">Defensive Security</span>
-                        <span>Coming Soon</span>
-                    </div>
-                    <h3>YARA Rules for Malware Detection</h3>
-                    <p>Creating effective YARA rules for malware detection and classification, including advanced pattern matching and optimization techniques.</p>
-                    <span class="read-more" style="color: var(--text-muted);">
-                        Coming Soon <i class="fas fa-clock"></i>
-                    </span>
-                </div>
-
-                <div class="post-card" style="opacity: 0.6; cursor: not-allowed;" onclick="return false;">
-                    <div class="post-meta">
-                        <span class="post-category">Defensive Security</span>
-                        <span>Coming Soon</span>
-                    </div>
-                    <h3>Digital Forensics Best Practices</h3>
-                    <p>Modern digital forensics techniques for incident investigation, evidence collection, and analysis in enterprise environments.</p>
-                    <span class="read-more" style="color: var(--text-muted);">
-                        Coming Soon <i class="fas fa-clock"></i>
-                    </span>
-                </div>
-
-                <div class="post-card" style="opacity: 0.6; cursor: not-allowed;" onclick="return false;">
-                    <div class="post-meta">
-                        <span class="post-category">Defensive Security</span>
-                        <span>Coming Soon</span>
-                    </div>
-                    <h3>Security Orchestration and Automation</h3>
-                    <p>Implementing SOAR solutions for automated incident response, threat intelligence integration, and security workflow optimization.</p>
-                    <span class="read-more" style="color: var(--text-muted);">
-                        Coming Soon <i class="fas fa-clock"></i>
-                    </span>
-                </div>
-            </div>
-
-            <!-- Call to Action -->
-            <div class="cta-section" style="background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 1rem; padding: 3rem; margin: 4rem 0; text-align: center;">
-                <h2 style="margin-bottom: 1rem; background: var(--gradient-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Stay Protected</h2>
-                <p style="color: var(--text-secondary); margin-bottom: 2rem;">New defensive security content is published regularly. Stay ahead of emerging threats.</p>
-                <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-                    <a href="/blogs/" class="nav-btn" style="display: inline-flex;">
-                        <i class="fas fa-blog"></i>
-                        View All Posts
-                    </a>
-                    <a href="/blogs/offensive/" class="nav-btn" style="display: inline-flex;">
-                        <i class="fas fa-sword"></i>
-                        Offensive Security
-                    </a>
-                </div>
-            </div>
+            </section>
         </main>
 
         <!-- Footer -->
@@ -174,7 +117,7 @@
             <div class="footer-content">
                 <p>&copy; 2025 Husam Gameel (Oppenheim3r). All rights reserved.</p>
                 <div class="social-links">
-                    <a href="#" class="social-link" title="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="https://github.com/oppenheim3r" class="social-link" title="GitHub"><i class="fab fa-github"></i></a>
                     <a href="#" class="social-link" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
                     <a href="#" class="social-link" title="Twitter"><i class="fab fa-twitter"></i></a>
                     <a href="#" class="social-link" title="Email"><i class="fas fa-envelope"></i></a>
@@ -186,4 +129,3 @@
     <script src="../../assets/js/main.js"></script>
 </body>
 </html>
-

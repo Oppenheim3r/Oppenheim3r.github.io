@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Advanced Buffer Overflow Techniques | Oppenheim3r - Cybersecurity Blog</title>
-    <meta name="description" content="Deep dive into modern buffer overflow exploitation techniques, including ROP chains, ASLR bypass, and DEP evasion.">
+    <title>Security Projects | Oppenheim3r - Cybersecurity Blog</title>
+    <meta name="description" content="Custom security tools, automation scripts, and open-source projects for the cybersecurity community.">
     
-    <link rel="stylesheet" href="../../assets/css/styles.css">
+    <link rel="stylesheet" href="../assets/css/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
@@ -49,7 +49,7 @@
                         <i class="fas fa-blog"></i>
                         <span>Blogs</span>
                     </a>
-                    <a href="/blogs/offensive/" class="nav-btn active">
+                    <a href="/blogs/offensive/" class="nav-btn">
                         <i class="fas fa-sword"></i>
                         <span>Offensive</span>
                     </a>
@@ -61,7 +61,7 @@
                         <i class="fas fa-flask"></i>
                         <span>Research</span>
                     </a>
-                    <a href="/projects/" class="nav-btn">
+                    <a href="/projects/" class="nav-btn active">
                         <i class="fas fa-code"></i>
                         <span>Projects</span>
                     </a>
@@ -76,18 +76,34 @@
 
         <!-- Main Content -->
         <main class="main">
-            <!-- Back Button -->
-            <a href="/blogs/offensive/" class="back-btn">
-                <i class="fas fa-arrow-left"></i>
-                Back to Offensive Security
-            </a>
+            <div class="page-header">
+                <h1>Security Projects</h1>
+                <p>Custom security tools, automation scripts, and open-source projects for the cybersecurity community.</p>
+            </div>
 
-            <!-- Article Content -->
-            <article class="article-content">
-                <div id="markdown-content">
-                    <!-- Markdown content will be loaded here -->
+            <!-- Projects Grid -->
+            <section class="featured-categories">
+                <div class="posts-grid">
+                    <!-- Projects will be added here -->
                 </div>
-            </article>
+            </section>
+
+            <!-- Coming Soon Section -->
+            <section class="recent-posts">
+                <div class="empty-state">
+                    <i class="fas fa-code"></i>
+                    <h3>Projects Coming Soon</h3>
+                    <p>Security tools and projects will be published here. Project categories include:</p>
+                    <ul style="text-align: left; max-width: 400px; margin: 2rem auto;">
+                        <li>Penetration Testing Tools</li>
+                        <li>Automation Scripts</li>
+                        <li>Security Utilities</li>
+                        <li>Threat Hunting Tools</li>
+                        <li>Incident Response Scripts</li>
+                        <li>Open Source Contributions</li>
+                    </ul>
+                </div>
+            </section>
         </main>
 
         <!-- Footer -->
@@ -104,6 +120,6 @@
         </footer>
     </div>
 
-    <script src="../../assets/js/main.js"></script>
+    <script src="../assets/js/main.js"></script>
 </body>
 </html>

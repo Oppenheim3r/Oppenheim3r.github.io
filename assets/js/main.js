@@ -176,6 +176,8 @@ class WebsiteManager {
             await this.loadMarkdownPost();
         } else if (path.includes('/research/') && path.endsWith('.html')) {
             await this.loadMarkdownPost();
+        } else if (path.includes('/projects/') && path.endsWith('.html')) {
+            await this.loadMarkdownPost();
         }
     }
 
@@ -239,4 +241,3 @@ document.addEventListener('DOMContentLoaded', () => {
         img.style.transition = 'opacity 0.3s ease';
     });
 });
-

@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Security Research - Husam Gameel | Oppenheim3r</title>
+    <title>Security Research | Oppenheim3r - Cybersecurity Blog</title>
     <meta name="description" content="Original security research, vulnerability analysis, and deep technical investigations into emerging security topics.">
     
     <link rel="stylesheet" href="../assets/css/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
     <!-- Floating Binaries Background -->
@@ -38,27 +39,31 @@
                 <nav class="nav">
                     <a href="/" class="nav-btn">
                         <i class="fas fa-home"></i>
-                        Home
+                        <span>Home</span>
                     </a>
                     <a href="/about/" class="nav-btn">
                         <i class="fas fa-user"></i>
-                        About
+                        <span>About</span>
                     </a>
                     <a href="/blogs/" class="nav-btn">
                         <i class="fas fa-blog"></i>
-                        All Blogs
+                        <span>Blogs</span>
                     </a>
                     <a href="/blogs/offensive/" class="nav-btn">
                         <i class="fas fa-sword"></i>
-                        Offensive
+                        <span>Offensive</span>
                     </a>
                     <a href="/blogs/defensive/" class="nav-btn">
                         <i class="fas fa-shield-alt"></i>
-                        Defensive
+                        <span>Defensive</span>
                     </a>
                     <a href="/research/" class="nav-btn active">
                         <i class="fas fa-flask"></i>
-                        Research
+                        <span>Research</span>
+                    </a>
+                    <a href="/projects/" class="nav-btn">
+                        <i class="fas fa-code"></i>
+                        <span>Projects</span>
                     </a>
                 </nav>
             </div>
@@ -66,159 +71,48 @@
 
         <!-- Breadcrumb -->
         <div class="breadcrumb" id="breadcrumb">
-            <a href="/">Home</a> <span class="breadcrumb-separator">></span> <span>Research</span>
+            <a href="/">Home</a>
         </div>
 
         <!-- Main Content -->
         <main class="main">
             <div class="page-header">
-                <h1><i class="fas fa-flask"></i> Security Research</h1>
-                <p>Original research, vulnerability analysis, and deep technical investigations</p>
+                <h1>Security Research</h1>
+                <p>Original research, vulnerability analysis, and deep technical investigations into emerging security topics.</p>
             </div>
 
             <!-- Research Categories -->
-            <div class="research-categories" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-bottom: 4rem;">
-                <div class="category-card" style="background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 1rem; padding: 2rem; text-align: center;">
-                    <i class="fas fa-bug" style="font-size: 3rem; color: var(--accent-red); margin-bottom: 1rem;"></i>
-                    <h3>Vulnerability Research</h3>
-                    <p>Discovery and analysis of security vulnerabilities in software and systems</p>
+            <section class="featured-categories">
+                <div class="posts-grid">
+                    <div class="post-card" onclick="window.location.href='lazarus-group-analysis.html'">
+                        <div class="post-meta">
+                            <span class="post-category">Threat Intelligence</span>
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <h3>Opulous Campaign - A Lazarus Group Analysis</h3>
+                        <p>Deep dive into the Opulous campaign attributed to the Lazarus Group, including TTPs, infrastructure analysis, and IOCs.</p>
+                        <a href="lazarus-group-analysis.html" class="read-more">
+                            Read Research <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
                 </div>
-                
-                <div class="category-card" style="background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 1rem; padding: 2rem; text-align: center;">
-                    <i class="fas fa-virus" style="font-size: 3rem; color: var(--accent-orange); margin-bottom: 1rem;"></i>
-                    <h3>Malware Analysis</h3>
-                    <p>Reverse engineering and behavioral analysis of malicious software</p>
-                </div>
-                
-                <div class="category-card" style="background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 1rem; padding: 2rem; text-align: center;">
-                    <i class="fas fa-network-wired" style="font-size: 3rem; color: var(--accent-blue); margin-bottom: 1rem;"></i>
-                    <h3>Network Security</h3>
-                    <p>Protocol analysis, network attack vectors, and defense mechanisms</p>
-                </div>
-            </div>
+            </section>
 
-            <!-- Research Papers -->
-            <div class="posts-grid">
-                <!-- Placeholder for future research -->
-                <div class="post-card" style="opacity: 0.6; cursor: not-allowed;" onclick="return false;">
-                    <div class="post-meta">
-                        <span class="post-category">Vulnerability Research</span>
-                        <span>Coming Soon</span>
-                    </div>
-                    <h3>API Security Vulnerabilities in Modern Applications</h3>
-                    <p>Comprehensive analysis of REST and GraphQL API security vulnerabilities, including novel attack vectors and mitigation strategies.</p>
-                    <span class="read-more" style="color: var(--text-muted);">
-                        Coming Soon <i class="fas fa-clock"></i>
-                    </span>
+            <!-- Coming Soon Section -->
+            <section class="recent-posts">
+                <div class="empty-state">
+                    <i class="fas fa-flask"></i>
+                    <h3>More Research Coming Soon</h3>
+                    <p>Additional security research will be published here. Research areas include:</p>
+                    <ul style="text-align: left; max-width: 400px; margin: 2rem auto;">
+                        <li>Vulnerability Research</li>
+                        <li>Malware Analysis</li>
+                        <li>Network Security</li>
+                        <li>Threat Intelligence</li>
+                        <li>APT Analysis</li>
+                    </ul>
                 </div>
-
-                <div class="post-card" style="opacity: 0.6; cursor: not-allowed;" onclick="return false;">
-                    <div class="post-meta">
-                        <span class="post-category">Malware Analysis</span>
-                        <span>Coming Soon</span>
-                    </div>
-                    <h3>Advanced Persistent Threat Attribution</h3>
-                    <p>Methodologies for attributing advanced persistent threats through malware analysis, infrastructure correlation, and behavioral patterns.</p>
-                    <span class="read-more" style="color: var(--text-muted);">
-                        Coming Soon <i class="fas fa-clock"></i>
-                    </span>
-                </div>
-
-                <div class="post-card" style="opacity: 0.6; cursor: not-allowed;" onclick="return false;">
-                    <div class="post-meta">
-                        <span class="post-category">Network Security</span>
-                        <span>Coming Soon</span>
-                    </div>
-                    <h3>Zero-Day Exploit Development Framework</h3>
-                    <p>Research into automated exploit development techniques and frameworks for rapid vulnerability exploitation and proof-of-concept creation.</p>
-                    <span class="read-more" style="color: var(--text-muted);">
-                        Coming Soon <i class="fas fa-clock"></i>
-                    </span>
-                </div>
-
-                <div class="post-card" style="opacity: 0.6; cursor: not-allowed;" onclick="return false;">
-                    <div class="post-meta">
-                        <span class="post-category">Vulnerability Research</span>
-                        <span>Coming Soon</span>
-                    </div>
-                    <h3>Container Security: Attack Surface Analysis</h3>
-                    <p>Comprehensive security analysis of containerized environments, including Docker, Kubernetes, and container orchestration vulnerabilities.</p>
-                    <span class="read-more" style="color: var(--text-muted);">
-                        Coming Soon <i class="fas fa-clock"></i>
-                    </span>
-                </div>
-
-                <div class="post-card" style="opacity: 0.6; cursor: not-allowed;" onclick="return false;">
-                    <div class="post-meta">
-                        <span class="post-category">Malware Analysis</span>
-                        <span>Coming Soon</span>
-                    </div>
-                    <h3>Machine Learning in Malware Detection</h3>
-                    <p>Evaluation of machine learning approaches for malware detection, including adversarial attacks against ML-based security systems.</p>
-                    <span class="read-more" style="color: var(--text-muted);">
-                        Coming Soon <i class="fas fa-clock"></i>
-                    </span>
-                </div>
-
-                <div class="post-card" style="opacity: 0.6; cursor: not-allowed;" onclick="return false;">
-                    <div class="post-meta">
-                        <span class="post-category">Network Security</span>
-                        <span>Coming Soon</span>
-                    </div>
-                    <h3>5G Network Security Assessment</h3>
-                    <p>Security analysis of 5G network infrastructure, including protocol vulnerabilities and attack vectors specific to next-generation networks.</p>
-                    <span class="read-more" style="color: var(--text-muted);">
-                        Coming Soon <i class="fas fa-clock"></i>
-                    </span>
-                </div>
-            </div>
-
-            <!-- Research Methodology -->
-            <div class="methodology-section" style="background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 1rem; padding: 3rem; margin: 4rem 0;">
-                <h2 style="text-align: center; margin-bottom: 2rem; background: var(--gradient-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Research Methodology</h2>
-                
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
-                    <div style="text-align: center;">
-                        <i class="fas fa-search" style="font-size: 2rem; color: var(--primary-purple); margin-bottom: 1rem;"></i>
-                        <h4>Discovery</h4>
-                        <p style="color: var(--text-secondary); font-size: 0.9rem;">Systematic identification of security issues through automated scanning and manual analysis</p>
-                    </div>
-                    
-                    <div style="text-align: center;">
-                        <i class="fas fa-microscope" style="font-size: 2rem; color: var(--primary-blue); margin-bottom: 1rem;"></i>
-                        <h4>Analysis</h4>
-                        <p style="color: var(--text-secondary); font-size: 0.9rem;">Deep technical analysis to understand root causes and potential impact</p>
-                    </div>
-                    
-                    <div style="text-align: center;">
-                        <i class="fas fa-code" style="font-size: 2rem; color: var(--accent-green); margin-bottom: 1rem;"></i>
-                        <h4>Exploitation</h4>
-                        <p style="color: var(--text-secondary); font-size: 0.9rem;">Development of proof-of-concept exploits to demonstrate real-world impact</p>
-                    </div>
-                    
-                    <div style="text-align: center;">
-                        <i class="fas fa-shield-alt" style="font-size: 2rem; color: var(--accent-orange); margin-bottom: 1rem;"></i>
-                        <h4>Mitigation</h4>
-                        <p style="color: var(--text-secondary); font-size: 0.9rem;">Development of effective countermeasures and defensive strategies</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Call to Action -->
-            <div class="cta-section" style="background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 1rem; padding: 3rem; margin: 4rem 0; text-align: center;">
-                <h2 style="margin-bottom: 1rem; background: var(--gradient-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Collaborate on Research</h2>
-                <p style="color: var(--text-secondary); margin-bottom: 2rem;">Interested in collaborating on security research? Let's work together to advance the field of cybersecurity.</p>
-                <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-                    <a href="/about/" class="nav-btn" style="display: inline-flex;">
-                        <i class="fas fa-user"></i>
-                        Contact Me
-                    </a>
-                    <a href="/blogs/" class="nav-btn" style="display: inline-flex;">
-                        <i class="fas fa-blog"></i>
-                        View Blog Posts
-                    </a>
-                </div>
-            </div>
+            </section>
         </main>
 
         <!-- Footer -->
@@ -226,7 +120,7 @@
             <div class="footer-content">
                 <p>&copy; 2025 Husam Gameel (Oppenheim3r). All rights reserved.</p>
                 <div class="social-links">
-                    <a href="#" class="social-link" title="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="https://github.com/oppenheim3r" class="social-link" title="GitHub"><i class="fab fa-github"></i></a>
                     <a href="#" class="social-link" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
                     <a href="#" class="social-link" title="Twitter"><i class="fab fa-twitter"></i></a>
                     <a href="#" class="social-link" title="Email"><i class="fas fa-envelope"></i></a>
@@ -238,4 +132,3 @@
     <script src="../assets/js/main.js"></script>
 </body>
 </html>
-
