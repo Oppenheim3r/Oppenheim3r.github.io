@@ -14,47 +14,9 @@ class WebsiteManager {
 
     // GUI Elements Initialization
     initializeGUIElements() {
-        this.createFloatingBinaries();
         this.createSpiderWebEffect();
     }
 
-    // Floating Binary Animation
-    createFloatingBinaries() {
-        const container = document.getElementById('floating-binaries');
-        if (!container) return;
-
-        const binaryStrings = [
-            '01001000', '01100001', '01100011', '01101011', '01100101', '01110010',
-            '11000001', '10101010', '11110000', '00001111', '01010101', '10011001',
-            '11001100', '00110011', '10101010', '01010101', '11111111', '00000000'
-        ];
-        
-        const createBinary = () => {
-            const binary = document.createElement('div');
-            binary.className = 'binary';
-            binary.textContent = binaryStrings[Math.floor(Math.random() * binaryStrings.length)];
-            binary.style.left = Math.random() * 100 + '%';
-            binary.style.animationDelay = Math.random() * 5 + 's';
-            binary.style.fontSize = (Math.random() * 0.5 + 0.5) + 'rem';
-            
-            container.appendChild(binary);
-            
-            // Remove binary after animation
-            setTimeout(() => {
-                if (binary.parentNode) {
-                    binary.parentNode.removeChild(binary);
-                }
-            }, 25000);
-        };
-        
-        // Create initial binaries
-        for (let i = 0; i < 8; i++) {
-            setTimeout(() => createBinary(), i * 500);
-        }
-        
-        // Continue creating binaries
-        setInterval(createBinary, 3000);
-    }
 
     // Spider Web Effect
     createSpiderWebEffect() {
