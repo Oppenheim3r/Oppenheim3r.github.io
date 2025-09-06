@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Page</title>
+</head>
+<body>
+    <h1>JavaScript Test</h1>
+    <div id="test-results"></div>
+    
+    <script>
+        // Test the path detection
+        const path = window.location.pathname;
+        document.getElementById('test-results').innerHTML = `
+            <p>Current path: ${path}</p>
+            <p>Data JSON path: ${getDataJsonPath()}</p>
+        `;
+        
+        function getDataJsonPath() {
+            const path = window.location.pathname;
+            const segments = path.split('/').filter(segment => segment);
+            
+            // Calculate the depth from root
+            let depth = 0;
+            if (segments.length > 0) {
+                depth = segments.length;
+            }
+            
+            // Build the relative path
+            if (depth === 0) {
+                return './data.json';
+            } else {
+                return '../'.repeat(depth) + 'data.json';
+            }
+        }
+        
+        // Test fetching data.json
+        fetch(getDataJsonPath())
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('test-results').innerHTML += `
+                    <p>Data loaded successfully!</p>
+                    <p>Offensive posts: ${data.blogs.offensive.length}</p>
+                    <p>Research posts: ${data.research.length}</p>
+                `;
+            })
+            .catch(error => {
+                document.getElementById('test-results').innerHTML += `
+                    <p>Error loading data: ${error.message}</p>
+                `;
+            });
+    </script>
+</body>
+</html>
