@@ -3,104 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Security Research | Oppenheim3r - Cybersecurity Blog</title>
-    <meta name="description" content="Original security research, vulnerability analysis, and deep technical investigations into emerging security topics.">
-    
-    <link rel="stylesheet" href="../assets/css/styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <title>Research - Openheim3r</title>
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Spider Web Overlay -->
-    <div class="spider-web" id="spider-web">
-        <div class="web-line" style="top: 20%; left: 0; width: 100%;"></div>
-        <div class="web-line" style="top: 40%; left: 0; width: 100%;"></div>
-        <div class="web-line" style="top: 60%; left: 0; width: 100%;"></div>
-        <div class="web-line" style="top: 80%; left: 0; width: 100%;"></div>
-        <div class="web-line vertical" style="left: 15%; top: 0;"></div>
-        <div class="web-line vertical" style="left: 35%; top: 0;"></div>
-        <div class="web-line vertical" style="left: 55%; top: 0;"></div>
-        <div class="web-line vertical" style="left: 75%; top: 0;"></div>
-        <div class="web-line vertical" style="left: 85%; top: 0;"></div>
-    </div>
-
-    <div class="container">
-        <!-- Header -->
-        <header class="header">
-            <div class="header-content">
-                <div class="logo">
-                    <h1>Oppenheim3r</h1>
-                    <p>Husam Gameel</p>
+    <header>
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <a href="/">Openheim3r</a>
                 </div>
-                <nav class="nav">
-                    <a href="../" class="nav-btn">
-                        <i class="fas fa-home"></i>
-                        <span>Home</span>
-                    </a>
-                    <a href="../about/" class="nav-btn">
-                        <i class="fas fa-user"></i>
-                        <span>About</span>
-                    </a>
-                    <a href="../blogs/" class="nav-btn">
-                        <i class="fas fa-blog"></i>
-                        <span>Blogs</span>
-                    </a>
-                    <a href="../blogs/offensive/" class="nav-btn">
-                        <i class="fas fa-sword"></i>
-                        <span>Offensive</span>
-                    </a>
-                    <a href="../blogs/defensive/" class="nav-btn">
-                        <i class="fas fa-shield-alt"></i>
-                        <span>Defensive</span>
-                    </a>
-                    <a href="./" class="nav-btn active">
-                        <i class="fas fa-flask"></i>
-                        <span>Research</span>
-                    </a>
-                    <a href="../projects/" class="nav-btn">
-                        <i class="fas fa-code"></i>
-                        <span>Projects</span>
-                    </a>
-                </nav>
+                <div class="nav-menu" id="nav-menu">
+                    <a href="/blogs/security/" class="nav-link">Blogs/Security</a>
+                    <a href="/research/" class="nav-link">Research</a>
+                    <a href="/projects/" class="nav-link">Projects</a>
+                </div>
+                <div class="nav-toggle" id="nav-toggle">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
             </div>
-        </header>
+        </nav>
+    </header>
 
-        <!-- Breadcrumb -->
-        <div class="breadcrumb" id="breadcrumb">
-            <a href="../">Home</a>
+    <main>
+        <section class="content-section">
+            <div class="container">
+                <h1>Research</h1>
+                <p>Welcome to the Research section. Here you'll find technical papers, studies, experimental work, and other research-based content.</p>
+                
+                <div class="research-list">
+                    <!-- List of research posts will go here -->
+                    <p>Currently no research posts available. Check back later for new content.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Openheim3r. All rights reserved.</p>
         </div>
+    </footer>
 
-        <!-- Main Content -->
-        <main class="main">
-            <div class="page-header">
-                <h1>Security Research</h1>
-                <p>Original research, vulnerability analysis, and deep technical investigations into emerging security topics.</p>
-            </div>
-
-            <!-- Research Categories -->
-            <section class="featured-categories">
-                <div class="posts-grid" id="research-posts">
-                    <!-- Research will be loaded dynamically -->
-                </div>
-            </section>
-        </main>
-
-        <!-- Footer -->
-        <footer class="footer">
-            <div class="footer-content">
-                <p>&copy; 2025 Husam Gameel (Oppenheim3r). All rights reserved.</p>
-                <div class="social-links">
-                    <a href="https://github.com/oppenheim3r" class="social-link" title="GitHub"><i class="fab fa-github"></i></a>
-                    <a href="#" class="social-link" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                    <a href="#" class="social-link" title="Twitter"><i class="fab fa-twitter"></i></a>
-                    <a href="#" class="social-link" title="Email"><i class="fas fa-envelope"></i></a>
-                </div>
-            </div>
-        </footer>
-    </div>
-
-    <script src="../assets/js/main.js"></script>
-    <script src="../debug.js"></script>
+    <script src="../../assets/js/script.js"></script>
 </body>
 </html>
