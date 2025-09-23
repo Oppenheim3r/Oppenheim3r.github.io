@@ -9,6 +9,20 @@
 | Download:      | https://bazaar.abuse.ch/download/5900df1f7a056597ac529215af893e7ebf72e1f50bf8660ae4159e1698c86dad/     |
 | Signature      | [LummaStealer](https://bazaar.abuse.ch/browse/signature/LummaStealer/ "Browse this malware signature") |
 
+# Lumma Stealer Analysis
+
+## Mouse Movement Analysis - BOT
+
+![BOT Movement](/assets/images/BOT.jpg)
+
+## Mouse Movement Analysis - HUMAN
+
+![HUMAN Movement](/assets/images/huma.jpg)
+
+## Comparison Images
+
+![Comparison Diagram](/assets/images/Pasted image 20250731163244.png)
+
 # String 
 
 ```
@@ -135,7 +149,6 @@ USER32.dll
 
 
 
-
 # MITER mapping 
 
 | Tactic ID | Technique Name                  | Type     | Function/API            |
@@ -160,7 +173,7 @@ rule LummaStealer
         description = "Detects suspicious Windows binary using WinAPI abuse and optional obfuscation fingerprint or unique pattern"
         author = "Dark Entry"
         date = "2025-07-31"
-        mitre_tactics = "T1533, T1083, T1057, T1124, T1082, T1106, T1497, T1055, T1027"
+        mitre_tactics = "T1533, T1083, T1057, 1124, T1082, 1106, 1497, 1055, 1027"
         description = "Obfuscated or evasive binary using suspicious API calls"
 
     strings:
