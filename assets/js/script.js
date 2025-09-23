@@ -1,10 +1,15 @@
 // Blog Configuration
 const BLOG_CONFIG = {
     categories: {
-        'security': {
-            name: 'Security Blogs',
-            icon: 'fas fa-lock',
-            description: 'Offensive and defensive security content, tutorials, and analysis'
+        'offensive': {
+            name: 'Offensive Security',
+            icon: 'fas fa-sword',
+            description: 'Penetration testing, exploit development, and red team operations'
+        },
+        'defensive': {
+            name: 'Defensive Security',
+            icon: 'fas fa-shield-alt',
+            description: 'Blue team strategies, incident response, and security monitoring'
         },
         research: {
             name: 'Research',
@@ -203,7 +208,7 @@ async function loadBlogPosts() {
 }
 
 async function discoverPosts() {
-    const categories = ['security', 'research', 'projects'];
+    const categories = ['offensive', 'defensive', 'research', 'projects'];
     const discoveredPosts = [];
     
     for (const category of categories) {
@@ -223,9 +228,10 @@ async function discoverCategoryPosts(category) {
     
     // Known files in the repository
     const knownFiles = {
-        'security': ['network-security-fundamentals.md', 'advanced-buffer-overflow.md', 'effective-siem-rules.md'],
-        'research': ['zero-day-exploitation-analysis.md'],
-        'projects': ['automated-vulnerability-scanner.md']
+        'offensive': [], // Add offensive content here
+        'defensive': [], // Add defensive content here
+        'research': [], // Research content goes here
+        'projects': [] // Project content goes here
     };
     
     const files = knownFiles[category] || [];
@@ -234,8 +240,8 @@ async function discoverCategoryPosts(category) {
         try {
             // Determine the correct path based on category
             let pathPrefix;
-            if (category === 'security') {
-                pathPrefix = 'blogs/security';
+            if (category === 'offensive' || category === 'defensive') {
+                pathPrefix = 'blogs/security'; // Security content in blogs/security
             } else if (category === 'research') {
                 pathPrefix = 'research';
             } else if (category === 'projects') {
@@ -271,13 +277,15 @@ async function discoverCategoryPosts(category) {
 
 function updatePostCounts() {
     const counts = {
-        security: blogPosts.filter(post => post.category === 'security').length,
+        offensive: blogPosts.filter(post => post.category === 'offensive').length,
+        defensive: blogPosts.filter(post => post.category === 'defensive').length,
         research: blogPosts.filter(post => post.category === 'research').length,
         projects: blogPosts.filter(post => post.category === 'projects').length
 
     };
     
-    document.getElementById('security-count').textContent = counts.security;
+    document.getElementById('offensive-count').textContent = counts.offensive;
+    document.getElementById('defensive-count').textContent = counts.defensive;
     document.getElementById('research-count').textContent = counts.research;
     document.getElementById('projects-count').textContent = counts.projects;
 }
