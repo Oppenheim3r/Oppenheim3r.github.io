@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security Blogs - Oppenheim3r</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Spider Web Overlay -->
+    <div class="spider-web" id="spider-web">
+        <div class="web-line" style="top: 20%; left: 0; width: 100%;"></div>
+        <div class="web-line" style="top: 40%; left: 0; width: 100%;"></div>
+        <div class="web-line" style="top: 60%; left: 0; width: 100%;"></div>
+        <div class="web-line" style="top: 80%; left: 0; width: 100%;"></div>
+        <div class="web-line vertical" style="left: 15%; top: 0;"></div>
+        <div class="web-line vertical" style="left: 35%; top: 0;"></div>
+        <div class="web-line vertical" style="left: 55%; top: 0;"></div>
+        <div class="web-line vertical" style="left: 75%; top: 0;"></div>
+        <div class="web-line vertical" style="left: 85%; top: 0;"></div>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <h1><a href="../index.html" style="text-decoration: none; color: inherit;">Oppenheim3r</a></h1>
+                    <p>Security Blog</p>
+                </div>
+                <nav class="nav" id="nav">
+                    <button class="nav-btn" onclick="location.href='../index.html'">
+                        <i class="fas fa-home"></i>
+                        Home
+                    </button>
+                    <button class="nav-btn" onclick="location.href='../about/'">
+                        <i class="fas fa-user"></i>
+                        About
+                    </button>
+                    <button class="nav-btn active" onclick="location.href='./'">
+                        <i class="fas fa-lock"></i>
+                        Security
+                    </button>
+                    <button class="nav-btn" onclick="location.href='../research/'">
+                        <i class="fas fa-search"></i>
+                        Research
+                    </button>
+                    <button class="nav-btn" onclick="location.href='../projects/'">
+                        <i class="fas fa-cube"></i>
+                        Projects
+                    </button>
+                </nav>
+                <div class="mobile-menu-toggle" id="mobile-menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main">
+            <div class="category-header">
+                <h2><i class="fas fa-lock"></i> Security Blogs</h2>
+                <p>Exploring offensive and defensive security concepts, methodologies, and practical implementations</p>
+            </div>
+
+            <!-- Posts Grid -->
+            <div class="posts-grid" id="posts-container">
+                <!-- This section is intentionally left blank. Add .md files directly to this directory to populate content. -->
+                <div class="empty-state">
+                    <i class="fas fa-lock"></i>
+                    <h3>No Security Posts Yet</h3>
+                    <p>This section is designed to display markdown files directly. Add .md files to this directory to see them listed here.</p>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <p>&copy; 2025 Oppenheim3r. All rights reserved.</p>
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="../assets/js/main.js"></script>
+    <script>
+        // Initialize site when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu is handled in main.js
+            initMobileMenu();
+        });
+    </script>
+</body>
+</html>
