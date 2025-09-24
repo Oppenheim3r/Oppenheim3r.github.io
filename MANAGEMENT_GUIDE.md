@@ -7,18 +7,24 @@ This repository hosts the Oppenheim3r static website, built with HTML, CSS, and 
 ```
 Oppenheim3r.github.io/
 ├── index.html                 # Main landing page
+├── view.html                  # Markdown viewer page
 ├── assets/
 │   ├── css/
 │   │   └── style.css        # Main stylesheet with theme
 │   └── js/
 │       └── main.js          # JavaScript functionality
+├── about/
+│   └── index.html           # About page
 ├── blogs/
 │   └── security/
-│       └── index.html       # Security blog listing page
+│       ├── README.md        # Documentation for this section
+│       └── *.md             # Markdown files go here
 ├── research/
-│   └── index.html           # Research listing page
+│   ├── README.md            # Documentation for this section
+│   └── *.md                 # Markdown files go here
 └── projects/
-    └── index.html           # Projects listing page
+    ├── README.md            # Documentation for this section
+    └── *.md                 # Markdown files go here
 ```
 
 ## Theme & Design
@@ -32,18 +38,18 @@ Oppenheim3r.github.io/
 
 ### Adding a Blog Post
 1. Create a new .md file in `/blogs/security/` with descriptive name
-2. Add appropriate frontmatter if needed (title, date, tags, etc.)
-3. Update the blog listing page to include the new post if needed
+2. Add your content in markdown format
+3. Content will be accessible at: `https://oppenheim3r.github.io/blogs/security/<filename>.md`
 
 ### Adding a Research Paper
 1. Create a new .md file in `/research/` with descriptive name
-2. Add appropriate frontmatter
-3. Update the research listing page to include the new paper if needed
+2. Add your content in markdown format
+3. Content will be accessible at: `https://oppenheim3r.github.io/research/<filename>.md`
 
 ### Adding a Project
 1. Create a new .md file in `/projects/` with descriptive name
-2. Add appropriate frontmatter
-3. Update the projects listing page to include the new project if needed
+2. Add your content in markdown format
+3. Content will be accessible at: `https://oppenheim3r.github.io/projects/<filename>.md`
 
 ### Adding Images
 1. Place images in appropriate directories
@@ -72,7 +78,6 @@ Oppenheim3r.github.io/
 - Pure HTML, CSS, JavaScript (no frameworks)
 - Responsive design with CSS Grid and Flexbox
 - CSS variables for consistent theming
-- JavaScript for dynamic content loading (when implemented)
 - GitHub Pages for hosting
 
 ## Deployment

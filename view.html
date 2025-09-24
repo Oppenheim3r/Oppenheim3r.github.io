@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="page-title">Content - Oppenheim3r</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+    <!-- Spider Web Overlay -->
+    <div class="spider-web" id="spider-web">
+        <div class="web-line" style="top: 20%; left: 0; width: 100%;"></div>
+        <div class="web-line" style="top: 40%; left: 0; width: 100%;"></div>
+        <div class="web-line" style="top: 60%; left: 0; width: 100%;"></div>
+        <div class="web-line" style="top: 80%; left: 0; width: 100%;"></div>
+        <div class="web-line vertical" style="left: 15%; top: 0;"></div>
+        <div class="web-line vertical" style="left: 35%; top: 0;"></div>
+        <div class="web-line vertical" style="left: 55%; top: 0;"></div>
+        <div class="web-line vertical" style="left: 75%; top: 0;"></div>
+        <div class="web-line vertical" style="left: 85%; top: 0;"></div>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <h1><a href="../index.html" style="text-decoration: none; color: inherit;">Oppenheim3r</a></h1>
+                    <p id="page-subtitle">Content Viewer</p>
+                </div>
+                <nav class="nav" id="nav">
+                    <button class="nav-btn" onclick="location.href='../index.html'">
+                        <i class="fas fa-home"></i>
+                        Home
+                    </button>
+                    <button class="nav-btn" onclick="location.href='../about/'">
+                        <i class="fas fa-user"></i>
+                        About
+                    </button>
+                    <button class="nav-btn" onclick="location.href='../blogs/security/'">
+                        <i class="fas fa-lock"></i>
+                        Security
+                    </button>
+                    <button class="nav-btn" onclick="location.href='../research/'">
+                        <i class="fas fa-search"></i>
+                        Research
+                    </button>
+                    <button class="nav-btn" onclick="location.href='../projects/'">
+                        <i class="fas fa-cube"></i>
+                        Projects
+                    </button>
+                </nav>
+                <div class="mobile-menu-toggle" id="mobile-menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main">
+            <div class="post-header">
+                <button class="back-btn" onclick="history.back()">
+                    <i class="fas fa-arrow-left"></i>
+                    Back to Previous Page
+                </button>
+            </div>
+
+            <article class="post-content">
+                <div id="markdown-content">
+                    <div class="loading">Loading content...</div>
+                </div>
+            </article>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <p>&copy; 2025 Oppenheim3r. All rights reserved.</p>
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="../assets/js/main.js"></script>
+    <script>
+        // Initialize site when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu is handled in main.js
+            initMobileMenu();
+            
+            // Load markdown content based on the URL
+            loadMarkdownContentFromURL();
+        });
+
+        function loadMarkdownContentFromURL() {
+            // Get the current path to determine which markdown file to load
+            const path = window.location.pathname;
+            const segments = path.split('/');
+            const fileName = segments[segments.length - 1];
+            const section = segments[segments.length - 2];
+            
+            // Determine the base path for the markdown file
+            let filePath = '';
+            if (fileName.endsWith('.md')) {
+                filePath = window.location.pathname.replace('/view.html', '/' + fileName);
+            } else {
+                // If no specific file is requested, try to load index.md or default content
+                if (path.includes('/blogs/security/')) {
+                    document.getElementById('page-subtitle').textContent = 'Security Blog';
+                    document.getElementById('page-title').textContent = 'Security Content - Oppenheim3r';
+                } else if (path.includes('/research/')) {
+                    document.getElementById('page-subtitle').textContent = 'Research';
+                    document.getElementById('page-title').textContent = 'Research Content - Oppenheim3r';
+                } else if (path.includes('/projects/')) {
+                    document.getElementById('page-subtitle').textContent = 'Projects';
+                    document.getElementById('page-title').textContent = 'Project Content - Oppenheim3r';
+                }
+                
+                // Show empty state if no specific file
+                document.getElementById('markdown-content').innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-file-alt"></i>
+                        <h3>No Content Selected</h3>
+                        <p>This section is designed to display markdown files directly. Add .md files to this directory to see them here.</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            // Adjust the path to get the correct markdown file location
+            const relativePath = filePath.startsWith('/') ? filePath.substring(1) : filePath;
+            
+            // Load the markdown file
+            fetch(relativePath)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Markdown file not found');
+                    }
+                    return response.text();
+                })
+                .then(text => {
+                    // Update page title based on file name
+                    const cleanFileName = fileName.replace('.md', '').replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+                    document.getElementById('page-title').textContent = cleanFileName + ' - Oppenheim3r';
+                    
+                    // Render markdown to HTML
+                    const html = marked.parse(text);
+                    document.getElementById('markdown-content').innerHTML = html;
+                    
+                    // Enhance the content with proper styling
+                    enhanceContent();
+                })
+                .catch(error => {
+                    console.error('Error loading markdown:', error);
+                    document.getElementById('markdown-content').innerHTML = `
+                        <div class="empty-state">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <h3>Content Not Found</h3>
+                            <p>Could not load the requested content. The markdown file may not exist.</p>
+                        </div>
+                    `;
+                });
+        }
+
+        function enhanceContent() {
+            // Add proper classes to headings to match the theme
+            const headings = document.querySelectorAll('#markdown-content h1, #markdown-content h2, #markdown-content h3, #markdown-content h4, #markdown-content h5, #markdown-content h6');
+            headings.forEach(heading => {
+                heading.style.color = 'var(--text-primary)';
+                heading.style.margin = 'var(--space-lg) 0 var(--space-md) 0';
+                
+                if (heading.tagName === 'H1') {
+                    heading.style.fontSize = 'var(--fs-4xl)';
+                    heading.style.fontWeight = '800';
+                    heading.style.background = 'var(--gradient-primary)';
+                    heading.style.webkitBackgroundClip = 'text';
+                    heading.style.webkitTextFillColor = 'transparent';
+                    heading.style.backgroundClip = 'text';
+                } else if (heading.tagName === 'H2') {
+                    heading.style.fontSize = 'var(--fs-3xl)';
+                    heading.style.fontWeight = '700';
+                } else {
+                    heading.style.fontSize = 'var(--fs-xl)';
+                    heading.style.fontWeight = '600';
+                }
+            });
+
+            // Style paragraphs
+            const paragraphs = document.querySelectorAll('#markdown-content p');
+            paragraphs.forEach(p => {
+                p.style.color = 'var(--text-secondary)';
+                p.style.lineHeight = '1.7';
+                p.style.marginBottom = 'var(--space-md)';
+                p.style.fontSize = 'var(--fs-base)';
+            });
+
+            // Style lists
+            const lists = document.querySelectorAll('#markdown-content ul, #markdown-content ol');
+            lists.forEach(list => {
+                list.style.margin = `var(--space-md) 0 var(--space-md) var(--space-lg)`;
+                list.style.color = 'var(--text-secondary)';
+            });
+
+            // Style list items
+            const listItems = document.querySelectorAll('#markdown-content li');
+            listItems.forEach(li => {
+                li.style.marginBottom = 'var(--space-sm)';
+                li.style.fontSize = 'var(--fs-base)';
+            });
+
+            // Style code blocks
+            const codeBlocks = document.querySelectorAll('#markdown-content pre');
+            codeBlocks.forEach(pre => {
+                pre.style.background = 'var(--accent-bg)';
+                pre.style.border = '1px solid var(--border-color)';
+                pre.style.borderRadius = '1rem';
+                pre.style.padding = 'var(--space-lg)';
+                pre.style.overflowX = 'auto';
+                pre.style.margin = `var(--space-lg) 0`;
+                pre.style.boxShadow = 'var(--shadow-secondary)';
+            });
+
+            // Style inline code
+            const codes = document.querySelectorAll('#markdown-content code');
+            codes.forEach(code => {
+                if (code.parentElement.tagName !== 'PRE') { // Only style inline code, not code blocks
+                    code.style.background = 'var(--accent-bg)';
+                    code.style.color = 'var(--accent-purple)';
+                    code.style.padding = '0.3rem 0.6rem';
+                    code.style.borderRadius = '0.4rem';
+                    code.style.fontFamily = "'JetBrains Mono', 'Courier New', monospace";
+                    code.style.fontSize = 'var(--fs-sm)';
+                    code.style.fontWeight = '500';
+                }
+            });
+
+            // Style blockquotes
+            const blockquotes = document.querySelectorAll('#markdown-content blockquote');
+            blockquotes.forEach(quote => {
+                quote.style.borderLeft = '4px solid var(--primary-purple)';
+                quote.style.background = 'var(--accent-bg)';
+                quote.style.padding = `var(--space-lg) var(--space-lg)`;
+                quote.style.margin = `var(--space-lg) 0`;
+                quote.style.borderRadius = '0 1rem 1rem 0';
+                quote.style.position = 'relative';
+                quote.style.color = 'var(--text-secondary)';
+            });
+        }
+    </script>
+</body>
+</html>
