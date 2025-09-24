@@ -761,6 +761,17 @@ body {
     font-size: var(--fs-base);
 }
 
+/* Link styling for post cards */
+.post-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.post-card-link:hover {
+    text-decoration: none;
+}
+
 .post-tags {
     display: flex;
     flex-wrap: wrap;
