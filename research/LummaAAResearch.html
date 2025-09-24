@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang=\"en\">
+<head>
+    <meta charset=\"UTF-8\">
+    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
+    <title>Lumma Stealer AA Research - Oppenheim3r</title>
+    <link rel=\"stylesheet\" href=\"../assets/css/style.css\">
+    <link href=\"https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap\" rel=\"stylesheet\">
+    <link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css\">
+    <style>
+        .content-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .research-content {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 2rem;
+            padding: var(--space-2xl);
+            line-height: 1.8;
+            box-shadow: var(--shadow-card);
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+        
+        .research-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+        }
+        
+        .research-content h1 {
+            font-size: var(--fs-4xl);
+            font-weight: 800;
+            margin-bottom: var(--space-lg);
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+        }
+        
+        .research-content h2 {
+            font-size: var(--fs-3xl);
+            font-weight: 700;
+            margin: var(--space-xl) 0 var(--space-lg) 0;
+            color: var(--text-primary);
+            letter-spacing: -0.01em;
+        }
+        
+        .research-content h3 {
+            font-size: var(--fs-2xl);
+            font-weight: 600;
+            margin: var(--space-lg) 0 var(--space-md) 0;
+            color: var(--text-primary);
+        }
+        
+        .research-content p {
+            margin-bottom: var(--space-md);
+            color: var(--text-secondary);
+            font-size: var(--fs-base);
+        }
+        
+        .research-content code {
+            background: var(--accent-bg);
+            color: var(--accent-purple);
+            padding: 0.3rem 0.6rem;
+            border-radius: 0.4rem;
+            font-family: 'JetBrains Mono', 'Courier New', monospace;
+            font-size: var(--fs-sm);
+            font-weight: 500;
+        }
+        
+        .research-content pre {
+            background: var(--accent-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 1rem;
+            padding: var(--space-lg);
+            overflow-x: auto;
+            margin: var(--space-lg) 0;
+            box-shadow: var(--shadow-secondary);
+        }
+        
+        .research-content pre code {
+            background: none;
+            padding: 0;
+            color: var(--text-primary);
+            font-size: var(--fs-sm);
+            line-height: 1.4;
+        }
+        
+        .research-content blockquote {
+            border-left: 4px solid var(--primary-purple);
+            background: var(--accent-bg);
+            padding: var(--space-lg) var(--space-lg);
+            margin: var(--space-lg) 0;
+            border-radius: 0 1rem 1rem 0;
+            position: relative;
+        }
+        
+        .research-content ul, .research-content ol {
+            margin: var(--space-md) 0 var(--space-md) var(--space-lg);
+            color: var(--text-secondary);
+        }
+        
+        .research-content li {
+            margin-bottom: var(--space-sm);
+            font-size: var(--fs-base);
+        }
+        
+        .research-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: var(--space-md) 0;
+            background: var(--accent-bg);
+            border-radius: 0.5rem;
+            overflow: hidden;
+        }
+        
+        .research-content th, .research-content td {
+            padding: 0.75rem;
+            text-align: left;
+            border: 1px solid var(--border-color);
+        }
+        
+        .research-content th {
+            background: var(--card-bg);
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .research-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 0.5rem;
+            margin: var(--space-md) 0;
+            box-shadow: var(--shadow-secondary);
+        }
+        
+        .post-header {
+            margin-bottom: var(--space-xl);
+        }
+        
+        .back-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: var(--space-sm) var(--space-lg);
+            border-radius: 1rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: var(--fs-base);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            box-shadow: var(--shadow-card);
+            text-decoration: none;
+        }
+        
+        .back-btn:hover {
+            background: var(--hover-bg);
+            border-color: var(--primary-purple);
+            transform: translateX(-5px);
+            box-shadow: var(--shadow-primary);
+        }
+    </style>
+</head>
+<body>
+    <div class=\"spider-web\" id=\"spider-web\">
+        <div class=\"web-line\" style=\"top: 20%; left: 0; width: 100%;\"></div>
+        <div class=\"web-line\" style=\"top: 40%; left: 0; width: 100%;\"></div>
+        <div class=\"web-line\" style=\"top: 60%; left: 0; width: 100%;\"></div>
+        <div class=\"web-line\" style=\"top: 80%; left: 0; width: 100%;\"></div>
+        <div class=\"web-line vertical\" style=\"left: 15%; top: 0;\"></div>
+        <div class=\"web-line vertical\" style=\"left: 35%; top: 0;\"></div>
+        <div class=\"web-line vertical\" style=\"left: 55%; top: 0;\"></div>
+        <div class=\"web-line vertical\" style=\"left: 75%; top: 0;\"></div>
+        <div class=\"web-line vertical\" style=\"left: 85%; top: 0;\"></div>
+    </div>
+
+    <div class=\"container\">
+        <!-- Header -->
+        <header class=\"header\">
+            <div class=\"header-content\">
+                <div class=\"logo\">
+                    <h1>Oppenheim3r</h1>
+                    <p>Husam Gameel</p>
+                </div>
+                <nav class=\"nav\" id=\"nav\">
+                    <button class=\"nav-btn\" onclick=\"location.href='../index.html'\">
+                        <i class=\"fas fa-home\"></i>
+                        Home
+                    </button>
+                    <button class=\"nav-btn\" onclick=\"location.href='../index.html#about'\">
+                        <i class=\"fas fa-user\"></i>
+                        About
+                    </button>
+                    <button class=\"nav-btn\" onclick=\"location.href='../index.html#security'\">
+                        <i class=\"fas fa-lock\"></i>
+                        Security Blogs
+                    </button>
+                    <button class=\"nav-btn active\" onclick=\"location.href='../index.html#research'\">
+                        <i class=\"fas fa-search\"></i>
+                        Research
+                    </button>
+                    <button class=\"nav-btn\" onclick=\"location.href='../index.html#projects'\">
+                        <i class=\"fas fa-project-diagram\"></i>
+                        Projects
+                    </button>
+                </nav>
+                <div class=\"mobile-menu-toggle\" id=\"mobile-menu-toggle\">
+                    <i class=\"fas fa-bars\"></i>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class=\"main\">
+            <section id=\"blog-post\" class=\"section active\">
+                <div class=\"post-header\">
+                    <a href=\"../index.html\" class=\"back-btn\">
+                        <i class=\"fas fa-arrow-left\"></i>
+                        Back to Home
+                    </a>
+                </div>
+                <article class=\"research-content\">
+                    <h1>Lumma Stealer AA Research</h1>
+                    
+                    <p>This report is an analysis of the information mentioned in this blog post <a href=\"https://medium.com/@raghavtiresearch/lumma-stealer-a-proliferating-threat-in-the-cybercrime-landscape-b5cdc3de44a4\">https://medium.com/@raghavtiresearch/lumma-stealer-a-proliferating-threat-in-the-cybercrime-landscape-b5cdc3de44a4</a></p>
+                    
+                    <p>discussing LummaStealer Tactics, Techniques, and Procedures:</p>
+                    
+                    <p>I will start with <strong>Execution & Evasion Techniques:</strong><br>
+                    I have picked the methods that I found interesting the most .<br>
+                    Starting with obfuscation it uses  Low-Level Virtual Machine (LLVM ),<br>
+                    <strong>trigonometry to track mouse movements</strong> .</p>
+                    
+                    <ol>
+                        <li><strong>Low level virtual machine or LLVM</strong> , its an infrastructure that was created to optimize code at compile time . Its main use is to make different programming languages allowing them to share tools before they are converted to machine code.</li>
+                    </ol>
+                    
+                    <p>this process can be done in three steps , the compiler has three parts . first with frontend that parsed the source code and converts it into Intermediate Representation(IR) its a form of syntax that is closet to hardware .Middle end it analyze this IR and optimize it. Finally the backend it converts the IR into machine code.</p>
+                    
+                    <img src=\"/assets/images/Pasted_image_20250731163244.png\" alt=\"Pasted image 20250731163251.png\" />
+                    
+                    <p>and LLVM make writing new programming languages easier .</p>
+                    
+                    <p>Malware authors can abuse this functionality by reconstructing the program control flow ,<br>
+                    they can make and If-else statement to look like a loop or switch statement. reconstructing instructions into  mathematical equivalents forms, <br>
+                    injecting useless code or dead code , that does not affect or add anything to the program but making it complex .</p>
+                    
+                    <ol start=\"2\">
+                        <li><strong>trigonometry to track mouse movements</strong> , in the blog its mentioned that its using this technique for sandbox evasion. It utilizes <strong>trigonometry to track mouse movements</strong> to escape sandbox . It would not execute the payload unless human activity was detected .</li>
+                    </ol>
+                    
+                    <p>I have done my own research to figure this method and test it myself .</p>
+                    
+                    <p>The windows API functions I have used were the following :</p>
+                    
+                    <h3>A. Mouse Tracking Functions</h3>
+                    
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Function</th>
+                                <th>Library</th>
+                                <th>Purpose</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong><code>GetCursorPos()</code></strong></td>
+                                <td><code>user32.dll</code></td>
+                                <td>Retrieves the current mouse cursor position (x, y).</td>
+                            </tr>
+                            <tr>
+                                <td><strong><code>GetSystemMetrics(SM_MOUSEPRESENT)</code></strong></td>
+                                <td><code>user32.dll</code></td>
+                                <td>Checks if a physical mouse is connected (anti-VM check).</td>
+                            </tr>
+                            <tr>
+                                <td><strong><code>GetAsyncKeyState(VK_ESCAPE)</code></strong></td>
+                                <td><code>user32.dll</code></td>
+                                <td>Detects if the <strong>ESC key</strong> is pressed (for graceful exit).</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <h3>B. Timing Functions</h3>
+                    
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Function</th>
+                                <th>Library</th>
+                                <th>Purpose</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong><code>Sleep()</code></strong></td>
+                                <td><code>kernel32.dll</code></td>
+                                <td>Pauses execution to control sampling rate.</td>
+                            </tr>
+                            <tr>
+                                <td><strong><code>std::chrono</code> (C++)</strong></td>
+                                <td>Standard Library</td>
+                                <td>High-precision timing for movement analysis.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <h3>The mathematical logic behind it</h3>
+                    
+                    <h4>A. Calculating Movement Angle</h4>
+                    
+                    <p>The program computes the <strong>angle</strong> between two consecutive mouse positions using <strong><code>atan2</code></strong> (arctangent of <code>dy/dx</code>):</p>
+                    
+                    <pre><code>
+double calculateMovementAngle(POINT from, POINT to) {
+    double dx = to.x - from.x;
+    double dy = to.y - from.y;
+    return radiansToDegrees(atan2(dy, dx)); // converts to degrees (0-360)
+}
+
+dx and dy Differences in x and y coordinates.
+
+atan2(dy, dx) Computes the angle in radians.
+
+radiansToDegrees() Converts to degrees for easier interpretation.
+                    </code></pre>
+                    
+                    <h4>B. Normalizing Angle Differences</h4>
+                    
+                    <p>Since angles wrap around (0 = 360), we normalize them to ensure correct comparisons:</p>
+                    
+                    <pre><code>
+double normalizeAngle(double angle) {
+    angle = fmod(angle, 360.0); // ensures angle is within 0-360
+    if (angle &lt; 0) angle += 360.0;
+    return angle;
+}
+                    </code></pre>
+                    
+                    <h4>C. Determining Human vs. Bot Movement</h4>
+                    
+                    <p>The program checks if angle changes exceed a threshold (45 by default):</p>
+                    
+                    <pre><code>
+double angleDifference(double a, double b) {
+    double diff = fabs(normalizeAngle(a) - normalizeAngle(b));
+    return fmin(diff, 360.0 - diff); // get smallest difference (accounts for wrap-around)
+}
+                    </code></pre>
+                    
+                    <ul>
+                        <li><em>Human movements</em> Large angle variations (>45).</li>
+                        <li><em>Bot/sandbox movements</em> Small angle variations (straight lines, repetitive patterns).</li>
+                    </ul>
+                    
+                    <h3>The Program flow</h3>
+                    
+                    <ol>
+                        <li>It checks the mouse Presence using GetSystemMetrics(SM_MOUSEPRESENT) to<br>
+                        see wither the mouse is connected</li>
+                        <li>then Sample Mouse Positions -Every <strong>100ms</strong>, it records the cursor position using <code>GetCursorPos()</code>.</li>
+                        <li><strong>Store and Analyze Angles</strong> - Maintains a <strong>sliding window of the last 10 angles</strong>.</li>
+                        <li>Determine Human vs. Bot    average angle change &gt; 45  <strong>Human detected</strong>.<br>
+                        If the average angle change ≤ 45  Bot</li>
+                    </ol>
+                    
+                    <h3>Code Sample</h3>
+                    
+                    <pre><code>
+#define _USE_MATH_DEFINES
+#include &lt;Windows.h&gt;
+#include &lt;cmath&gt;
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;chrono&gt;
+
+// Constants
+constexpr int SAMPLE_INTERVAL_MS = 100;  // Time between mouse position samples
+constexpr double ANGLE_THRESHOLD = 45.0; // Degrees difference to consider human-like
+constexpr int MIN_SAMPLES = 5;           // Minimum samples before making determination
+constexpr int DETECTION_WINDOW = 10;     // Number of recent samples to consider
+
+// Converts radians to degrees
+inline double radiansToDegrees(double radians) {
+    return radians * (180.0 / M_PI);
+}
+
+
+double calculateMovementAngle(POINT from, POINT to) {
+    double dx = to.x - from.x;
+    double dy = to.y - from.y;
+    return radiansToDegrees(atan2(dy, dx));
+}
+
+
+double normalizeAngle(double angle) {
+    angle = fmod(angle, 360.0);
+    if (angle &lt; 0) angle += 360.0;
+    return angle;
+}
+
+
+double angleDifference(double a, double b) {
+    double diff = fabs(normalizeAngle(a) - normalizeAngle(b));
+    return fmin(diff, 360.0 - diff);
+}
+
+int main() {
+    std::vector&lt;double&gt; angleHistory;
+    POINT prevPos, currentPos;
+    bool mousePresent = GetSystemMetrics(SM_MOUSEPRESENT);
+
+    if (!mousePresent) {
+        std::cout &lt;&lt; \"[!] No mouse detected - likely a virtual machine or sandbox\\n\";
+        return 1;
+    }
+
+    std::cout &lt;&lt; \"Mouse movement analysis started. Move your mouse naturally...\\n\";
+    std::cout &lt;&lt; \"Waiting for \" &lt;&lt; MIN_SAMPLES &lt;&lt; \" samples before analysis...\\n\";
+
+    //get teh mouse position
+    GetCursorPos(&prevPos);
+    auto lastSampleTime = std::chrono::steady_clock::now();
+
+    while (true) {
+        auto now = std::chrono::steady_clock::now();
+        auto elapsed = std::chrono::duration_cast&lt;std::chrono::milliseconds&gt;(now - lastSampleTime).count();
+
+        if (elapsed &gt;= SAMPLE_INTERVAL_MS) {
+            GetCursorPos(&currentPos);
+
+            // Only process if mouse has moved and keep onyl mouse recenct samples
+            if (currentPos.x != prevPos.x || currentPos.y != prevPos.y) {
+                double angle = calculateMovementAngle(prevPos, currentPos);
+                angleHistory.push_back(angle);
+
+                
+                if (angleHistory.size() &gt; DETECTION_WINDOW) {
+                    angleHistory.erase(angleHistory.begin());
+                }
+
+               
+                if (angleHistory.size() &gt;= MIN_SAMPLES) {
+                    double totalDiff = 0.0;
+                    int comparisons = 0;
+
+                   
+                    for (size_t i = 1; i &lt; angleHistory.size(); i++) {
+                        double diff = angleDifference(angleHistory[i], angleHistory[i-1]);
+                        totalDiff += diff;
+                        comparisons++;
+                    }
+
+                    double avgDiff = totalDiff / comparisons;
+                    bool isHuman = avgDiff &gt; ANGLE_THRESHOLD;
+
+                    system(\"cls\"); 
+                    std::cout &lt;&lt; \"mouse movement analysis\\n\";
+                    std::cout &lt;&lt; \"-----------------------\\n\";
+                    std::cout &lt;&lt; \"samples collected: \" &lt;&lt; angleHistory.size() &lt;&lt; \"\\n\";
+                    std::cout &lt;&lt; \"average angle change: \" &lt;&lt; avgDiff &lt;&lt; \" degrees\\n\";
+                    std::cout &lt;&lt; \"deteection threshold: \" &lt;&lt; ANGLE_THRESHOLD &lt;&lt; \" degrees\\n\";
+                    std::cout &lt;&lt; \"conclusion: \" &lt;&lt; (isHuman ? \"HUMAN\" : \"BOT/AUTOMATED\") &lt;&lt; \"\\n\";
+                    std::cout &lt;&lt; \"\\nKeep moving mouse to update analysis...\\n\";
+                }
+
+                prevPos = currentPos;
+            }
+
+            lastSampleTime = now;
+        }
+
+        // Check for ESC key to exit
+        if (GetAsyncKeyState(VK_ESCAPE) & 0x8000) {
+            break;
+        }
+
+        Sleep(10); 
+    }
+
+    return 0;
+}
+                    </code></pre>
+                    
+                    <p>I have compiled this using visual stuiod commandline</p>
+                    
+                    <pre><code>
+MouseAnalysis.cpp /EHsc /Fe:MouseAnalysis.exe /link user32.lib
+                    </code></pre>
+                    
+                    <p>then run<br>
+                    output :</p>
+                    
+                    <img src=\"/assets/images/huma.jpg\" alt=\"huma.jpg\" />
+                    <img src=\"/assets/images/BOT.jpg\" alt=\"BOT.jpg\" />
+                    
+                    <p>The program is missing a lot of mathematical and execution logic but I am demonstrating this as a PoC .<br>
+                    An enhanced version of this can be used to detect human activity and BOT activity with high accuracy to escape sandbox.</p>
+                    
+                    <h2>References</h2>
+                    <ul>
+                        <li><a href=\"https://medium.com/@ramdorak/low-level-virtual-machine-under-the-hood-064c8c8893fd\">https://medium.com/@ramdorak/low-level-virtual-machine-under-the-hood-064c8c8893fd</a></li>
+                        <li><a href=\"https://medium.com/@raghavtiresearch/lumma-stealer-a-proliferating-threat-in-the-cybercrime-landscape-b5cdc3de44a4\">https://medium.com/@raghavtiresearch/lumma-stealer-a-proliferating-threat-in-the-cybercrime-landscape-b5cdc3de44a4</a></li>
+                        <li><a href=\"https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-getcursorpos\">https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-getcursorpos</a></li>
+                        <li><a href=\"https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-setwindowshookexa\">https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-setwindowshookexa</a></li>
+                        <li><a href=\"https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-getasynckeystate\">https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-getasynckeystate</a></li>
+                        <li><a href=\"https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-getsystemmetrics\">https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-getsystemmetrics</a></li>
+                        <li><a href=\"https://learn.microsoft.com/en-us/windows/win32/api/sysinfoapi/nf-sysinfoapi-gettickcount\">https://learn.microsoft.com/en-us/windows/win32/api/sysinfoapi/nf-sysinfoapi-gettickcount</a></li>
+                        <li><a href=\"https://learn.microsoft.com/en-us/windows/win32/api/profileapi/nf-profileapi-queryperformancecounter\">https://learn.microsoft.com/en-us/windows/win32/api/profileapi/nf-profileapi-queryperformancecounter</a></li>
+                    </ul>
+                </article>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class=\"footer\">
+            <div class=\"footer-content\">
+                <p>&copy; 2025 Husam Gameel (Oppenheim3r). All rights reserved.</p>
+                <div class=\"social-links\">
+                    <a href=\"#\" class=\"social-link\" title=\"GitHub\"><i class=\"fab fa-github\"></i></a>
+                    <a href=\"#\" class=\"social-link\" title=\"LinkedIn\"><i class=\"fab fa-linkedin\"></i></a>
+                    <a href=\"#\" class=\"social-link\" title=\"Twitter\"><i class=\"fab fa-twitter\"></i></a>
+                    <a href=\"#\" class=\"social-link\" title=\"Email\"><i class=\"fas fa-envelope\"></i></a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Mobile menu functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+            const nav = document.getElementById('nav');
+            
+            if (mobileMenuToggle) {
+                mobileMenuToggle.addEventListener('click', function() {
+                    nav.classList.toggle('mobile-open');
+                    const icon = mobileMenuToggle.querySelector('i');
+                    
+                    if (nav.classList.contains('mobile-open')) {
+                        icon.className = 'fas fa-times';
+                    } else {
+                        icon.className = 'fas fa-bars';
+                    }
+                });
+                
+                // Close mobile menu when clicking outside
+                document.addEventListener('click', function(event) {
+                    if (!nav.contains(event.target) && !mobileMenuToggle.contains(event.target)) {
+                        nav.classList.remove('mobile-open');
+                        const icon = mobileMenuToggle.querySelector('i');
+                        if (icon) icon.className = 'fas fa-bars';
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
