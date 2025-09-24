@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lumma Stealer Analysis - Oppenheim3r</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .content-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .research-content {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 2rem;
+            padding: var(--space-2xl);
+            line-height: 1.8;
+            box-shadow: var(--shadow-card);
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+        
+        .research-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+        }
+        
+        .research-content h1 {
+            font-size: var(--fs-4xl);
+            font-weight: 800;
+            margin-bottom: var(--space-lg);
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+        }
+        
+        .research-content h2 {
+            font-size: var(--fs-3xl);
+            font-weight: 700;
+            margin: var(--space-xl) 0 var(--space-lg) 0;
+            color: var(--text-primary);
+            letter-spacing: -0.01em;
+        }
+        
+        .research-content h3 {
+            font-size: var(--fs-2xl);
+            font-weight: 600;
+            margin: var(--space-lg) 0 var(--space-md) 0;
+            color: var(--text-primary);
+        }
+        
+        .research-content p {
+            margin-bottom: var(--space-md);
+            color: var(--text-secondary);
+            font-size: var(--fs-base);
+        }
+        
+        .research-content code {
+            background: var(--accent-bg);
+            color: var(--accent-purple);
+            padding: 0.3rem 0.6rem;
+            border-radius: 0.4rem;
+            font-family: 'JetBrains Mono', 'Courier New', monospace;
+            font-size: var(--fs-sm);
+            font-weight: 500;
+        }
+        
+        .research-content pre {
+            background: var(--accent-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 1rem;
+            padding: var(--space-lg);
+            overflow-x: auto;
+            margin: var(--space-lg) 0;
+            box-shadow: var(--shadow-secondary);
+        }
+        
+        .research-content pre code {
+            background: none;
+            padding: 0;
+            color: var(--text-primary);
+            font-size: var(--fs-sm);
+        }
+        
+        .research-content blockquote {
+            border-left: 4px solid var(--primary-purple);
+            background: var(--accent-bg);
+            padding: var(--space-lg) var(--space-lg);
+            margin: var(--space-lg) 0;
+            border-radius: 0 1rem 1rem 0;
+            position: relative;
+        }
+        
+        .research-content ul, .research-content ol {
+            margin: var(--space-md) 0 var(--space-md) var(--space-lg);
+            color: var(--text-secondary);
+        }
+        
+        .research-content li {
+            margin-bottom: var(--space-sm);
+            font-size: var(--fs-base);
+        }
+        
+        .research-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: var(--space-md) 0;
+            background: var(--accent-bg);
+            border-radius: 0.5rem;
+            overflow: hidden;
+        }
+        
+        .research-content th, .research-content td {
+            padding: 0.75rem;
+            text-align: left;
+            border: 1px solid var(--border-color);
+        }
+        
+        .research-content th {
+            background: var(--card-bg);
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .research-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 0.5rem;
+            margin: var(--space-md) 0;
+            box-shadow: var(--shadow-secondary);
+        }
+        
+        .post-header {
+            margin-bottom: var(--space-xl);
+        }
+        
+        .back-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: var(--space-sm) var(--space-lg);
+            border-radius: 1rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: var(--fs-base);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            box-shadow: var(--shadow-card);
+            text-decoration: none;
+        }
+        
+        .back-btn:hover {
+            background: var(--hover-bg);
+            border-color: var(--primary-purple);
+            transform: translateX(-5px);
+            box-shadow: var(--shadow-primary);
+        }
+    </style>
+</head>
+<body>
+    <div class="spider-web" id="spider-web">
+        <div class="web-line" style="top: 20%; left: 0; width: 100%;"></div>
+        <div class="web-line" style="top: 40%; left: 0; width: 100%;"></div>
+        <div class="web-line" style="top: 60%; left: 0; width: 100%;"></div>
+        <div class="web-line" style="top: 80%; left: 0; width: 100%;"></div>
+        <div class="web-line vertical" style="left: 15%; top: 0;"></div>
+        <div class="web-line vertical" style="left: 35%; top: 0;"></div>
+        <div class="web-line vertical" style="left: 55%; top: 0;"></div>
+        <div class="web-line vertical" style="left: 75%; top: 0;"></div>
+        <div class="web-line vertical" style="left: 85%; top: 0;"></div>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>Oppenheim3r</h1>
+                    <p>Husam Gameel</p>
+                </div>
+                <nav class="nav" id="nav">
+                    <button class="nav-btn" onclick="location.href='../index.html'">
+                        <i class="fas fa-home"></i>
+                        Home
+                    </button>
+                    <button class="nav-btn" onclick="location.href='../index.html#about'">
+                        <i class="fas fa-user"></i>
+                        About
+                    </button>
+                    <button class="nav-btn" onclick="location.href='../index.html#security'">
+                        <i class="fas fa-lock"></i>
+                        Security Blogs
+                    </button>
+                    <button class="nav-btn active" onclick="location.href='../index.html#research'">
+                        <i class="fas fa-search"></i>
+                        Research
+                    </button>
+                    <button class="nav-btn" onclick="location.href='../index.html#projects'">
+                        <i class="fas fa-project-diagram"></i>
+                        Projects
+                    </button>
+                </nav>
+                <div class="mobile-menu-toggle" id="mobile-menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main">
+            <section id="blog-post" class="section active">
+                <div class="post-header">
+                    <a href="../index.html" class="back-btn">
+                        <i class="fas fa-arrow-left"></i>
+                        Back to Home
+                    </a>
+                </div>
+                <article class="research-content">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>SHA256 hash:</td>
+                                <td>5900df1f7a056597ac529215af893e7ebf72e1f50bf8660ae4159e1698c86dad</td>
+                            </tr>
+                            <tr>
+                                <td>SHA3-384 hash:</td>
+                                <td>3ce68eccc528c656d705b68c7cbf6b6598e09eb243e88e46eec18141c237395294d8966dd106512fea53fb7df581b12b</td>
+                            </tr>
+                            <tr>
+                                <td>SHA1 hash:</td>
+                                <td>3b6f514cf5b78528964892c5146e8c66ade13b82</td>
+                            </tr>
+                            <tr>
+                                <td>MD5 hash:</td>
+                                <td>c296059ee1ab2789492294c544a7bfc5</td>
+                            </tr>
+                            <tr>
+                                <td>humanhash:</td>
+                                <td>berlin-carbon-fish-utah</td>
+                            </tr>
+                            <tr>
+                                <td>File name:</td>
+                                <td>c296059ee1ab2789492294c544a7bfc5.exe</td>
+                            </tr>
+                            <tr>
+                                <td>Download:</td>
+                                <td><a href="https://bazaar.abuse.ch/download/5900df1f7a056597ac529215af893e7ebf72e1f50bf8660ae4159e1698c86dad/">https://bazaar.abuse.ch/download/5900df1f7a056597ac529215af893e7ebf72e1f50bf8660ae4159e1698c86dad/</a></td>
+                            </tr>
+                            <tr>
+                                <td>Signature</td>
+                                <td><a href="https://bazaar.abuse.ch/browse/signature/LummaStealer/" title="Browse this malware signature">LummaStealer</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h1>Lumma Stealer Analysis</h1>
+
+                    <h2>Mouse Movement Analysis - BOT</h2>
+                    <img src="/assets/images/BOT.jpg" alt="BOT Movement" />
+
+                    <h2>Mouse Movement Analysis - HUMAN</h2>
+                    <img src="/assets/images/huma.jpg" alt="HUMAN Movement" />
+
+                    <h2>Comparison Images</h2>
+                    <img src="/assets/images/Pasted image 20250731163244.png" alt="Comparison Diagram" />
+
+                    <h2>String</h2>
+                    <pre><code>
+AWAVAUATVWUSH -&gt; this string has been replicated multiple times inside the program
+
+
+
+__preserve_none
+GetSystemTimePreciseAsFileTime
+GetUserDefaultLocaleName
+LCIDToLocaleName
+IsValidLocaleName
+
+GetTempPath2W
+AreFileApisANSI
+LocaleNameToLCID
+
+AcquireSRWLockExclusive
+CloseHandle
+CreateFileW
+CreateThread
+DecodePointer
+DeleteCriticalSection
+EncodePointer
+EnterCriticalSection
+EnumSystemLocalesW
+ExitProcess
+FindClose
+FindFirstFileExW
+FindNextFileW
+FlsAlloc
+FlsFree
+FlsGetValue
+FlsSetValue
+FlushFileBuffers
+FreeConsole
+FreeEnvironmentStringsW
+FreeLibrary
+GetACP
+GetCPInfo
+GetCommandLineA
+GetCommandLineW
+GetConsoleMode
+GetConsoleOutputCP
+GetCurrentProcess
+GetCurrentProcessId
+GetCurrentThreadId
+GetEnvironmentStringsW
+GetFileSizeEx
+GetFileType
+GetLastError
+GetLocaleInfoW
+GetModuleFileNameW
+GetModuleHandleA
+GetModuleHandleExW
+GetModuleHandleW
+GetOEMCP
+GetProcAddress
+GetProcessHeap
+GetStartupInfoW
+GetStdHandle
+GetStringTypeW
+GetSystemTimeAsFileTime
+GetUserDefaultLCID
+GetVersionExA
+HeapAlloc
+HeapFree
+HeapReAlloc
+HeapSize
+InitializeCriticalSectionAndSpinCount
+InitializeCriticalSectionEx
+InitializeSListHead
+IsDebuggerPresent
+IsProcessorFeaturePresent
+IsValidCodePage
+IsValidLocale
+LCMapStringEx
+LCMapStringW
+LeaveCriticalSection
+LoadLibraryExW
+MultiByteToWideChar
+QueryPerformanceCounter
+QueryPerformanceFrequency
+RaiseException
+ReadConsoleW
+ReadFile
+ReleaseSRWLockExclusive
+RtlCaptureContext
+RtlLookupFunctionEntry
+RtlPcToFileHeader
+RtlUnwind
+RtlUnwindEx
+RtlVirtualUnwind
+SetEndOfFile
+SetFilePointerEx
+SetLastError
+SetStdHandle
+SetUnhandledExceptionFilter
+Sleep
+SleepConditionVariableSRW
+TerminateProcess
+TlsAlloc
+TlsFree
+TlsGetValue
+TlsSetValue
+UnhandledExceptionFilter
+VirtualProtect
+WakeAllConditionVariable
+WideCharToMultiByte
+WriteConsoleW
+WriteFile
+CreateSolidBrush
+CreateWindowExW
+DispatchMessageW
+GetMessageW
+LoadCursorW
+TranslateMessage
+KERNEL32.dll
+GDI32.dll
+USER32.dll
+
+
+                    </code></pre>
+
+                    <h2>MITER mapping</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Tactic ID</th>
+                                <th>Technique Name</th>
+                                <th>Type</th>
+                                <th>Function/API</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>T1533</td>
+                                <td>Data from Local System</td>
+                                <td>function</td>
+                                <td>EnumSystemLocales</td>
+                            </tr>
+                            <tr>
+                                <td>T1083</td>
+                                <td>File and Directory Discovery</td>
+                                <td>function</td>
+                                <td>FindFirstFileEx</td>
+                            </tr>
+                            <tr>
+                                <td>T1057</td>
+                                <td>Process Discovery</td>
+                                <td>function</td>
+                                <td>GetCurrentProcess</td>
+                            </tr>
+                            <tr>
+                                <td>T1124</td>
+                                <td>System Time Discovery</td>
+                                <td>function</td>
+                                <td>GetSystemTimeAsFileTime</td>
+                            </tr>
+                            <tr>
+                                <td>T1082</td>
+                                <td>System Information Discovery</td>
+                                <td>function</td>
+                                <td>IsDebuggerPresent</td>
+                            </tr>
+                            <tr>
+                                <td>T1106</td>
+                                <td>Execution through API</td>
+                                <td>function</td>
+                                <td>LoadLibraryEx</td>
+                            </tr>
+                            <tr>
+                                <td>T1497</td>
+                                <td>Sandbox Evasion</td>
+                                <td>function</td>
+                                <td>Sleep</td>
+                            </tr>
+                            <tr>
+                                <td>T1055</td>
+                                <td>Process Injection</td>
+                                <td>function</td>
+                                <td>VirtualProtect</td>
+                            </tr>
+                            <tr>
+                                <td>T1027</td>
+                                <td>Obfuscated Files or Information</td>
+                                <td>string</td>
+                                <td>SystemFunction036</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h2>Yara Rule</h2>
+                    <pre><code>
+
+rule LummaStealer
+{
+    meta:
+        description = "Detects suspicious Windows binary using WinAPI abuse and optional obfuscation fingerprint or unique pattern"
+        author = "Dark Entry"
+        date = "2025-07-31"
+        mitre_tactics = "T1533, T1083, T1057, 1124, T1082, 1106, 1497, 1055, 1027"
+        description = "Obfuscated or evasive binary using suspicious API calls"
+
+    strings:
+        // this unique string pattern that was repeated  
+        $pattern = "AWAVAUATVWUSH"
+
+        // obfuscation indicator
+        $obfuscation = "SystemFunction036"
+
+        // APIs linked to TTPs
+        $api_enum_locale = "EnumSystemLocales"
+        $api_findfile = "FindFirstFileExW"
+        $api_getproc = "GetCurrentProcess"
+        $api_time = "GetSystemTimeAsFileTime"
+        $api_debugger = "IsDebuggerPresent"
+        $api_loadlib = "LoadLibraryExW"
+        $api_sleep = "Sleep"
+        $api_virtualprotect = "VirtualProtect"
+
+        // behavioral indicators
+        $unicode_func = "GetSystemTimePreciseAsFileTime"
+        $temp_func = "GetTempPath2W"
+
+    condition:
+        uint16(0) == 0x5A4D and
+        (
+     // after finding the awava pattern or the obfuscation it will look for winAPIs
+            ($pattern or $obfuscation) and
+            4 of ($api_*) and
+            any of ($unicode_func, $temp_func)
+        )
+}
+
+
+                    </code></pre>
+                </article>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <p>&copy; 2025 Husam Gameel (Oppenheim3r). All rights reserved.</p>
+                <div class="social-links">
+                    <a href="#" class="social-link" title="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="#" class="social-link" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" class="social-link" title="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link" title="Email"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Mobile menu functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+            const nav = document.getElementById('nav');
+            
+            if (mobileMenuToggle) {
+                mobileMenuToggle.addEventListener('click', function() {
+                    nav.classList.toggle('mobile-open');
+                    const icon = mobileMenuToggle.querySelector('i');
+                    
+                    if (nav.classList.contains('mobile-open')) {
+                        icon.className = 'fas fa-times';
+                    } else {
+                        icon.className = 'fas fa-bars';
+                    }
+                });
+                
+                // Close mobile menu when clicking outside
+                document.addEventListener('click', function(event) {
+                    if (!nav.contains(event.target) && !mobileMenuToggle.contains(event.target)) {
+                        nav.classList.remove('mobile-open');
+                        const icon = mobileMenuToggle.querySelector('i');
+                        if (icon) icon.className = 'fas fa-bars';
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

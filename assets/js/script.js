@@ -230,7 +230,7 @@ async function discoverCategoryPosts(category) {
     const knownFiles = {
         'offensive': [], // Add offensive content here
         'defensive': [], // Add defensive content here
-        'research': ['lummaStealer Report.md'], // Research content goes here
+        'research': ['lummaStealer Report.html'], // Research content goes here
         'projects': [] // Project content goes here
     };
     
