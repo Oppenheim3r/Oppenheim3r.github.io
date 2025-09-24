@@ -7,7 +7,6 @@ This repository hosts the Oppenheim3r static website, built with HTML, CSS, and 
 ```
 Oppenheim3r.github.io/
 ├── index.html                 # Main landing page
-├── view.html                  # Markdown viewer page
 ├── assets/
 │   ├── css/
 │   │   └── style.css        # Main stylesheet with theme
