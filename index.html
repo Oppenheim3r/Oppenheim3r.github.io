@@ -3,15 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Husam Gameel | Oppenheim3r - Cybersecurity Blog</title>
+    <title>Oppenheim3r - Cybersecurity Research & Projects</title>
     <link rel="stylesheet" href="assets/css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
-
-    
     <!-- Spider Web Overlay -->
     <div class="spider-web" id="spider-web">
         <div class="web-line" style="top: 20%; left: 0; width: 100%;"></div>
@@ -31,27 +28,23 @@
             <div class="header-content">
                 <div class="logo">
                     <h1>Oppenheim3r</h1>
-                    <p>Husam Gameel</p>
+                    <p>Cybersecurity Research & Projects</p>
                 </div>
                 <nav class="nav" id="nav">
                     <button class="nav-btn active" onclick="location.href='index.html'">
                         <i class="fas fa-home"></i>
                         Home
                     </button>
-                    <button class="nav-btn" onclick="location.href='#about'">
-                        <i class="fas fa-user"></i>
-                        About
-                    </button>
-                    <button class="nav-btn" onclick="location.href='blogs/security/index.html'">
+                    <button class="nav-btn" onclick="location.href='blogs/security/'">
                         <i class="fas fa-lock"></i>
-                        Security Blogs
+                        Security
                     </button>
-                    <button class="nav-btn" onclick="location.href='research/index.html'">
+                    <button class="nav-btn" onclick="location.href='research/'">
                         <i class="fas fa-search"></i>
                         Research
                     </button>
-                    <button class="nav-btn" onclick="location.href='projects/index.html'">
-                        <i class="fas fa-project-diagram"></i>
+                    <button class="nav-btn" onclick="location.href='projects/'">
+                        <i class="fas fa-cube"></i>
                         Projects
                     </button>
                 </nav>
@@ -63,214 +56,105 @@
 
         <!-- Main Content -->
         <main class="main">
-            <!-- Home Section -->
-            <section id="home" class="section active">
-                <div class="hero">
-                    <div class="hero-content">
-                        <h2>Welcome to My Cybersecurity Blog</h2>
-                        <p>Exploring the depths of offensive security, defensive strategies, and adversary emulation techniques through hands on research and real world applications.</p>
-                        <div class="hero-stats">
-                            <div class="stat">
-                                <span class="stat-number">1</span>
-                                <span class="stat-label">Security Posts</span>
-                            </div>
-                            <div class="stat">
-                                <span class="stat-number">1</span>
-                                <span class="stat-label">Research Papers</span>
-                            </div>
-                            <div class="stat">
-                                <span class="stat-number">0</span>
-                                <span class="stat-label">Projects</span>
-                            </div>
+            <!-- Hero Section -->
+            <section class="hero">
+                <div class="hero-content">
+                    <h2>Exploring Cybersecurity & Research</h2>
+                    <p>Welcome to Oppenheim3r, where offensive and defensive security research meets innovation. Dive into my collection of security analyses, research papers, and technical projects.</p>
+                    
+                    <div class="hero-stats">
+                        <div class="stat">
+                            <span class="stat-number">50+</span>
+                            <span class="stat-label">Security Posts</span>
                         </div>
-                    </div>
-                    <div class="hero-visual">
-                        <div class="code-animation">
-                            <div class="code-line"></div>
-                            <div class="code-line"></div>
-                            <div class="code-line"></div>
-                            <div class="code-line"></div>
+                        <div class="stat">
+                            <span class="stat-number">12</span>
+                            <span class="stat-label">Research Papers</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">18</span>
+                            <span class="stat-label">Projects</span>
                         </div>
                     </div>
                 </div>
                 
-                <div class="recent-posts">
-                    <h3>Recent Posts</h3>
-                    <div class="posts-grid" id="recent-posts">
-                        <a href="research/lummaStealerReport.html" class="post-card-link">
-                            <div class="post-card">
-                                <div class="post-meta">
-                                    <span class="post-category">Research</span>
-                                    <span>Jul 31, 2025</span>
-                                </div>
-                                <h3>Lumma Stealer Analysis</h3>
-                                <p>Analysis of Lumma Stealer malware including mouse movement analysis and YARA rules.</p>
-                            </div>
-                        </a>
+                <div class="hero-visual">
+                    <div class="code-animation">
+                        <div class="code-line"></div>
+                        <div class="code-line"></div>
+                        <div class="code-line"></div>
+                        <div class="code-line"></div>
                     </div>
                 </div>
             </section>
 
-            <!-- About Section -->
-            <section id="about" class="section">
-                <div class="about-header">
-                    <h2><i class="fas fa-user"></i> About Husam Gameel</h2>
-                    <p>Cybersecurity Engineer & Security Researcher</p>
-                </div>
-                
-                <div class="about-content">
-                    <div class="about-intro">
-                        <div class="intro-avatar">
-                            <div class="avatar-placeholder">
-                                <span>HG</span>
-                            </div>
-                        </div>
-                        <div class="intro-text">
-                            <h3>Oppenheim3r</h3>
-                            <p class="intro-subtitle">Cybersecurity Engineer & Security Researcher</p>
-                           <p>
-    Welcome! I'm Husam Gameel, known in the cybersecurity community as <strong>Oppenheim3r</strong>.  
-    I'm a cybersecurity professional with a passion for offensive and defensive security, combining real-world attack simulation with deep forensic analysis and threat detection.
-</p>
-<p>
-    My expertise spans red teaming, penetration testing, digital forensics (DFIR), threat hunting, and malware analysis. I specialize in process creation analysis, reverse engineering malicious behaviors, and developing detection rules using Sigma, YARA, and custom threat hunting techniques. Additionally, I focus on the security of modern APIs, including REST and GraphQL, identifying vulnerabilities and helping secure critical application layers against real-world attack vectors.
-</p>
-<p>
-    Through this blog, I share technical research, practical experiences, and insights gained from hands-on security assessments and continuous learning. My goal is to contribute to the cybersecurity community by providing actionable, technical content that empowers both aspiring and experienced security professionals in the fields of offensive security, DFIR, and defensive engineering.
-</p>
-
-                        </div>
-                    </div>
-
-                    <div class="expertise-section">
-                        <h4>Areas of Expertise</h4>
-                        <div class="expertise-grid">
-                            <div class="expertise-card">
-                                <i class="fas fa-user-secret"></i>
-                                <h5>Red Team Operations</h5>
-                                <p>Advanced adversary simulation and attack scenarios</p>
-                            </div>
-                           
-                            <div class="expertise-card">
-                                <i class="fas fa-shield-alt"></i>
-                                <h5>SIEM & Detection</h5>
-                                <p>Security monitoring and incident response strategies</p>
-                            </div>
-                            <div class="expertise-card">
-                                <i class="fas fa-search"></i>
-                                <h5>Threat Hunting</h5>
-                                <p>Proactive threat detection and analysis techniques</p>
-                            </div>
-                            <div class="expertise-card">
-                                <i class="fas fa-crosshairs"></i>
-                                <h5>MITRE ATT&CK</h5>
-                                <p>Framework implementation and adversary emulation</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="certifications-section">
-                        <h4>Skills</h4>
-                        <div class="skills-tags">
-                            <span class="skill-tag">Red Team Operations</span>         
-                            <span class="skill-tag">SIEM & Detection</span>
-                            <span class="skill-tag">Threat Hunting</span>
-                            <span class="skill-tag">MITRE ATT&CK</span>
-                            <span class="skill-tag">Incident Response</span>
-                            <span class="skill-tag">Reverse Engineering</span>
-                            <span class="skill-tag">Purple Team</span>
-                            <span class="skill-tag">Security Research</span>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Security Blogs Section -->
-            <section id="security" class="section">
+            <!-- Featured Content Sections -->
+            <section class="featured-content">
                 <div class="category-header">
-                    <h2><i class="fas fa-lock"></i> Security Blogs</h2>
-                    <p>Offensive and defensive security content</p>
+                    <h2><i class="fas fa-star"></i>Featured Content</h2>
+                    <p>Explore my latest work in cybersecurity research and development</p>
                 </div>
-                <div class="posts-grid" id="security-posts">
-                    <p>No security blog posts available yet.</p>
-                </div>
-            </section>
-            
-            <!-- Research Section -->
-            <section id="research" class="section">
-                <div class="category-header">
-                    <h2><i class="fas fa-search"></i> Research</h2>
-                    <p>Technical research papers, studies, and experimental work</p>
-                </div>
-                <div class="posts-grid" id="research-posts">
-                    <a href="research/LummaAAResearch.html" class="post-card-link">
-                        <div class="post-card">
-                            <div class="post-meta">
-                                <span class="post-category">Research</span>
-                                <span>Jul 31, 2025</span>
-                            </div>
-                            <h3>Lumma Stealer AA Research</h3>
-                            <p>Analysis of Lumma Stealer Tactics, Techniques, and Procedures with focus on execution and evasion techniques.</p>
-                        </div>
-                    </a>
-                </div>
-            </section>
-            
-            <!-- Projects Section -->
-            <section id="projects" class="section">
-                <div class="category-header">
-                    <h2><i class="fas fa-project-diagram"></i> Projects</h2>
-                    <p>Technical projects with documentation and details</p>
-                </div>
-                <div class="posts-grid" id="projects-posts">
-                    <p>No project posts available yet.</p>
-                </div>
-            </section>
 
+                <div class="content-grid">
+                    <div class="content-card" onclick="location.href='blogs/security/'">
+                        <div class="content-icon">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <h3>Security Blogs</h3>
+                        <p>Dive into offensive and defensive security topics including vulnerability research, penetration testing methodologies, and defensive strategies.</p>
+                        <div class="view-more">
+                            <span>Explore Security Content</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </div>
+
+                    <div class="content-card" onclick="location.href='research/'">
+                        <div class="content-icon">
+                            <i class="fas fa-flask"></i>
+                        </div>
+                        <h3>Research Papers</h3>
+                        <p>Deep-dive technical research on emerging cybersecurity threats, analysis of attack vectors, and novel defense mechanisms.</p>
+                        <div class="view-more">
+                            <span>Discover Research</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </div>
+
+                    <div class="content-card" onclick="location.href='projects/'">
+                        <div class="content-icon">
+                            <i class="fas fa-cubes"></i>
+                        </div>
+                        <h3>Projects</h3>
+                        <p>Implementation of security tools, proof-of-concept exploits, and security-focused applications and utilities.</p>
+                        <div class="view-more">
+                            <span>Explore Projects</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </main>
 
         <!-- Footer -->
         <footer class="footer">
             <div class="footer-content">
-                <p>&copy; 2025 Husam Gameel (Oppenheim3r). All rights reserved.</p>
+                <p>&copy; 2025 Oppenheim3r. All rights reserved.</p>
                 <div class="social-links">
-                    <a href="#" class="social-link" title="GitHub"><i class="fab fa-github"></i></a>
-                    <a href="#" class="social-link" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                    <a href="#" class="social-link" title="Twitter"><i class="fab fa-twitter"></i></a>
-                    <a href="#" class="social-link" title="Email"><i class="fas fa-envelope"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
                 </div>
             </div>
         </footer>
     </div>
 
+    <script src="assets/js/main.js"></script>
     <script>
-        // Mobile menu functionality
+        // Initialize site when DOM is loaded
         document.addEventListener('DOMContentLoaded', function() {
-            const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
-            const nav = document.getElementById('nav');
-            
-            if (mobileMenuToggle) {
-                mobileMenuToggle.addEventListener('click', function() {
-                    nav.classList.toggle('mobile-open');
-                    const icon = mobileMenuToggle.querySelector('i');
-                    
-                    if (nav.classList.contains('mobile-open')) {
-                        icon.className = 'fas fa-times';
-                    } else {
-                        icon.className = 'fas fa-bars';
-                    }
-                });
-                
-                // Close mobile menu when clicking outside
-                document.addEventListener('click', function(event) {
-                    if (!nav.contains(event.target) && !mobileMenuToggle.contains(event.target)) {
-                        nav.classList.remove('mobile-open');
-                        const icon = mobileMenuToggle.querySelector('i');
-                        if (icon) icon.className = 'fas fa-bars';
-                    }
-                });
-            }
-            
+            // Mobile menu is handled in main.js
+            initMobileMenu();
+
             // Smooth scrolling for anchor links
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
@@ -285,79 +169,6 @@
                 });
             });
         });
-    <script>
-        // Mobile menu functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
-            const nav = document.getElementById('nav');
-            
-            if (mobileMenuToggle) {
-                mobileMenuToggle.addEventListener('click', function() {
-                    nav.classList.toggle('mobile-open');
-                    const icon = mobileMenuToggle.querySelector('i');
-                    
-                    if (nav.classList.contains('mobile-open')) {
-                        icon.className = 'fas fa-times';
-                    } else {
-                        icon.className = 'fas fa-bars';
-                    }
-                });
-                
-                // Close mobile menu when clicking outside
-                document.addEventListener('click', function(event) {
-                    if (!nav.contains(event.target) && !mobileMenuToggle.contains(event.target)) {
-                        nav.classList.remove('mobile-open');
-                        const icon = mobileMenuToggle.querySelector('i');
-                        if (icon) icon.className = 'fas fa-bars';
-                    }
-                });
-            }
-            
-            // Smooth scrolling for anchor links
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const target = document.querySelector(this.getAttribute('href'));
-                    if (target) {
-                        target.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-                    }
-                });
-            });
-        });
-        
-        // Function to show different sections
-        function showSection(sectionId) {
-            // Hide all sections
-            document.querySelectorAll('.section').forEach(section => {
-                section.classList.remove('active');
-            });
-            
-            // Show the requested section
-            const requestedSection = document.getElementById(sectionId);
-            if (requestedSection) {
-                requestedSection.classList.add('active');
-                
-                // Update active nav button
-                document.querySelectorAll('.nav-btn').forEach(btn => {
-                    btn.classList.remove('active');
-                });
-                
-                // Find the button that triggered this and make it active
-                const buttons = document.querySelectorAll('.nav-btn');
-                for (let btn of buttons) {
-                    if (btn.onclick.toString().includes(`showSection('${sectionId}')`)) {
-                        btn.classList.add('active');
-                        break;
-                    }
-                }
-            }
-            
-            // Scroll to top
-            window.scrollTo(0, 0);
-        }
     </script>
 </body>
 </html>
