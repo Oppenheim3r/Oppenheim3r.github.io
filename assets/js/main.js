@@ -1,4 +1,4 @@
-// Site functionality and dynamic content loader
+// Site functionality and dynamic content loader for single-page application
 
 // Mobile menu toggle functionality
 function initMobileMenu() {
@@ -12,6 +12,37 @@ function initMobileMenu() {
     }
 }
 
+// Function to show different sections
+function showSection(sectionId) {
+    // Hide all sections
+    document.querySelectorAll('.section').forEach(section => {
+        section.classList.remove('active');
+    });
+    
+    // Show the requested section
+    const requestedSection = document.getElementById(sectionId);
+    if (requestedSection) {
+        requestedSection.classList.add('active');
+        
+        // Update active nav button
+        document.querySelectorAll('.nav-btn').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        
+        // Find the button that triggered this and make it active
+        const buttons = document.querySelectorAll('.nav-btn');
+        for (let btn of buttons) {
+            if (btn.onclick.toString().includes(`showSection('${sectionId}')`)) {
+                btn.classList.add('active');
+                break;
+            }
+        }
+    }
+    
+    // Scroll to top
+    window.scrollTo(0, 0);
+}
+
 // Function to load markdown files and convert them to HTML
 async function loadMarkdownContent(filePath) {
     try {
@@ -21,38 +52,85 @@ async function loadMarkdownContent(filePath) {
         }
         const markdownText = await response.text();
         
-        // Using a placeholder for markdown processing
-        // In a real implementation, you would use a markdown library like marked.js
-        return convertMarkdownToHtml(markdownText);
+        // If marked.js is available, use it for conversion
+        if (typeof marked !== 'undefined') {
+            return marked.parse(markdownText);
+        } else {
+            // Fallback: simple conversion for basic markdown elements
+            return convertMarkdownToHtml(markdownText);
+        }
     } catch (error) {
         console.error('Error loading markdown content:', error);
         return '<div class="error">Failed to load content</div>';
     }
 }
 
-// Placeholder markdown to HTML conversion function
-function convertMarkdownToHtml(markdown) {
-    // This is a simplified placeholder - in a real implementation you'd use a library
-    // For now, we'll just return the raw text with basic HTML formatting
-    return `<div class="markdown-content">${markdown}</div>`;
+// Simple markdown to HTML conversion function (fallback)
+function convertMarkdownToHtml(md) {
+    let html = md;
+    
+    // Convert headers
+    html = html.replace(/^### (.*$)/gim, '<h3>$1</h3>');
+    html = html.replace(/^## (.*$)/gim, '<h2>$1</h2>');
+    html = html.replace(/^# (.*$)/gim, '<h1>$1</h1>');
+    
+    // Convert bold and italic
+    html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+    html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
+    
+    // Convert links
+    html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
+    
+    // Convert images
+    html = html.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1">');
+    
+    // Convert paragraphs
+    html = html.split(/\n\s*\n/).map(p => `<p>${p.trim()}</p>`).join('');
+    
+    // Convert line breaks
+    html = html.replace(/\n/g, '<br>');
+    
+    return html;
 }
 
-// Function to display a blog post or project
-function displayContent(content, title, date, tags) {
-    // This would be implemented when actual content is provided
-    console.log('Displaying content:', title);
+// Function to display content in a modal or dedicated area
+function displayContent(content, title) {
+    // Create or update a content display area
+    let contentArea = document.getElementById('content-display');
+    if (!contentArea) {
+        contentArea = document.createElement('div');
+        contentArea.id = 'content-display';
+        contentArea.className = 'post-content';
+        document.querySelector('.main').appendChild(contentArea);
+    }
+    
+    contentArea.innerHTML = `
+        <div class="post-header">
+            <button class="back-btn" onclick="showSection('home'); this.parentElement.parentElement.style.display='none';">
+                <i class="fas fa-arrow-left"></i>
+                Back to Home
+            </button>
+        </div>
+        <h1>${title}</h1>
+        <div class="post-body">${content}</div>
+    `;
+    
+    contentArea.style.display = 'block';
 }
 
 // Initialize the site
 document.addEventListener('DOMContentLoaded', function() {
     initMobileMenu();
     
+    // Set up initial section display
+    showSection('home');
+    
     // Additional initialization code can go here
     console.log('Site initialized successfully');
 });
 
 // Utility function to create dynamic blog cards/posts
-function createPostCard(title, description, date, tags, url) {
+function createPostCard(title, description, date, tags, onClickFunction) {
     const card = document.createElement('div');
     card.className = 'post-card';
     
@@ -75,9 +153,7 @@ function createPostCard(title, description, date, tags, url) {
         ${tagsHtml}
     `;
     
-    card.addEventListener('click', function() {
-        window.location.href = url;
-    });
+    card.addEventListener('click', onClickFunction);
     
     return card;
 }
@@ -87,13 +163,27 @@ function populatePosts(posts, containerId) {
     const container = document.getElementById(containerId);
     if (!container) return;
     
+    // Clear existing content
+    container.innerHTML = '';
+    
+    if (posts.length === 0) {
+        container.innerHTML = `
+            <div class="empty-state">
+                <i class="fas fa-folder-open"></i>
+                <h3>No Content Yet</h3>
+                <p>This section will display content when added.</p>
+            </div>
+        `;
+        return;
+    }
+    
     posts.forEach(post => {
         const card = createPostCard(
             post.title, 
             post.description, 
             post.date, 
             post.tags, 
-            post.url
+            () => displayContent(post.content, post.title) // Click handler
         );
         container.appendChild(card);
     });
@@ -117,6 +207,7 @@ if (typeof module !== 'undefined' && module.exports) {
         loadMarkdownContent,
         convertMarkdownToHtml,
         createPostCard,
-        populatePosts
+        populatePosts,
+        showSection
     };
 }
