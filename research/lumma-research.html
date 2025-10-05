@@ -97,6 +97,11 @@
                     <li><strong>Backend:</strong> Converts the IR into machine code.</li>
                 </ol>
 
+                <div style="text-align: center; margin: 2rem 0;">
+                    <img src="../assets/images/Pasted image 20250731163244.png" alt="LLVM Compiler Architecture" style="max-width: 100%; height: auto; border-radius: 0.5rem; box-shadow: var(--shadow-primary);">
+                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.5rem;">LLVM Compiler Architecture</p>
+                </div>
+
                 <p>LLVM makes writing new programming languages easier.</p>
 
                 <h3>Malware Abuse of LLVM</h3>
@@ -323,6 +328,19 @@ int main() {
                 <h3>Compilation and Testing</h3>
                 <p>I have compiled this using Visual Studio command line:</p>
                 <pre><code>MouseAnalysis.cpp /EHsc /Fe:MouseAnalysis.exe /link user32.lib</code></pre>
+
+                <p>Then run the program with the following output:</p>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 2rem 0;">
+                    <div style="text-align: center;">
+                        <img src="../assets/images/huma.jpg" alt="Human Detection Output" style="max-width: 100%; height: auto; border-radius: 0.5rem; box-shadow: var(--shadow-primary);">
+                        <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.5rem;">Human Detection Output</p>
+                    </div>
+                    <div style="text-align: center;">
+                        <img src="../assets/images/BOT.jpg" alt="Bot Detection Output" style="max-width: 100%; height: auto; border-radius: 0.5rem; box-shadow: var(--shadow-primary);">
+                        <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.5rem;">Bot Detection Output</p>
+                    </div>
+                </div>
 
                 <p>The program is missing a lot of mathematical and execution logic but I am demonstrating this as a PoC. An enhanced version of this can be used to detect human activity and BOT activity with high accuracy to escape sandbox.</p>
 
