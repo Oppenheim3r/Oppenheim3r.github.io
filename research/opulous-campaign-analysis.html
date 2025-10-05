@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Opulous Campaign Analysis - Lazarus Group Attribution - Husam Gameel | Oppenheim3r</title>
+    <meta name="description" content="Threat Intelligence Report analyzing the Opulous Setup.exe malware campaign with moderate confidence attribution to the Lazarus Group's AppleJeus/TraderTraitor operations.">
+    
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Floating Binaries Background -->
+    <div class="floating-binaries" id="floating-binaries"></div>
+    
+    <!-- Spider Web Overlay -->
+    <div class="spider-web" id="spider-web">
+        <div class="web-line" style="top: 20%; left: 0; width: 100%;"></div>
+        <div class="web-line" style="top: 40%; left: 0; width: 100%;"></div>
+        <div class="web-line" style="top: 60%; left: 0; width: 100%;"></div>
+        <div class="web-line" style="top: 80%; left: 0; width: 100%;"></div>
+        <div class="web-line vertical" style="left: 15%; top: 0;"></div>
+        <div class="web-line vertical" style="left: 35%; top: 0;"></div>
+        <div class="web-line vertical" style="left: 55%; top: 0;"></div>
+        <div class="web-line vertical" style="left: 75%; top: 0;"></div>
+        <div class="web-line vertical" style="left: 85%; top: 0;"></div>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>Oppenheim3r</h1>
+                    <p>Husam Gameel</p>
+                </div>
+                <nav class="nav">
+                    <a href="/" class="nav-btn">
+                        <i class="fas fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    <a href="/about/" class="nav-btn">
+                        <i class="fas fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    <a href="/blogs/" class="nav-btn">
+                        <i class="fas fa-blog"></i>
+                        <span>All Blogs</span>
+                    </a>
+                    <a href="/blogs/offensive/" class="nav-btn">
+                        <i class="fas fa-sword"></i>
+                        <span>Offensive</span>
+                    </a>
+                    <a href="/blogs/defensive/" class="nav-btn">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Defensive</span>
+                    </a>
+                    <a href="/research/" class="nav-btn active">
+                        <i class="fas fa-flask"></i>
+                        <span>Research</span>
+                    </a>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Breadcrumb -->
+        <div class="breadcrumb" id="breadcrumb">
+            <a href="/">Home</a> <span class="breadcrumb-separator">></span> 
+            <a href="/research/">Research</a> <span class="breadcrumb-separator">></span> 
+            <span>Opulous Campaign Analysis</span>
+        </div>
+
+        <!-- Main Content -->
+        <main class="main">
+            <div class="article-content">
+                <a href="/research/" class="back-btn">
+                    <i class="fas fa-arrow-left"></i>
+                    Back to Research
+                </a>
+                
+                <div style="background: var(--gradient-danger); color: white; padding: 1rem; border-radius: 0.5rem; margin-bottom: 2rem; text-align: center;">
+                    <strong>⚠️ RESEARCH DISCLAIMER:</strong> This research is conducted independently and is not affiliated with any official organization. All findings and analysis are based on personal research and should be used for educational and defensive purposes only.
+                </div>
+                
+                <h1>Threat Intelligence Report: Opulous Campaign - A Lazarus Group Analysis</h1>
+                <div class="post-meta" style="margin-bottom: 2rem;">
+                    <span class="post-category">Threat Intelligence</span>
+                    <span>September 3, 2025</span>
+                </div>
+
+                <p><strong>Author:</strong> Husam Gameel (Oppenheim3r)</p>
+
+                <h2>Executive Summary</h2>
+                <p>This report analyzes the <code>Opulous Setup.exe</code> malware campaign, attributing it with <strong>moderate confidence</strong> to the <strong>Lazarus Group</strong>, specifically their <strong>AppleJeus/TraderTraitor</strong> operations. The campaign leverages a trojanized cryptocurrency application for multi-stage attacks, focusing on system reconnaissance, persistence, and financial theft. Observed Tactics, Techniques, and Procedures (TTPs) align significantly with Lazarus Group's known methods, emphasizing their continued targeting of the cryptocurrency sector.</p>
+
+                <h2>Technical Analysis: Opulous Setup.exe</h2>
+                <p><code>Opulous Setup.exe</code> is a sophisticated malicious executable designed for covert system compromise. Its primary function is to establish persistence and gather intelligence on the victim's system.</p>
+
+                <h3>Static Analysis Highlights</h3>
+                <ul>
+                    <li><strong>Unsigned Executable:</strong> The binary is not digitally signed, reducing trustworthiness and allowing it to bypass standard OS verification. The absence of a valid signature is consistent with malware distribution practices.</li>
+                </ul>
+
+                <h3>Behavioral Analysis Overview</h3>
+                <p>Observed on <code>win11-20250619-en</code>, the malware exhibited significant system and network activity. Key behaviors include:</p>
+
+                <ul>
+                    <li><strong>Execution Path:</strong> Initial execution from <code>C:\Users\Admin\AppData\Local\Temp\Opulous Setup.exe</code>. This temporary directory is frequently abused by malware.</li>
+                    <li><strong>Multi-Stage Payload Delivery:</strong> Executes dropped files: <code>C:\Users\Admin\AppData\Local\Temp\is-M1590.tmp\Opulous Setup.tmp</code>, <code>C:\Program Files (x86)\Opulous\Opulous Client 3.1.8.exe</code>, and <code>C:\Users\Admin\AppData\Local\Temp\3266oHTzW0LVS9bq2P9cLkj3Ja0\Opulous Client.exe</code>. This indicates a staged infection process.</li>
+                    <li><strong>DLL Loading:</strong> Loads Dynamic Link Libraries (DLLs) from <code>Program Files (x86)\Opulous\</code> and temporary directories. This is a technique for code injection and functionality extension.</li>
+                    <li><strong>PowerShell Usage:</strong> Extensive use of <code>C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe</code> for command execution. This leverages PowerShell's versatility for system interaction.</li>
+                    <li><strong>Process Enumeration:</strong> Executes <code>C:\Windows\system32\tasklist.exe</code> to enumerate running processes. This aids in reconnaissance and identifying security software.</li>
+                    <li><strong>File Dropping for Persistence:</strong> Drops <code>Opulous Client 3.1.8.exe</code>, <code>unins000.dat</code>, <code>is-KDUC0.tmp</code>, and <code>is-EHFBG.tmp</code> into <code>C:\Program Files (x86)\Opulous\</code>. This common legitimate application path helps achieve persistence.</li>
+                    <li><strong>Registry Modification for Persistence:</strong> Modifies <code>HKEY_LOCAL_MACHINE\SOFTWARE\Classes\.myp</code> and <code>HKEY_LOCAL_MACHINE\Software\Classes\OpulousFile.myp</code>. This hijacks <code>.myp</code> file associations, ensuring <code>Opulous Client 3.1.8.exe</code> launches when <code>.myp</code> files are accessed.</li>
+                    <li><strong>Privilege Escalation Attempts:</strong> Attempts to adjust numerous privileges, including <code>SeSecurityPrivilege</code>, <code>SeDebugPrivilege</code>, <code>SeShutdownPrivilege</code>, <code>SeCreatePagefilePrivilege</code>, <code>SeIncreaseQuotaPrivilege</code>, <code>SeTakeOwnershipPrivilege</code>, <code>SeLoadDriverPrivilege</code>, <code>SeSystemProfilePrivilege</code>, <code>SeSystemtimePrivilege</code>, <code>SeProfSingleProcessPrivilege</code>, <code>SeIncBasePriorityPrivilege</code>, <code>SeBackupPrivilege</code>, <code>SeRestorePrivilege</code>, <code>SeSystemEnvironmentPrivilege</code>, <code>SeRemoteShutdownPrivilege</code>, <code>SeUndockPrivilege</code>, and <code>SeManageVolumePrivilege</code>. This indicates a clear intent to gain elevated system control.</li>
+                    <li><strong>Process Injection:</strong> Attempts to write to memory of other processes (<code>WriteProcessMemory</code>) like <code>C:\Program Files (x86)\Opulous\Opulous Client 3.1.8.exe</code>, <code>C:\Users\Admin\AppData\Local\Temp\3266oHTzW0LVS9bq2P9cLkj3Ja0\Opulous Client.exe</code>, <code>C:\Windows\system32\cmd.exe</code>, <code>C:\Windows\system32\reg.exe</code>, <code>C:\Windows\system32\tasklist.exe</code>, and <code>C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe</code>. This is a strong indicator of code injection for stealthy execution within legitimate processes.</li>
+                    <li><strong>System Discovery:</strong> Accesses registry keys for system language (<code>\REGISTRY\MACHINE\SYSTEM\ControlSet001\Control\NLS\Language</code>) and enumerates physical storage devices for environmental awareness.</li>
+                </ul>
+
+                <h3>Observed Processes</h3>
+                <ul>
+                    <li><code>C:\Users\Admin\AppData\Local\Temp\Opulous Setup.exe</code></li>
+                    <li><code>C:\Users\Admin\AppData\Local\Temp\is-M1590.tmp\Opulous Setup.tmp</code></li>
+                    <li><code>C:\Program Files (x86)\Opulous\Opulous Client 3.1.8.exe</code></li>
+                    <li><code>C:\Users\Admin\AppData\Local\Temp\3266oHTzW0LVS9bq2P9cLkj3Ja0\Opulous Client.exe</code></li>
+                    <li><code>C:\Windows\system32\cmd.exe</code> (Used for executing various command-line instructions)</li>
+                    <li><code>C:\Windows\system32\reg.exe</code> (Used for querying and modifying the Windows Registry)</li>
+                    <li><code>C:\Windows\system32\tasklist.exe</code> (Used for enumerating running processes)</li>
+                    <li><code>C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe</code> (Used for executing scripts and system commands)</li>
+                </ul>
+
+                <h2>Attribution: Linking to Lazarus Group (AppleJeus/TraderTraitor)</h2>
+                <p>The <code>Opulous</code> campaign's TTPs show significant overlap with the Lazarus Group, a DPRK-sponsored APT known for financially motivated cyber operations, particularly the AppleJeus and TraderTraitor campaigns targeting cryptocurrency and fin-tech entities.</p>
+
+                <h3>TTP Correlation Table</h3>
+                <table style="width: 100%; border-collapse: collapse; margin: 1rem 0;">
+                    <thead>
+                        <tr style="background: var(--card-bg);">
+                            <th style="padding: 0.5rem; border: 1px solid var(--border-color);">Tactic (MITRE ATT&CK)</th>
+                            <th style="padding: 0.5rem; border: 1px solid var(--border-color);">Opulous Malware Behavior</th>
+                            <th style="padding: 0.5rem; border: 1px solid var(--border-color);">Lazarus Group / AppleJeus TTPs</th>
+                            <th style="padding: 0.5rem; border: 1px solid var(--border-color);">Significance</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><strong>Initial Access (TA0001)</strong></td>
+                            <td style="padding: 0.5rem; border: 1px solid var(--border-color);">Trojanized <code>Opulous Setup.exe</code> masquerading as crypto platform</td>
+                            <td style="padding: 0.5rem; border: 1px solid var(--border-color);">Consistent use of trojanized crypto trading apps as lures</td>
+                            <td style="padding: 0.5rem; border: 1px solid var(--border-color);">Direct match to Lazarus's primary initial access vector for financial gain</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><strong>Execution (TA0002)</strong></td>
+                            <td style="padding: 0.5rem; border: 1px solid var(--border-color);">Extensive PowerShell (T1059.001) usage</td>
+                            <td style="padding: 0.5rem; border: 1px solid var(--border-color);">PowerShell is a common tool for payload execution and system interaction</td>
+                            <td style="padding: 0.5rem; border: 1px solid var(--border-color);">Leverages built-in tools for stealth and versatility</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><strong>Persistence (TA0003)</strong></td>
+                            <td style="padding: 0.5rem; border: 1px solid var(--border-color);">File dropping in <code>Program Files</code>; <code>.myp</code> file association hijacking</td>
+                            <td style="padding: 0.5rem; border: 1px solid var(--border-color);">AppleJeus uses service installations and scheduled tasks; sophisticated persistence like file association hijacking is consistent</td>
+                            <td style="padding: 0.5rem; border: 1px solid var(--border-color);">Advanced persistence mechanisms ensure continued access</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><strong>Privilege Escalation (TA0004)</strong></td>
+                            <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><code>AdjustPrivilegeToken</code> for <code>SeDebugPrivilege</code></td>
+                            <td style="padding: 0.5rem; border: 1px solid var(--border-color);">Common for Lazarus to disable security controls and inject code</td>
+                            <td style="padding: 0.5rem; border: 1px solid var(--border-color);">Aggressive privilege seeking for comprehensive system control</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><strong>Defense Evasion (TA0005)</strong></td>
+                            <td style="padding: 0.5rem; border: 1px solid var(--border-color);">Untrusted codesign; DLL side-loading; <code>WriteProcessMemory</code></td>
+                            <td style="padding: 0.5rem; border: 1px solid var(--border-color);">AppleJeus uses compromised certificates; process injection and DLL side-loading are hallmarks</td>
+                            <td style="padding: 0.5rem; border: 1px solid var(--border-color);">Reflects Lazarus's continuous efforts to bypass security and operate stealthily</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><strong>Discovery (TA0007)</strong></td>
+                            <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><code>tasklist.exe</code>, registry queries, system language discovery</td>
+                            <td style="padding: 0.5rem; border: 1px solid var(--border-color);">Extensive reconnaissance to understand victim environment and identify targets</td>
+                            <td style="padding: 0.5rem; border: 1px solid var(--border-color);">Meticulous approach to target profiling before exfiltration</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><strong>Collection (TA0009)</strong></td>
+                            <td style="padding: 0.5rem; border: 1px solid var(--border-color);">Gathering installed software and system configuration</td>
+                            <td style="padding: 0.5rem; border: 1px solid var(--border-color);">Aims to identify valuable information like crypto wallets and credentials</td>
+                            <td style="padding: 0.5rem; border: 1px solid var(--border-color);">Preparatory step for exfiltrating high-value assets, aligning with financial objectives</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Key Indicators of Compromise (IOCs) and Overlap</h3>
+                <ul>
+                    <li><strong>Malicious Executable (SHA256):</strong> <code>0ba592318e804f8204588de8677563b092f206e3fe654b08dac71600a2ee83c3</code> (<code>Opulous Setup.tmp</code>). This is the core payload, mirroring the trojanized installer model of AppleJeus/TraderTraitor.</li>
+                    <li><strong>Lure Theme:</strong> The branding "Opulous" and <code>opulousapp.com</code> directly tie to cryptocurrency/music-fi. This aligns with Lazarus Group's strategy of targeting crypto platforms.</li>
+                    <li><strong>Bundled Legitimate Software Components (Electron/Chromium Framework):</strong> Presence of <code>.pak</code> files, <code>ffmpeg.dll</code>, and Chromium-related components indicates an Electron-built application. Lazarus extensively uses Electron to package malicious code within functional, legitimate-looking apps for AppleJeus/TraderTraitor campaigns.</li>
+                </ul>
+
+                <h3>Corroborating Evidence from Public Reporting</h3>
+                <p>Public reports from CISA, Cyber Security Agency of Singapore, and Infoblox consistently corroborate the <code>Opulous</code> campaign TTPs with Lazarus Group activities. These sources highlight the group's reliance on trojanized Electron based trading/wallet applications, social engineering, PowerShell-heavy staging, and process injection in attacks against cryptocurrency organizations. The <code>Opulous</code> campaign aligns seamlessly with these documented patterns, strengthening attribution.</p>
+
+                <h2>Conclusion: Persistent Financial Cybercrime</h2>
+                <p>The <code>Opulous Setup.exe</code> campaign is a continuation of the Lazarus Group's established playbook. The convergence of a trojanized cryptocurrency application, sophisticated persistence, defense evasion, and a focus on information gathering strongly attributes this operation to the DPRK-sponsored APT.</p>
+
+                <p>This campaign follows classic Lazarus steps:</p>
+                <ol>
+                    <li><strong>Lure & Initial Access:</strong> Entice targets with a fake crypto application, leading to malicious installer execution.</li>
+                    <li><strong>Compromise & Payload Delivery:</strong> Deploy both a legitimate-looking app and a hidden malicious payload.</li>
+                    <li><strong>Persistence & Reconnaissance:</strong> Establish long-term foothold; gather crypto wallet data, credentials, and financial assets.</li>
+                    <li><strong>Monetization:</strong> Steal cryptocurrency to fund the DPRK regime, bypassing sanctions.</li>
+                </ol>
+
+                <p>This <code>Opulous</code> campaign underscores the potent and adaptive threat posed by the Lazarus Group. Their continuous evolution of AppleJeus and TraderTraitor malware families demonstrates a dedicated effort to target the lucrative cryptocurrency sector, necessitating continued vigilance and robust defensive measures.</p>
+
+                <h2>References</h2>
+                <ul>
+                    <li><a href="https://www.cisa.gov/news-events/cybersecurity-advisories/aa21-048a" target="_blank" style="color: var(--primary-purple);">CISA Cybersecurity Advisory AA21-048A</a></li>
+                    <li><a href="https://www.csa.gov.sg/alerts-and-advisories/alerts/al-2021-010" target="_blank" style="color: var(--primary-purple);">CSA Alert AL-2021-010</a></li>
+                    <li><a href="https://blogs.infoblox.com/security/lazarus-group-targets-financial-services-and-cryptocurrency-sector/" target="_blank" style="color: var(--primary-purple);">Infoblox: Lazarus Group Targets Financial Services and Cryptocurrency Sector</a></li>
+                    <li><a href="https://attack.mitre.org/techniques/T1055/" target="_blank" style="color: var(--primary-purple);">MITRE ATT&CK: Process Injection</a></li>
+                    <li><a href="https://attack.mitre.org/techniques/T1195/" target="_blank" style="color: var(--primary-purple);">MITRE ATT&CK: Supply Chain Compromise</a></li>
+                    <li><a href="https://attack.mitre.org/techniques/T1547/001/" target="_blank" style="color: var(--primary-purple);">MITRE ATT&CK: Boot or Logon Autostart Execution</a></li>
+                    <li><a href="https://attack.mitre.org/techniques/T1059/001/" target="_blank" style="color: var(--primary-purple);">MITRE ATT&CK: PowerShell</a></li>
+                    <li><a href="https://attack.mitre.org/techniques/T1218/011/" target="_blank" style="color: var(--primary-purple);">MITRE ATT&CK: Signed Binary Proxy Execution</a></li>
+                    <li><a href="https://attack.mitre.org/techniques/T1033/" target="_blank" style="color: var(--primary-purple);">MITRE ATT&CK: System Owner/User Discovery</a></li>
+                    <li><a href="https://attack.mitre.org/techniques/T1082/" target="_blank" style="color: var(--primary-purple);">MITRE ATT&CK: System Information Discovery</a></li>
+                    <li><a href="https://attack.mitre.org/techniques/T1047/" target="_blank" style="color: var(--primary-purple);">MITRE ATT&CK: Windows Management Instrumentation</a></li>
+                    <li><a href="https://attack.mitre.org/techniques/T1550/" target="_blank" style="color: var(--primary-purple);">MITRE ATT&CK: Use Alternate Authentication Material</a></li>
+                    <li><a href="https://attack.mitre.org/techniques/T1480/" target="_blank" style="color: var(--primary-purple);">MITRE ATT&CK: Execution Guardrails</a></li>
+                </ul>
+
+                <div class="article-footer" style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">
+                        <strong>Research Disclaimer:</strong> This research is conducted independently and is not affiliated with any official organization. All findings and analysis are based on personal research and should be used for educational and defensive purposes only. The techniques described should only be used in authorized security research environments.
+                    </p>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <p>&copy; 2025 Husam Gameel (Oppenheim3r). All rights reserved.</p>
+                <div class="social-links">
+                    <a href="#" class="social-link" title="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="#" class="social-link" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" class="social-link" title="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link" title="Email"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="../assets/js/main.js"></script>
+</body>
+</html>

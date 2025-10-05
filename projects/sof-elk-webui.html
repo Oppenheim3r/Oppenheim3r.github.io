@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOF-ELK Web Interface - Husam Gameel | Oppenheim3r</title>
+    <meta name="description" content="A Django-based web interface for SOF-ELK VM to help upload, manage, and process log files without command line interaction.">
+    
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Floating Binaries Background -->
+    <div class="floating-binaries" id="floating-binaries"></div>
+    
+    <!-- Spider Web Overlay -->
+    <div class="spider-web" id="spider-web">
+        <div class="web-line" style="top: 20%; left: 0; width: 100%;"></div>
+        <div class="web-line" style="top: 40%; left: 0; width: 100%;"></div>
+        <div class="web-line" style="top: 60%; left: 0; width: 100%;"></div>
+        <div class="web-line" style="top: 80%; left: 0; width: 100%;"></div>
+        <div class="web-line vertical" style="left: 15%; top: 0;"></div>
+        <div class="web-line vertical" style="left: 35%; top: 0;"></div>
+        <div class="web-line vertical" style="left: 55%; top: 0;"></div>
+        <div class="web-line vertical" style="left: 75%; top: 0;"></div>
+        <div class="web-line vertical" style="left: 85%; top: 0;"></div>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>Oppenheim3r</h1>
+                    <p>Husam Gameel</p>
+                </div>
+                <nav class="nav">
+                    <a href="/" class="nav-btn">
+                        <i class="fas fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    <a href="/about/" class="nav-btn">
+                        <i class="fas fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    <a href="/blogs/" class="nav-btn">
+                        <i class="fas fa-blog"></i>
+                        <span>All Blogs</span>
+                    </a>
+                    <a href="/blogs/offensive/" class="nav-btn">
+                        <i class="fas fa-sword"></i>
+                        <span>Offensive</span>
+                    </a>
+                    <a href="/blogs/defensive/" class="nav-btn">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Defensive</span>
+                    </a>
+                    <a href="/research/" class="nav-btn">
+                        <i class="fas fa-flask"></i>
+                        <span>Research</span>
+                    </a>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Breadcrumb -->
+        <div class="breadcrumb" id="breadcrumb">
+            <a href="/">Home</a> <span class="breadcrumb-separator">></span> 
+            <a href="/projects/">Projects</a> <span class="breadcrumb-separator">></span> 
+            <span>SOF-ELK Web Interface</span>
+        </div>
+
+        <!-- Main Content -->
+        <main class="main">
+            <div class="article-content">
+                <a href="/projects/" class="back-btn">
+                    <i class="fas fa-arrow-left"></i>
+                    Back to Projects
+                </a>
+                
+                <h1>SOF-ELK Web Interface</h1>
+                <div class="post-meta" style="margin-bottom: 2rem;">
+                    <span class="post-category">Security Tool</span>
+                    <span>Project</span>
+                </div>
+
+                <p>This project is meant to be an add-on to the amazing SOF-ELK VM created by <a href="https://github.com/philhagen/sof-elk/wiki/Virtual-Machine-README" target="_blank" style="color: var(--primary-purple);">@philhagen</a> not a standalone tool. I built this Django based web interface specifically to be cloned and run inside the SOF-ELK VM itself. The idea is simple: give users a graphical UI to help upload, manage, and process log files without needing to mess with the command line every time.</p>
+
+                <p>I struggled a lot with uploading and managing files on SOF-ELK over SSH. It was clunky, especially when dealing with large log sets or constantly switching file types. So I built this to make my life easier and figured others might find it helpful too, which is why I'm sharing it with the community.</p>
+
+                <p>And yes, I used AI to help put this together.</p>
+
+                <h2>What It Does</h2>
+                <ul>
+                    <li>A simple dashboard to keep an eye on system status</li>
+                    <li>Upload and manage log files directly from the browser</li>
+                    <li><strong>New Feature:</strong> View and delete uploaded log files (individually or in bulk)</li>
+                    <li>Process NetFlow, AWS VPC Flow, and Azure VPC Flow logs</li>
+                    <li>Manage Elasticsearch indices from the UI</li>
+                    <li>Update SOF-ELK configurations easily</li>
+                    <li>Monitor the system's health</li>
+                </ul>
+
+                <h2>🛠 How to Install</h2>
+                <p><strong>Make sure you are running on root while doing all of this</strong></p>
+
+                <h3>1. Clone this repo inside your SOF-ELK VM</h3>
+                <pre><code>git clone https://github.com/Oppenheim3r/SOF-ELK-UI.git</code></pre>
+
+                <h3>2. Install the required dependencies</h3>
+                <pre><code>pip3 install django</code></pre>
+
+                <h3>3. Run the migrations</h3>
+                <pre><code>python3 manage.py makemigrations
+python3 manage.py migrate</code></pre>
+
+                <h3>4. (Optional) Create an admin user</h3>
+                <pre><code>python3 manage.py createsuperuser</code></pre>
+
+                <h3>5. Start the development server</h3>
+                <pre><code>python3 manage.py runserver 0.0.0.0:8000</code></pre>
+
+                <h3>6. Access the web interface via your browser at:</h3>
+                <p><code>http://&lt;your-vm-ip&gt;:8000</code></p>
+
+                <div style="background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 0.5rem; padding: 1rem; margin: 1rem 0;">
+                    <p><strong>Note:</strong> I personally ran into an issue accessing Django from my host machine — whether I used NAT or a custom bridged adapter, I just couldn't reach it.</p>
+                    <p>So here's what I did: I forwarded port <code>8080</code> to <code>8000</code> inside the SOF-ELK VM using iptables. This way, Django thinks I'm hitting it locally on <code>127.0.0.1</code>.</p>
+                </div>
+
+                <h3>Port Forwarding Setup</h3>
+                <p>Here's how I set that up:</p>
+                <pre><code>sudo iptables -t nat -A PREROUTING -p tcp --dport 8080 -j REDIRECT --to-port 8000
+sudo iptables -t nat -A OUTPUT -p tcp --dport 8080 -j REDIRECT --to-port 8000</code></pre>
+
+                <p>Then just run:</p>
+                <pre><code>python manage.py runserver 0.0.0.0:8000</code></pre>
+
+                <p>To make these iptables rules stick after a reboot:</p>
+                <pre><code>sudo apt install iptables-persistent
+sudo netfilter-persistent save</code></pre>
+
+                <p>Now I can simply open <code>http://&lt;vm-ip&gt;:8080</code> from my host machine, and Django behaves like I'm accessing it via <code>127.0.0.1</code>.</p>
+
+                <h2>Requirements</h2>
+                <ul>
+                    <li>Python 3.11+</li>
+                    <li>Django 5.2+</li>
+                </ul>
+
+                <h2>System Paths in SOF-ELK</h2>
+                <p>The web UI respects the original SOF-ELK paths and CLI tools:</p>
+                <ul>
+                    <li>Log dirs: <code>/logstash/*/</code></li>
+                    <li>Configs: <code>/etc/logstash/conf.d/*.conf</code></li>
+                    <li>Core repo: <code>/usr/local/sof-elk/*</code></li>
+                    <li>System tools used:
+                        <ul>
+                            <li><code>/usr/local/sbin/sof-elk_clear.py</code></li>
+                            <li><code>/usr/local/sbin/sof-elk_update.sh</code></li>
+                            <li><code>nfdump2sof-elk.sh</code></li>
+                            <li><code>aws-vpcflow2sof-elk.sh</code></li>
+                            <li><code>azure-vpcflow2sof-elk.py</code></li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <h2>Note</h2>
+                <p><strong>The following are not working for now, and I will be fixing them later:</strong></p>
+                
+                <h3>NetFlow Processing</h3>
+                <p>Command-line activity: <code>nfdump2sof-elk.sh -r /path/to/netflow/ -w /logstash/nfarch/output.txt</code><br>
+                Web interface action: Form to upload NetFlow files and specify parameters</p>
+
+                <h3>AWS VPC Flow Processing</h3>
+                <p>Command-line activity: <code>aws-vpcflow2sof-elk.sh -r /path/to/aws-vpcflow/ -w /logstash/nfarch/output.txt</code><br>
+                Web interface action: Form to upload AWS VPC Flow files and specify parameters</p>
+
+                <h3>Azure VPC Flow Processing</h3>
+                <p>Command-line activity: <code>azure-vpcflow2sof-elk.py -r /path/to/gcp-vpcflow/ -w /logstash/nfarch/output.txt</code><br>
+                Web interface action: Form to upload Azure VPC Flow files and specify parameters</p>
+
+                <h2>Permissions</h2>
+                <ul>
+                    <li>The Django app runs with the same privileges as the user starting the server (e.g., <code>elk_user</code>).</li>
+                    <li><strong>File Uploads & Deletion:</strong> That user must have write permissions to relevant <code>/logstash/*</code> subdirectories.</li>
+                    <li><strong>Log Processing (NetFlow, etc.):</strong> Requires write access to <code>/logstash/nfarch/</code>.</li>
+                    <li><strong>Privileged Commands:</strong> For stuff like <code>sof-elk_update.sh</code>, make sure the Django server user has <strong>passwordless sudo</strong> access specifically for that command.</li>
+                </ul>
+
+                <div class="article-footer" style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">
+                        <strong>Disclaimer:</strong> This tool is for authorized security testing and research purposes only. Use responsibly and in compliance with applicable laws and regulations.
+                    </p>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <p>&copy; 2025 Husam Gameel (Oppenheim3r). All rights reserved.</p>
+                <div class="social-links">
+                    <a href="#" class="social-link" title="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="#" class="social-link" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" class="social-link" title="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link" title="Email"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="../assets/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lumma Stealer Research - Husam Gameel | Oppenheim3r</title>
+    <meta name="description" content="Research analysis of Lumma Stealer tactics, techniques, and procedures including LLVM obfuscation and trigonometry-based mouse movement tracking for sandbox evasion.">
+    
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Floating Binaries Background -->
+    <div class="floating-binaries" id="floating-binaries"></div>
+    
+    <!-- Spider Web Overlay -->
+    <div class="spider-web" id="spider-web">
+        <div class="web-line" style="top: 20%; left: 0; width: 100%;"></div>
+        <div class="web-line" style="top: 40%; left: 0; width: 100%;"></div>
+        <div class="web-line" style="top: 60%; left: 0; width: 100%;"></div>
+        <div class="web-line" style="top: 80%; left: 0; width: 100%;"></div>
+        <div class="web-line vertical" style="left: 15%; top: 0;"></div>
+        <div class="web-line vertical" style="left: 35%; top: 0;"></div>
+        <div class="web-line vertical" style="left: 55%; top: 0;"></div>
+        <div class="web-line vertical" style="left: 75%; top: 0;"></div>
+        <div class="web-line vertical" style="left: 85%; top: 0;"></div>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>Oppenheim3r</h1>
+                    <p>Husam Gameel</p>
+                </div>
+                <nav class="nav">
+                    <a href="/" class="nav-btn">
+                        <i class="fas fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    <a href="/about/" class="nav-btn">
+                        <i class="fas fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    <a href="/blogs/" class="nav-btn">
+                        <i class="fas fa-blog"></i>
+                        <span>All Blogs</span>
+                    </a>
+                    <a href="/blogs/offensive/" class="nav-btn">
+                        <i class="fas fa-sword"></i>
+                        <span>Offensive</span>
+                    </a>
+                    <a href="/blogs/defensive/" class="nav-btn">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Defensive</span>
+                    </a>
+                    <a href="/research/" class="nav-btn active">
+                        <i class="fas fa-flask"></i>
+                        <span>Research</span>
+                    </a>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Breadcrumb -->
+        <div class="breadcrumb" id="breadcrumb">
+            <a href="/">Home</a> <span class="breadcrumb-separator">></span> 
+            <a href="/research/">Research</a> <span class="breadcrumb-separator">></span> 
+            <span>Lumma Stealer Research</span>
+        </div>
+
+        <!-- Main Content -->
+        <main class="main">
+            <div class="article-content">
+                <a href="/research/" class="back-btn">
+                    <i class="fas fa-arrow-left"></i>
+                    Back to Research
+                </a>
+                
+                <div style="background: var(--gradient-danger); color: white; padding: 1rem; border-radius: 0.5rem; margin-bottom: 2rem; text-align: center;">
+                    <strong>⚠️ RESEARCH DISCLAIMER:</strong> This research is conducted independently and is not affiliated with any official organization. All findings and analysis are based on personal research and should be used for educational and defensive purposes only.
+                </div>
+                
+                <h1>Lumma Stealer Research Analysis</h1>
+                <div class="post-meta" style="margin-bottom: 2rem;">
+                    <span class="post-category">Malware Research</span>
+                    <span>Research</span>
+                </div>
+
+                <p>This report is an analysis of the information mentioned in this <a href="https://medium.com/@raghavtiresearch/lumma-stealer-a-proliferating-threat-in-the-cybercrime-landscape-b5cdc3de44a4" target="_blank" style="color: var(--primary-purple);">blog post</a> discussing LummaStealer Tactics, Techniques, and Procedures.</p>
+
+                <p>I will start with <strong>Execution & Evasion Techniques:</strong> I have picked the methods that I found interesting the most. Starting with obfuscation it uses Low-Level Virtual Machine (LLVM), <strong>trigonometry to track mouse movements</strong>.</p>
+
+                <h2>1. Low Level Virtual Machine (LLVM)</h2>
+                <p>LLVM is an infrastructure that was created to optimize code at compile time. Its main use is to make different programming languages allowing them to share tools before they are converted to machine code.</p>
+
+                <p>This process can be done in three steps, the compiler has three parts:</p>
+                <ol>
+                    <li><strong>Frontend:</strong> Parses the source code and converts it into Intermediate Representation (IR) - a form of syntax that is closest to hardware.</li>
+                    <li><strong>Middle end:</strong> Analyzes this IR and optimizes it.</li>
+                    <li><strong>Backend:</strong> Converts the IR into machine code.</li>
+                </ol>
+
+                <p>LLVM makes writing new programming languages easier.</p>
+
+                <h3>Malware Abuse of LLVM</h3>
+                <p>Malware authors can abuse this functionality by:</p>
+                <ul>
+                    <li>Reconstructing the program control flow</li>
+                    <li>Making an If-else statement look like a loop or switch statement</li>
+                    <li>Reconstructing instructions into mathematical equivalent forms</li>
+                    <li>Injecting useless code or dead code that does not affect or add anything to the program but makes it complex</li>
+                </ul>
+
+                <h2>2. Trigonometry to Track Mouse Movements</h2>
+                <p>In the blog, it's mentioned that Lumma Stealer uses this technique for sandbox evasion. It utilizes <strong>trigonometry to track mouse movements</strong> to escape sandbox. It would not execute the payload unless human activity was detected.</p>
+
+                <p>I have done my own research to figure this method and test it myself.</p>
+
+                <h3>Windows API Functions Used</h3>
+                <h4>A. Mouse Tracking Functions</h4>
+                <table style="width: 100%; border-collapse: collapse; margin: 1rem 0;">
+                    <thead>
+                        <tr style="background: var(--card-bg);">
+                            <th style="padding: 0.5rem; border: 1px solid var(--border-color);">Function</th>
+                            <th style="padding: 0.5rem; border: 1px solid var(--border-color);">Library</th>
+                            <th style="padding: 0.5rem; border: 1px solid var(--border-color);">Purpose</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><code>GetCursorPos()</code></td>
+                            <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><code>user32.dll</code></td>
+                            <td style="padding: 0.5rem; border: 1px solid var(--border-color);">Retrieves the current mouse cursor position (x, y)</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><code>GetSystemMetrics(SM_MOUSEPRESENT)</code></td>
+                            <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><code>user32.dll</code></td>
+                            <td style="padding: 0.5rem; border: 1px solid var(--border-color);">Checks if a physical mouse is connected (anti-VM check)</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><code>GetAsyncKeyState(VK_ESCAPE)</code></td>
+                            <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><code>user32.dll</code></td>
+                            <td style="padding: 0.5rem; border: 1px solid var(--border-color);">Detects if the ESC key is pressed (for graceful exit)</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h4>B. Timing Functions</h4>
+                <table style="width: 100%; border-collapse: collapse; margin: 1rem 0;">
+                    <thead>
+                        <tr style="background: var(--card-bg);">
+                            <th style="padding: 0.5rem; border: 1px solid var(--border-color);">Function</th>
+                            <th style="padding: 0.5rem; border: 1px solid var(--border-color);">Library</th>
+                            <th style="padding: 0.5rem; border: 1px solid var(--border-color);">Purpose</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><code>Sleep()</code></td>
+                            <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><code>kernel32.dll</code></td>
+                            <td style="padding: 0.5rem; border: 1px solid var(--border-color);">Pauses execution to control sampling rate</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 0.5rem; border: 1px solid var(--border-color);"><code>std::chrono (C++)</code></td>
+                            <td style="padding: 0.5rem; border: 1px solid var(--border-color);">Standard Library</td>
+                            <td style="padding: 0.5rem; border: 1px solid var(--border-color);">High-precision timing for movement analysis</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>The Mathematical Logic Behind It</h3>
+                <h4>A. Calculating Movement Angle</h4>
+                <p>The program computes the <strong>angle</strong> between two consecutive mouse positions using <code>atan2</code> (arctangent of <code>dy/dx</code>):</p>
+
+                <pre><code>double calculateMovementAngle(POINT from, POINT to) {
+    double dx = to.x - from.x;
+    double dy = to.y - from.y;
+    return radiansToDegrees(atan2(dy, dx)); // converts to degrees (0-360)
+}</code></pre>
+
+                <ul>
+                    <li><code>dx</code> and <code>dy</code> - Differences in x and y coordinates</li>
+                    <li><code>atan2(dy, dx)</code> - Computes the angle in radians</li>
+                    <li><code>radiansToDegrees()</code> - Converts to degrees for easier interpretation</li>
+                </ul>
+
+                <h4>B. Normalizing Angle Differences</h4>
+                <p>Since angles wrap around (0 = 360), we normalize them to ensure correct comparisons:</p>
+
+                <pre><code>double normalizeAngle(double angle) {
+    angle = fmod(angle, 360.0); // ensures angle is within 0-360
+    if (angle < 0) angle += 360.0;
+    return angle;
+}</code></pre>
+
+                <h4>C. Determining Human vs. Bot Movement</h4>
+                <p>The program checks if angle changes exceed a threshold (45 by default):</p>
+
+                <pre><code>double angleDifference(double a, double b) {
+    double diff = fabs(normalizeAngle(a) - normalizeAngle(b));
+    return fmin(diff, 360.0 - diff); // get smallest difference (accounts for wrap-around)
+}</code></pre>
+
+                <ul>
+                    <li><strong>Human movements:</strong> Large angle variations (>45°)</li>
+                    <li><strong>Bot/sandbox movements:</strong> Small angle variations (straight lines, repetitive patterns)</li>
+                </ul>
+
+                <h3>The Program Flow</h3>
+                <ol>
+                    <li>It checks the mouse presence using <code>GetSystemMetrics(SM_MOUSEPRESENT)</code> to see whether the mouse is connected</li>
+                    <li>Then sample mouse positions - Every <strong>100ms</strong>, it records the cursor position using <code>GetCursorPos()</code></li>
+                    <li><strong>Store and Analyze Angles</strong> - Maintains a <strong>sliding window of the last 10 angles</strong></li>
+                    <li>Determine Human vs. Bot: average angle change > 45 <strong>Human detected</strong>. If the average angle change ≤ 45 Bot</li>
+                </ol>
+
+                <h3>Code Sample</h3>
+                <pre><code>#define _USE_MATH_DEFINES
+#include &lt;Windows.h&gt;
+#include &lt;cmath&gt;
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;chrono&gt;
+
+// Constants
+constexpr int SAMPLE_INTERVAL_MS = 100;  // Time between mouse position samples
+constexpr double ANGLE_THRESHOLD = 45.0; // Degrees difference to consider human-like
+constexpr int MIN_SAMPLES = 5;           // Minimum samples before making determination
+constexpr int DETECTION_WINDOW = 10;     // Number of recent samples to consider
+
+// Converts radians to degrees
+inline double radiansToDegrees(double radians) {
+    return radians * (180.0 / M_PI);
+}
+
+double calculateMovementAngle(POINT from, POINT to) {
+    double dx = to.x - from.x;
+    double dy = to.y - from.y;
+    return radiansToDegrees(atan2(dy, dx));
+}
+
+double normalizeAngle(double angle) {
+    angle = fmod(angle, 360.0);
+    if (angle < 0) angle += 360.0;
+    return angle;
+}
+
+double angleDifference(double a, double b) {
+    double diff = fabs(normalizeAngle(a) - normalizeAngle(b));
+    return fmin(diff, 360.0 - diff);
+}
+
+int main() {
+    std::vector&lt;double&gt; angleHistory;
+    POINT prevPos, currentPos;
+    bool mousePresent = GetSystemMetrics(SM_MOUSEPRESENT);
+
+    if (!mousePresent) {
+        std::cout << "[!] No mouse detected - likely a virtual machine or sandbox\n";
+        return 1;
+    }
+
+    std::cout << "Mouse movement analysis started. Move your mouse naturally...\n";
+    std::cout << "Waiting for " << MIN_SAMPLES << " samples before analysis...\n";
+
+    //get the mouse position
+    GetCursorPos(&prevPos);
+    auto lastSampleTime = std::chrono::steady_clock::now();
+
+    while (true) {
+        auto now = std::chrono::steady_clock::now();
+        auto elapsed = std::chrono::duration_cast&lt;std::chrono::milliseconds&gt;(now - lastSampleTime).count();
+
+        if (elapsed >= SAMPLE_INTERVAL_MS) {
+            GetCursorPos(&currentPos);
+
+            // Only process if mouse has moved and keep only recent samples
+            if (currentPos.x != prevPos.x || currentPos.y != prevPos.y) {
+                double angle = calculateMovementAngle(prevPos, currentPos);
+                angleHistory.push_back(angle);
+
+                if (angleHistory.size() > DETECTION_WINDOW) {
+                    angleHistory.erase(angleHistory.begin());
+                }
+
+                if (angleHistory.size() >= MIN_SAMPLES) {
+                    double totalDiff = 0.0;
+                    int comparisons = 0;
+
+                    for (size_t i = 1; i < angleHistory.size(); i++) {
+                        double diff = angleDifference(angleHistory[i], angleHistory[i-1]);
+                        totalDiff += diff;
+                        comparisons++;
+                    }
+
+                    double avgDiff = totalDiff / comparisons;
+                    bool isHuman = avgDiff > ANGLE_THRESHOLD;
+
+                    system("cls"); 
+                    std::cout << "mouse movement analysis\n";
+                    std::cout << "-----------------------\n";
+                    std::cout << "samples collected: " << angleHistory.size() << "\n";
+                    std::cout << "average angle change: " << avgDiff << " degrees\n";
+                    std::cout << "detection threshold: " << ANGLE_THRESHOLD << " degrees\n";
+                    std::cout << "conclusion: " << (isHuman ? "HUMAN" : "BOT/AUTOMATED") << "\n";
+                    std::cout << "\nKeep moving mouse to update analysis...\n";
+                }
+
+                prevPos = currentPos;
+            }
+
+            lastSampleTime = now;
+        }
+
+        // Check for ESC key to exit
+        if (GetAsyncKeyState(VK_ESCAPE) & 0x8000) {
+            break;
+        }
+
+        Sleep(10); 
+    }
+
+    return 0;
+}</code></pre>
+
+                <h3>Compilation and Testing</h3>
+                <p>I have compiled this using Visual Studio command line:</p>
+                <pre><code>MouseAnalysis.cpp /EHsc /Fe:MouseAnalysis.exe /link user32.lib</code></pre>
+
+                <p>The program is missing a lot of mathematical and execution logic but I am demonstrating this as a PoC. An enhanced version of this can be used to detect human activity and BOT activity with high accuracy to escape sandbox.</p>
+
+                <h2>References</h2>
+                <ul>
+                    <li><a href="https://medium.com/@ramdorak/low-level-virtual-machine-under-the-compiler-hood-064c8c8893fd" target="_blank" style="color: var(--primary-purple);">Low-Level Virtual Machine Under the Compiler Hood</a></li>
+                    <li><a href="https://medium.com/@raghavtiresearch/lumma-stealer-a-proliferating-threat-in-the-cybercrime-landscape-b5cdc3de44a4" target="_blank" style="color: var(--primary-purple);">Lumma Stealer: A Proliferating Threat in the Cybercrime Landscape</a></li>
+                    <li><a href="https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-getcursorpos" target="_blank" style="color: var(--primary-purple);">GetCursorPos Function</a></li>
+                    <li><a href="https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-setwindowshookexa" target="_blank" style="color: var(--primary-purple);">SetWindowsHookExA Function</a></li>
+                    <li><a href="https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-getasynckeystate" target="_blank" style="color: var(--primary-purple);">GetAsyncKeyState Function</a></li>
+                    <li><a href="https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-getsystemmetrics" target="_blank" style="color: var(--primary-purple);">GetSystemMetrics Function</a></li>
+                    <li><a href="https://learn.microsoft.com/en-us/windows/win32/api/sysinfoapi/nf-sysinfoapi-gettickcount" target="_blank" style="color: var(--primary-purple);">GetTickCount Function</a></li>
+                    <li><a href="https://learn.microsoft.com/en-us/windows/win32/api/profileapi/nf-profileapi-queryperformancecounter" target="_blank" style="color: var(--primary-purple);">QueryPerformanceCounter Function</a></li>
+                </ul>
+
+                <div class="article-footer" style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">
+                        <strong>Research Disclaimer:</strong> This research is conducted independently and is not affiliated with any official organization. All findings and analysis are based on personal research and should be used for educational and defensive purposes only. The techniques described should only be used in authorized security research environments.
+                    </p>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <p>&copy; 2025 Husam Gameel (Oppenheim3r). All rights reserved.</p>
+                <div class="social-links">
+                    <a href="#" class="social-link" title="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="#" class="social-link" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" class="social-link" title="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link" title="Email"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="../assets/js/main.js"></script>
+</body>
+</html>

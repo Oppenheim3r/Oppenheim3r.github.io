@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects - Husam Gameel | Oppenheim3r</title>
+    <meta name="description" content="Explore security tools and projects developed by Husam Gameel (Oppenheim3r) including ProcessButcher and SOF-ELK Web Interface.">
+    
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Floating Binaries Background -->
+    <div class="floating-binaries" id="floating-binaries"></div>
+    
+    <!-- Spider Web Overlay -->
+    <div class="spider-web" id="spider-web">
+        <div class="web-line" style="top: 20%; left: 0; width: 100%;"></div>
+        <div class="web-line" style="top: 40%; left: 0; width: 100%;"></div>
+        <div class="web-line" style="top: 60%; left: 0; width: 100%;"></div>
+        <div class="web-line" style="top: 80%; left: 0; width: 100%;"></div>
+        <div class="web-line vertical" style="left: 15%; top: 0;"></div>
+        <div class="web-line vertical" style="left: 35%; top: 0;"></div>
+        <div class="web-line vertical" style="left: 55%; top: 0;"></div>
+        <div class="web-line vertical" style="left: 75%; top: 0;"></div>
+        <div class="web-line vertical" style="left: 85%; top: 0;"></div>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>Oppenheim3r</h1>
+                    <p>Husam Gameel</p>
+                </div>
+                <nav class="nav">
+                    <a href="/" class="nav-btn">
+                        <i class="fas fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    <a href="/about/" class="nav-btn">
+                        <i class="fas fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    <a href="/blogs/" class="nav-btn">
+                        <i class="fas fa-blog"></i>
+                        <span>All Blogs</span>
+                    </a>
+                    <a href="/blogs/offensive/" class="nav-btn">
+                        <i class="fas fa-sword"></i>
+                        <span>Offensive</span>
+                    </a>
+                    <a href="/blogs/defensive/" class="nav-btn">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Defensive</span>
+                    </a>
+                    <a href="/research/" class="nav-btn">
+                        <i class="fas fa-flask"></i>
+                        <span>Research</span>
+                    </a>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Breadcrumb -->
+        <div class="breadcrumb" id="breadcrumb">
+            <a href="/">Home</a> <span class="breadcrumb-separator">></span> <span>Projects</span>
+        </div>
+
+        <!-- Main Content -->
+        <main class="main">
+            <div class="page-header">
+                <h1><i class="fas fa-code"></i> Security Projects</h1>
+                <p>Tools and applications developed for cybersecurity research and operations</p>
+            </div>
+
+            <!-- Projects Grid -->
+            <div class="posts-grid">
+                <div class="post-card" onclick="window.location.href='/projects/processbutcher.html'">
+                    <div class="post-meta">
+                        <span class="post-category">Threat Hunting Tool</span>
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3>ProcessButcher</h3>
+                    <p>Advanced Windows threat hunting tool that leverages undocumented Windows Native API to gather deep insights into running processes, memory, threads, and handles. Designed for advanced threat hunting and process analysis.</p>
+                    <a href="/projects/processbutcher.html" class="read-more">
+                        Learn More <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <div class="post-card" onclick="window.location.href='/projects/sof-elk-webui.html'">
+                    <div class="post-meta">
+                        <span class="post-category">Log Analysis Tool</span>
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>SOF-ELK Web Interface</h3>
+                    <p>Django-based web interface for SOF-ELK VM to help upload, manage, and process log files without command line interaction. Features dashboard monitoring, file management, and log processing capabilities.</p>
+                    <a href="/projects/sof-elk-webui.html" class="read-more">
+                        Learn More <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <!-- Placeholder for future projects -->
+                <div class="post-card" style="opacity: 0.6; cursor: not-allowed;" onclick="return false;">
+                    <div class="post-meta">
+                        <span class="post-category">Malware Analysis</span>
+                        <span>Coming Soon</span>
+                    </div>
+                    <h3>Malware Analysis Framework</h3>
+                    <p>Comprehensive framework for automated malware analysis, including static and dynamic analysis capabilities with reporting features.</p>
+                    <span class="read-more" style="color: var(--text-muted);">
+                        Coming Soon <i class="fas fa-clock"></i>
+                    </span>
+                </div>
+
+                <div class="post-card" style="opacity: 0.6; cursor: not-allowed;" onclick="return false;">
+                    <div class="post-meta">
+                        <span class="post-category">Network Security</span>
+                        <span>Coming Soon</span>
+                    </div>
+                    <h3>Network Traffic Analyzer</h3>
+                    <p>Real-time network traffic analysis tool with protocol detection, anomaly detection, and threat intelligence integration.</p>
+                    <span class="read-more" style="color: var(--text-muted);">
+                        Coming Soon <i class="fas fa-clock"></i>
+                    </span>
+                </div>
+            </div>
+
+            <!-- Project Categories -->
+            <section class="featured-categories" style="margin-top: 4rem;">
+                <h2 style="text-align: center; margin-bottom: 3rem; font-size: 2.5rem; background: var(--gradient-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Project Categories</h2>
+                
+                <div class="posts-grid">
+                    <div class="post-card" style="text-align: center;">
+                        <div class="post-meta">
+                            <span class="post-category">Threat Hunting</span>
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <h3>Threat Hunting Tools</h3>
+                        <p>Tools designed for proactive threat detection and analysis, including process analysis and system monitoring capabilities.</p>
+                    </div>
+
+                    <div class="post-card" style="text-align: center;">
+                        <div class="post-meta">
+                            <span class="post-category">Log Analysis</span>
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3>Log Analysis & SIEM</h3>
+                        <p>Web interfaces and tools for log management, analysis, and security information and event management.</p>
+                    </div>
+
+                    <div class="post-card" style="text-align: center;">
+                        <div class="post-meta">
+                            <span class="post-category">Malware Analysis</span>
+                            <i class="fas fa-virus"></i>
+                        </div>
+                        <h3>Malware Analysis</h3>
+                        <p>Frameworks and tools for static and dynamic malware analysis, reverse engineering, and behavioral analysis.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Call to Action -->
+            <div class="cta-section" style="background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 1rem; padding: 3rem; margin: 4rem 0; text-align: center;">
+                <h2 style="margin-bottom: 1rem; background: var(--gradient-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Interested in Collaboration?</h2>
+                <p style="color: var(--text-secondary); margin-bottom: 2rem;">Check out my research and blog posts for more insights, or explore my GitHub for source code and contributions.</p>
+                <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                    <a href="/research/" class="nav-btn" style="display: inline-flex;">
+                        <i class="fas fa-flask"></i>
+                        <span>Security Research</span>
+                    </a>
+                    <a href="/blogs/" class="nav-btn" style="display: inline-flex;">
+                        <i class="fas fa-blog"></i>
+                        <span>Blog Posts</span>
+                    </a>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <p>&copy; 2025 Husam Gameel (Oppenheim3r). All rights reserved.</p>
+                <div class="social-links">
+                    <a href="#" class="social-link" title="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="#" class="social-link" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" class="social-link" title="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link" title="Email"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="../assets/js/main.js"></script>
+</body>
+</html>

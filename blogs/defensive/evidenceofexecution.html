@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evidence of Execution - Windows - Husam Gameel | Oppenheim3r</title>
+    <meta name="description" content="Learn about Windows execution artifacts including Prefetch, Shim Cache, AM Cache, PCA, MUI Cache, User Assist, and SRUM for digital forensics.">
+    
+    <link rel="stylesheet" href="../../assets/css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Floating Binaries Background -->
+    <div class="floating-binaries" id="floating-binaries"></div>
+    
+    <!-- Spider Web Overlay -->
+    <div class="spider-web" id="spider-web">
+        <div class="web-line" style="top: 20%; left: 0; width: 100%;"></div>
+        <div class="web-line" style="top: 40%; left: 0; width: 100%;"></div>
+        <div class="web-line" style="top: 60%; left: 0; width: 100%;"></div>
+        <div class="web-line" style="top: 80%; left: 0; width: 100%;"></div>
+        <div class="web-line vertical" style="left: 15%; top: 0;"></div>
+        <div class="web-line vertical" style="left: 35%; top: 0;"></div>
+        <div class="web-line vertical" style="left: 55%; top: 0;"></div>
+        <div class="web-line vertical" style="left: 75%; top: 0;"></div>
+        <div class="web-line vertical" style="left: 85%; top: 0;"></div>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>Oppenheim3r</h1>
+                    <p>Husam Gameel</p>
+                </div>
+                <nav class="nav">
+                    <a href="/" class="nav-btn">
+                        <i class="fas fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    <a href="/about/" class="nav-btn">
+                        <i class="fas fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    <a href="/blogs/" class="nav-btn">
+                        <i class="fas fa-blog"></i>
+                        <span>All Blogs</span>
+                    </a>
+                    <a href="/blogs/offensive/" class="nav-btn">
+                        <i class="fas fa-sword"></i>
+                        <span>Offensive</span>
+                    </a>
+                    <a href="/blogs/defensive/" class="nav-btn active">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Defensive</span>
+                    </a>
+                    <a href="/research/" class="nav-btn">
+                        <i class="fas fa-flask"></i>
+                        <span>Research</span>
+                    </a>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Breadcrumb -->
+        <div class="breadcrumb" id="breadcrumb">
+            <a href="/">Home</a> <span class="breadcrumb-separator">></span> 
+            <a href="/blogs/">Blogs</a> <span class="breadcrumb-separator">></span> 
+            <a href="/blogs/defensive/">Defensive</a> <span class="breadcrumb-separator">></span> 
+            <span>Evidence of Execution</span>
+        </div>
+
+        <!-- Main Content -->
+        <main class="main">
+            <div class="article-content">
+                <a href="/blogs/defensive/" class="back-btn">
+                    <i class="fas fa-arrow-left"></i>
+                    Back to Defensive Security
+                </a>
+                
+                <h1>Evidence of Execution - Windows</h1>
+                <div class="post-meta" style="margin-bottom: 2rem;">
+                    <span class="post-category">Defensive Security</span>
+                    <span>April 5, 2024</span>
+                </div>
+
+                <h2>Windows Prefetch</h2>
+                <p>The entire purpose of prefetch is to speed up the applications launch 'usually used'. Prefetch has background process that runs approximately for 10 seconds and it will monitor the application that the OS is interacting with, for GUI and CLI programs.</p>
+
+                <p>It's stored in the file system %system root% windows\prefetch</p>
+
+                <p>To get the first and the 8 time were executed:</p>
+
+                <h3>Anti Forensics</h3>
+                <p>You can delete the prefetch file using SDELETE.exe, but it will leave a prefetch.</p>
+
+                <hr style="margin: 2rem 0; border: none; border-top: 1px solid var(--border-color);">
+
+                <h2>Shim Cache</h2>
+                <p>Registry location:</p>
+                <pre><code>HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\AppcCompatCache</code></pre>
+                
+                <p><strong>Note:</strong> Cannot be used as evidence in Windows 8+</p>
+                
+                <p>Tool for analysis:</p>
+                <pre><code>AppCompatCacheParser.exe --csv c:\Users\GhosHex\Desktop --csvf sinm.csv</code></pre>
+
+                <hr style="margin: 2rem 0; border: none; border-top: 1px solid var(--border-color);">
+
+                <h2>AM Cache</h2>
+                <p>Installed packages, loose executables → it will tracks drivers. Cannot be used as an evidence of execution.</p>
+                
+                <p>Hive location:</p>
+                <pre><code>C:\Windows\appcompat\Programs</code></pre>
+
+                <hr style="margin: 2rem 0; border: none; border-top: 1px solid var(--border-color);">
+
+                <h2>PCA</h2>
+                <p>Is a GUI artifact of execution and CLI applications, its in Windows 11.</p>
+                
+                <p>Location:</p>
+                <pre><code>C:\Windows\appcompat\PCA</code></pre>
+
+                <hr style="margin: 2rem 0; border: none; border-top: 1px solid var(--border-color);">
+
+                <h2>MUI Cache</h2>
+                <p>USER.dat - Multi User Interface cache. It was used for language purposes but it can be leveraged to be a per user execution artifact for GUI applications. There is no time stamp.</p>
+                
+                <p>Registry location:</p>
+                <pre><code>HKCU\software\classes\local settings\software\microsoft\windows\shell\MuiCache</code></pre>
+
+                <hr style="margin: 2rem 0; border: none; border-top: 1px solid var(--border-color);">
+
+                <h2>User Assist</h2>
+                <p>NTUSER.dat</p>
+                
+                <p>Registry location:</p>
+                <pre><code>Computer\HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\UserAssist</code></pre>
+                
+                <p>Keys:</p>
+                <ul>
+                    <li><code>{CEBFF5CD-ACE2-4F4F-9178-9926F41749EA}</code> - will track application execution</li>
+                    <li><code>{F4E57C4B-2036-45F0-A9AB-443BCFE33D9F}</code> - will track link files</li>
+                </ul>
+
+                <hr style="margin: 2rem 0; border: none; border-top: 1px solid var(--border-color);">
+
+                <h2>SRUM</h2>
+                <p>System Resource Utilization Monitor</p>
+                
+                <p>Program execution + energy usage + detailed application usage 30 days + network related connectivity + push notification data</p>
+                
+                <p>Location:</p>
+                <pre><code>c:\windows\system32\sru\srudb.dat</code></pre>
+                
+                <p>Using software hive to get more information along with SRUM</p>
+
+                <div class="article-footer" style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">
+                        <strong>Disclaimer:</strong> This content is for educational purposes only. The techniques described should only be used in authorized digital forensics and security research environments.
+                    </p>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <p>&copy; 2025 Husam Gameel (Oppenheim3r). All rights reserved.</p>
+                <div class="social-links">
+                    <a href="#" class="social-link" title="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="#" class="social-link" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" class="social-link" title="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link" title="Email"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="../../assets/js/main.js"></script>
+</body>
+</html>

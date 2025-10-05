@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProcessButcher - Advanced Windows Threat Hunting Tool - Husam Gameel | Oppenheim3r</title>
+    <meta name="description" content="ProcessButcher is a command-line tool designed for advanced threat hunting on Windows systems using undocumented Windows Native API.">
+    
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Floating Binaries Background -->
+    <div class="floating-binaries" id="floating-binaries"></div>
+    
+    <!-- Spider Web Overlay -->
+    <div class="spider-web" id="spider-web">
+        <div class="web-line" style="top: 20%; left: 0; width: 100%;"></div>
+        <div class="web-line" style="top: 40%; left: 0; width: 100%;"></div>
+        <div class="web-line" style="top: 60%; left: 0; width: 100%;"></div>
+        <div class="web-line" style="top: 80%; left: 0; width: 100%;"></div>
+        <div class="web-line vertical" style="left: 15%; top: 0;"></div>
+        <div class="web-line vertical" style="left: 35%; top: 0;"></div>
+        <div class="web-line vertical" style="left: 55%; top: 0;"></div>
+        <div class="web-line vertical" style="left: 75%; top: 0;"></div>
+        <div class="web-line vertical" style="left: 85%; top: 0;"></div>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>Oppenheim3r</h1>
+                    <p>Husam Gameel</p>
+                </div>
+                <nav class="nav">
+                    <a href="/" class="nav-btn">
+                        <i class="fas fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    <a href="/about/" class="nav-btn">
+                        <i class="fas fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    <a href="/blogs/" class="nav-btn">
+                        <i class="fas fa-blog"></i>
+                        <span>All Blogs</span>
+                    </a>
+                    <a href="/blogs/offensive/" class="nav-btn">
+                        <i class="fas fa-sword"></i>
+                        <span>Offensive</span>
+                    </a>
+                    <a href="/blogs/defensive/" class="nav-btn">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Defensive</span>
+                    </a>
+                    <a href="/research/" class="nav-btn">
+                        <i class="fas fa-flask"></i>
+                        <span>Research</span>
+                    </a>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Breadcrumb -->
+        <div class="breadcrumb" id="breadcrumb">
+            <a href="/">Home</a> <span class="breadcrumb-separator">></span> 
+            <a href="/projects/">Projects</a> <span class="breadcrumb-separator">></span> 
+            <span>ProcessButcher</span>
+        </div>
+
+        <!-- Main Content -->
+        <main class="main">
+            <div class="article-content">
+                <a href="/projects/" class="back-btn">
+                    <i class="fas fa-arrow-left"></i>
+                    Back to Projects
+                </a>
+                
+                <h1>ProcessButcher - Advanced Windows Threat Hunting Tool</h1>
+                <div class="post-meta" style="margin-bottom: 2rem;">
+                    <span class="post-category">Security Tool</span>
+                    <span>Project</span>
+                </div>
+
+                <h2>Download</h2>
+                <p><a href="https://github.com/Oppenheim3r/ProcessButcher/releases/tag/ProcessButcher-1" target="_blank" style="color: var(--primary-purple); text-decoration: none;">Download ProcessButcher v1.0</a></p>
+
+                <h2>Overview</h2>
+                <p>ProcessButcher is a command-line tool designed for advanced threat hunting on Windows systems. It leverages the undocumented Windows Native API (primarily functions within <code>ntdll.dll</code>) to gather deep insights into running processes, their memory, threads, and handles, often revealing information hidden from standard tools.</p>
+
+                <p>This tool was developed based on concepts from Pavel Yosifovich's "Windows Native API Programming" book and general Windows Internals knowledge.</p>
+
+                <h2>Features</h2>
+                <p>ProcessButcher provides the following analysis capabilities:</p>
+
+                <h3>1. Deep Process Insights</h3>
+                <p>Enumerates running processes using <code>NtQuerySystemInformation</code>, displaying PID, Parent PID, Session ID, Handle Count, Thread Count, and Image Name.</p>
+
+                <h3>2. PEB/TEB Parsing</h3>
+                <p>For each accessible process, it retrieves and parses:</p>
+                <ul>
+                    <li><strong>Process Environment Block (PEB):</strong> Extracts the full command line and image path name from <code>RTL_USER_PROCESS_PARAMETERS</code>.</li>
+                    <li><strong>Loaded Modules:</strong> Enumerates loaded DLLs by walking the <code>InLoadOrderModuleList</code> within the <code>PEB_LDR_DATA</code>.</li>
+                    <li><strong>Thread Environment Block (TEB):</strong> For each thread, it retrieves the TEB address using <code>NtQueryInformationThread</code> and displays stack base/limit information.</li>
+                </ul>
+
+                <h3>3. Memory Anomaly Detection</h3>
+                <p>Scans the virtual memory space of accessible processes using <code>NtQueryVirtualMemory</code> and flags potential anomalies:</p>
+                <ul>
+                    <li><strong>RWX Private Memory:</strong> Identifies private memory regions with Read-Write-Execute permissions.</li>
+                    <li><strong>Executable Non-Image Memory:</strong> Flags executable memory regions that are not backed by a mapped image file (potential injected code).</li>
+                </ul>
+
+                <h3>4. Handle Analysis</h3>
+                <p>Enumerates handles owned by accessible processes using <code>NtQuerySystemInformation</code> (<code>SystemHandleInformation</code>). For each handle, it attempts to determine:</p>
+                <ul>
+                    <li><strong>Handle Type:</strong> Uses <code>NtDuplicateObject</code> and <code>NtQueryObject</code> (<code>ObjectTypeInformation</code>) to get the type name (e.g., "File", "Process", "Thread").</li>
+                    <li><strong>Object Name:</strong> Uses <code>NtDuplicateObject</code> and <code>NtQueryObject</code> (<code>ObjectNameInformation</code>) to retrieve the name associated with the handle, if available.</li>
+                </ul>
+
+                <h3>5. Advanced Thread Analysis</h3>
+                <p>Integrates with process enumeration to display detailed thread information obtained from <code>SYSTEM_THREAD_INFORMATION</code>, including Thread ID (TID), Start Address, State, and Wait Reason.</p>
+
+                <h2>Usage</h2>
+                <p>Run <code>ProcessButcher.exe</code> from a command prompt with Administrator privileges (required for <code>SeDebugPrivilege</code> and accessing other processes).</p>
+
+                <pre><code># Analyze all accessible processes
+.\ProcessButcher.exe
+
+# Analyze a specific process by PID
+.\ProcessButcher.exe -p &lt;PID&gt;
+.\ProcessButcher.exe -h</code></pre>
+
+                <h3>Output</h3>
+                <p>The tool will output detailed information for each analyzed process, including:</p>
+                <ul>
+                    <li>Basic process information.</li>
+                    <li>PEB details (Command Line, Image Path).</li>
+                    <li>Loaded modules list.</li>
+                    <li>Thread list with TEB and stack info.</li>
+                    <li>Memory region list with anomaly flags.</li>
+                    <li>Handle list with type and object names.</li>
+                </ul>
+
+                <h2>Important Notes</h2>
+                <ul>
+                    <li><strong>Administrator Privileges:</strong> Required for full functionality.</li>
+                    <li><strong>Protected Processes:</strong> ProcessButcher may not be able to open or analyze certain protected system processes (e.g., PPL processes). Warnings will be printed for processes that cannot be opened.</li>
+                    <li><strong>Native API:</strong> The tool relies heavily on undocumented Native APIs. Behavior might change between Windows versions. It was developed targeting Windows 10 (Redstone 2).</li>
+                    <li><strong>Handle Query Hangs:</strong> <code>NtQueryObject</code> for <code>ObjectNameInformation</code> can sometimes hang indefinitely, especially for certain pipe handles. A timeout mechanism (TODO Item 014) is not yet implemented.</li>
+                </ul>
+
+                <div class="article-footer" style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">
+                        <strong>Disclaimer:</strong> This tool is for authorized security testing and research purposes only. Use responsibly and in compliance with applicable laws and regulations.
+                    </p>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <p>&copy; 2025 Husam Gameel (Oppenheim3r). All rights reserved.</p>
+                <div class="social-links">
+                    <a href="#" class="social-link" title="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="#" class="social-link" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" class="social-link" title="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link" title="Email"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="../assets/js/main.js"></script>
+</body>
+</html>

