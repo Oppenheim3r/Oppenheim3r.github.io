@@ -568,6 +568,25 @@ body {
     transform: translateY(-2px);
 }
 
+/* Content Width */
+.article-content {
+    max-width: 95%;
+    margin: 0 auto;
+    padding: var(--space-xl) var(--space-lg);
+}
+
+@media (min-width: 1200px) {
+    .article-content {
+        max-width: 90%;
+    }
+}
+
+@media (min-width: 1400px) {
+    .article-content {
+        max-width: 85%;
+    }
+}
+
 /* Mobile Responsiveness */
 /* Mobile responsive styles for code blocks and tables */
 @media (max-width: 768px) {
@@ -668,6 +687,7 @@ body {
     
     .article-content {
         padding: var(--space-lg);
+        max-width: 100%;
     }
 }
 
