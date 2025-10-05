@@ -569,6 +569,61 @@ body {
 }
 
 /* Mobile Responsiveness */
+/* Mobile responsive styles for code blocks and tables */
+@media (max-width: 768px) {
+    /* Code blocks */
+    pre {
+        overflow-x: auto;
+        font-size: 0.8rem;
+        padding: 1rem;
+        margin: 1rem 0;
+        white-space: pre;
+        word-wrap: normal;
+    }
+    
+    pre code {
+        font-size: 0.75rem;
+        line-height: 1.4;
+    }
+    
+    /* Tables */
+    table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+        width: 100%;
+        margin: 1rem 0;
+    }
+    
+    table thead,
+    table tbody,
+    table tr {
+        display: table;
+        width: 100%;
+        table-layout: fixed;
+    }
+    
+    table th,
+    table td {
+        padding: 0.5rem 0.25rem;
+        font-size: 0.8rem;
+        word-wrap: break-word;
+        white-space: normal;
+    }
+    
+    /* Image responsiveness */
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+    
+    /* Grid layouts for images */
+    .image-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1rem !important;
+    }
+}
+
 @media (max-width: 768px) {
     .header-content {
         flex-direction: row;
