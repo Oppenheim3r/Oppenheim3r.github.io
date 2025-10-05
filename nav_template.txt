@@ -1,0 +1,22 @@
+                <nav class="nav">
+                    <a href="/" class="nav-btn">
+                        <i class="fas fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    <a href="/about/" class="nav-btn">
+                        <i class="fas fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    <a href="/blogs/" class="nav-btn">
+                        <i class="fas fa-blog"></i>
+                        <span>Blogs</span>
+                    </a>
+                    <a href="/research/" class="nav-btn">
+                        <i class="fas fa-flask"></i>
+                        <span>Research</span>
+                    </a>
+                    <a href="/projects/" class="nav-btn">
+                        <i class="fas fa-code"></i>
+                        <span>Projects</span>
+                    </a>
+                </nav>
