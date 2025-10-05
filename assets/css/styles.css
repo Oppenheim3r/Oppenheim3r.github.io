@@ -100,54 +100,6 @@ body {
     z-index: -1;
 }
 
-/* Floating Binary Animation */
-.floating-binaries {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 1;
-    overflow: hidden;
-}
-
-.binary {
-    position: absolute;
-    color: var(--accent-green);
-    font-family: 'Courier New', monospace;
-    font-size: var(--fs-xs);
-    opacity: 0.3;
-    animation: float 15s linear infinite;
-    user-select: none;
-}
-
-.binary:nth-child(odd) {
-    color: var(--accent-blue);
-    animation-duration: 20s;
-}
-
-.binary:nth-child(3n) {
-    color: var(--accent-purple);
-    animation-duration: 25s;
-}
-
-@keyframes float {
-    0% {
-        transform: translateY(100vh) rotate(0deg);
-        opacity: 0;
-    }
-    10% {
-        opacity: 0.3;
-    }
-    90% {
-        opacity: 0.3;
-    }
-    100% {
-        transform: translateY(-100px) rotate(360deg);
-        opacity: 0;
-    }
-}
 
 /* Spider Web Overlay */
 .spider-web {

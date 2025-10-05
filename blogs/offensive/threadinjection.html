@@ -11,8 +11,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <!-- Floating Binaries Background -->
-    <div class="floating-binaries" id="floating-binaries"></div>
     
     <!-- Spider Web Overlay -->
     <div class="spider-web" id="spider-web">
@@ -48,11 +46,9 @@
                         <i class="fas fa-blog"></i>
                         All Blogs
                     </a>
-                    <a href="/blogs/offensive/" class="nav-btn active">
                         <i class="fas fa-sword"></i>
                         Offensive
                     </a>
-                    <a href="/blogs/defensive/" class="nav-btn">
                         <i class="fas fa-shield-alt"></i>
                         Defensive
                     </a>
@@ -68,16 +64,14 @@
         <div class="breadcrumb" id="breadcrumb">
             <a href="/">Home</a> <span class="breadcrumb-separator">></span> 
             <a href="/blogs/">Blogs</a> <span class="breadcrumb-separator">></span> 
-            <a href="/blogs/offensive/">Offensive</a> <span class="breadcrumb-separator">></span> 
             <span>Thread Injection</span>
         </div>
 
         <!-- Main Content -->
         <main class="main">
             <div class="article-content">
-                <a href="/blogs/offensive/" class="back-btn">
                     <i class="fas fa-arrow-left"></i>
-                    Back to Offensive Security
+                    Back to Blogs
                 </a>
                 
                 <h1>Thread Injection - Windows Process Injection Technique</h1>
@@ -140,11 +134,6 @@ SetThreadContext(h_thread, &ctx);</code></pre>
                 <h2>Conclusion</h2>
                 <p>Now we have hijacked the thread and this can be leveraged for more evasion techniques. Thread injection is a powerful technique that allows attackers to execute malicious code within the context of a legitimate process, making detection more difficult.</p>
 
-                <div class="article-footer" style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color);">
-                    <p style="color: var(--text-muted); font-size: 0.9rem;">
-                        <strong>Disclaimer:</strong> This content is for educational purposes only. The techniques described should only be used in authorized penetration testing and security research environments.
-                    </p>
-                </div>
             </div>
         </main>
 

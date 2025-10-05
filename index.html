@@ -26,9 +26,6 @@
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
-    <!-- Floating Binaries Background -->
-    <div class="floating-binaries" id="floating-binaries"></div>
-    
     <!-- Spider Web Overlay -->
     <div class="spider-web" id="spider-web">
         <div class="web-line" style="top: 20%; left: 0; width: 100%;"></div>
@@ -61,15 +58,7 @@
                     </a>
                     <a href="/blogs/" class="nav-btn">
                         <i class="fas fa-blog"></i>
-                        All Blogs
-                    </a>
-                    <a href="/blogs/offensive/" class="nav-btn">
-                        <i class="fas fa-sword"></i>
-                        Offensive
-                    </a>
-                    <a href="/blogs/defensive/" class="nav-btn">
-                        <i class="fas fa-shield-alt"></i>
-                        Defensive
+                        Blogs
                     </a>
                     <a href="/research/" class="nav-btn">
                         <i class="fas fa-flask"></i>
@@ -97,20 +86,6 @@
                     <p>Exploring the depths of offensive security, defensive strategies, and adversary emulation techniques through hands-on research and real-world applications.</p>
                 </div>
                 
-                <div class="hero-stats">
-                    <div class="stat">
-                        <span class="stat-number">4</span>
-                        <span class="stat-label">Categories</span>
-                    </div>
-                    <div class="stat">
-                        <span class="stat-number">∞</span>
-                        <span class="stat-label">Learning</span>
-                    </div>
-                    <div class="stat">
-                        <span class="stat-number">24/7</span>
-                        <span class="stat-label">Research</span>
-                    </div>
-                </div>
             </section>
 
             <!-- Featured Categories -->
@@ -118,27 +93,15 @@
                 <h2 style="text-align: center; margin-bottom: 3rem; font-size: 2.5rem; background: var(--gradient-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Explore Categories</h2>
                 
                 <div class="posts-grid">
-                    <div class="post-card" onclick="window.location.href='/blogs/offensive/'">
+                    <div class="post-card" onclick="window.location.href='/blogs/'">
                         <div class="post-meta">
-                            <span class="post-category">Offensive Security</span>
-                            <i class="fas fa-sword"></i>
+                            <span class="post-category">Cybersecurity</span>
+                            <i class="fas fa-blog"></i>
                         </div>
-                        <h3>Red Team Operations</h3>
-                        <p>Penetration testing, exploit development, and advanced attack techniques. Dive deep into the offensive side of cybersecurity.</p>
-                        <a href="/blogs/offensive/" class="read-more">
-                            Explore Posts <i class="fas fa-arrow-right"></i>
-                        </a>
-                    </div>
-
-                    <div class="post-card" onclick="window.location.href='/blogs/defensive/'">
-                        <div class="post-meta">
-                            <span class="post-category">Defensive Security</span>
-                            <i class="fas fa-shield-alt"></i>
-                        </div>
-                        <h3>Blue Team Strategies</h3>
-                        <p>SIEM rules, incident response, threat hunting, and security monitoring. Learn to defend against modern threats.</p>
-                        <a href="/blogs/defensive/" class="read-more">
-                            Explore Posts <i class="fas fa-arrow-right"></i>
+                        <h3>Security Blog</h3>
+                        <p>Technical insights, techniques, and analysis covering offensive security, defensive strategies, and digital forensics.</p>
+                        <a href="/blogs/" class="read-more">
+                            Read Posts <i class="fas fa-arrow-right"></i>
                         </a>
                     </div>
 
