@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VQL Survival Guide - Husam Gameel | Oppenheim3r</title>
+    <meta name="description" content="A comprehensive Velociraptor Query Language (VQL) survival guide for digital forensics, incident response (DFIR), and threat hunting.">
+    
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    
+    <!-- Spider Web Overlay -->
+    <div class="spider-web" id="spider-web">
+        <div class="web-line" style="top: 20%; left: 0; width: 100%;"></div>
+        <div class="web-line" style="top: 40%; left: 0; width: 100%;"></div>
+        <div class="web-line" style="top: 60%; left: 0; width: 100%;"></div>
+        <div class="web-line" style="top: 80%; left: 0; width: 100%;"></div>
+        <div class="web-line vertical" style="left: 15%; top: 0;"></div>
+        <div class="web-line vertical" style="left: 35%; top: 0;"></div>
+        <div class="web-line vertical" style="left: 55%; top: 0;"></div>
+        <div class="web-line vertical" style="left: 75%; top: 0;"></div>
+        <div class="web-line vertical" style="left: 85%; top: 0;"></div>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>Oppenheim3r</h1>
+                    <p>Husam Gameel</p>
+                </div>
+                <nav class="nav">
+                    <a href="/" class="nav-btn">
+                        <i class="fas fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    <a href="/about/" class="nav-btn">
+                        <i class="fas fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    <a href="/blogs/" class="nav-btn active">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Blogs</span>
+                    </a>
+                    <a href="/research/" class="nav-btn">
+                        <i class="fas fa-flask"></i>
+                        <span>Research</span>
+                    </a>
+                    <a href="/projects/" class="nav-btn">
+                        <i class="fas fa-code"></i>
+                        <span>Projects</span>
+                    </a>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Breadcrumb -->
+        <div class="breadcrumb" id="breadcrumb">
+            <a href="/">Home</a>
+            <a href="/blogs/">Blogs</a>
+            <span>VQL Survival Guide</span>
+        </div>
+
+        <!-- Main Content -->
+        <main class="main">
+            <div class="article-content">
+                <a href="/blogs/" class="back-btn">
+                    <i class="fas fa-arrow-left"></i>
+                    Back to Blogs
+                </a>
+                
+                <h1>VQL Survival Guide</h1>
+                <div class="post-meta" style="margin-bottom: 2rem;">
+                    <span class="post-category">VQL</span>
+                    <span>May 26, 2026</span>
+                </div>
+
+                <p><strong>Author:</strong> Husam Gameel (Oppenheim3r)</p>
+
+                <div class="table-of-contents" style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); padding: 1.5rem; border-radius: 0.5rem; margin-bottom: 2rem;">
+                    <h3 style="margin-top: 0; color: var(--accent-blue);">Table of Contents</h3>
+                    <ol style="margin: 0; padding-left: 1.25rem;">
+                        <li><a href="#1-vql-design-philosophy--core-concepts" style="color: var(--text-secondary); text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='var(--primary-purple)'" onmouseout="this.style.color='var(--text-secondary)'">VQL Design Philosophy & Core Concepts</a></li>
+                        <li><a href="#2-basic-queries--syntax" style="color: var(--text-secondary); text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='var(--primary-purple)'" onmouseout="this.style.color='var(--text-secondary)'">Level 1: Basic Queries & Syntax</a></li>
+                        <li><a href="#3-foreach-memoize--subqueries" style="color: var(--text-secondary); text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='var(--primary-purple)'" onmouseout="this.style.color='var(--text-secondary)'">Level 2: Foreach, Memoize & Subqueries</a></li>
+                        <li><a href="#4-grok-csv-and-aggregate-functions" style="color: var(--text-secondary); text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='var(--primary-purple)'" onmouseout="this.style.color='var(--text-secondary)'">Level 3: Log Parser (Grok, CSV, and Aggregate Functions)</a></li>
+                    </ol>
+                </div>
+
+                <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 2rem 0;">
+
+                <h2 id="1-vql-design-philosophy--core-concepts">1. VQL Design Philosophy & Core Concepts</h2>
+                
+                <p>Before writing queries, you must understand three crucial architectural concepts in VQL:</p>
+
+                <h3>A. Dynamic Data Sources (Plugins vs. Tables)</h3>
+                <p>In SQL, you query static tables (<code>FROM users</code>). In VQL, the data sources are <strong>plugins</strong>—which are actual Go functions running inside the Velociraptor agent (<code>FROM pslist()</code>, <code>FROM glob()</code>).</p>
+                <ul>
+                    <li>Plugins return rows dynamically.</li>
+                    <li>Plugins accept <strong>keyword arguments</strong> (e.g., <code>pslist(pid=1234)</code>).</li>
+                </ul>
+
+                <h3>B. Lazy Evaluation (Doing Less Work)</h3>
+                <p>VQL goes to extreme lengths to postpone evaluation. When you specify a column expression, VQL wraps it in a <strong>Lazy Evaluator</strong>.</p>
+                <ul>
+                    <li>If a row is filtered out by a <code>WHERE</code> clause <em>before</em> a column needs to be printed, that column's function is <strong>never evaluated</strong>.</li>
+                    <li>This is critical when using expensive functions like <code>hash()</code> or <code>upload()</code>.</li>
+                </ul>
+
+                <blockquote style="border-left: 3px solid var(--accent-green); background: rgba(0, 255, 65, 0.03);">
+                    <strong>💡 Performance Tip:</strong> Order your <code>WHERE</code> conditions from <strong>cheapest to most expensive</strong> (left-to-right). If a cheap string match fails, VQL aborts early and won't run an expensive file hash function on that row!<br><br>
+                    <em>Bad (Expensive):</em> <code>WHERE hash(path=FullPath).SHA256 = "..." AND FullPath =~ "system32"</code><br>
+                    <em>Good (Cheap First):</em> <code>WHERE FullPath =~ "system32" AND hash(path=FullPath).SHA256 = "..."</code>
+                </blockquote>
+
+                <h3>C. The Scope</h3>
+                <p>The scope is a stack-like data structure containing active variables, plugins, and helper functions.</p>
+                <ul>
+                    <li>When a query executes, nested child scopes are created (e.g., inside <code>foreach()</code> loops).</li>
+                    <li>If a variable or column name inside a subquery matches a variable in the parent scope, the inner one <strong>masks</strong> the outer one. You can use <code>AS</code> to rename variables and avoid collisions.</li>
+                </ul>
+
+                <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 2rem 0;">
+
+                <h2 id="2-basic-queries--syntax">2. Level 1: Basic Queries & Syntax</h2>
+                
+                <p>Let's master the basic SQL-like skeleton of a VQL query:</p>
+
+                <pre><code>SELECT Column1, Column2, Column3 AS CustomName
+FROM plugin(arg1="value", arg2=123)
+WHERE Column1 =~ "regex_pattern"</code></pre>
+
+                <blockquote style="border-left: 3px solid var(--accent-blue); background: rgba(59, 130, 246, 0.03);">
+                    <strong>ℹ️ Note:</strong> Unlike SQL, VQL <strong>does not</strong> require or allow a semicolon (<code>;</code>) at the end of statements!
+                </blockquote>
+
+                <h3>2.1 Basic System Information Query</h3>
+                <p>Let's get basic system facts using the <code>info()</code> plugin:</p>
+                <pre><code>SELECT Hostname, OS, Platform, KernelVersion, Architecture, IsAdmin
+FROM info()</code></pre>
+                <p><em>Output (JSON format):</em></p>
+                <pre><code>[
+ {
+  "Hostname": "Rick",
+  "OS": "windows",
+  "Platform": "Microsoft Windows 11 Pro",
+  "KernelVersion": "10.0.22631",
+  "Architecture": "amd64",
+  "IsAdmin": true
+ }
+]</code></pre>
+
+                <h3>2.2 Filtering and the Regex Operator (<code>=~</code>)</h3>
+                <p>The regex match operator (<code>=~</code>) is one of the most frequently used operators in DFIR queries. Let's list running processes using <code>pslist()</code>, filtering for Microsoft Edge or Chrome:</p>
+                <pre><code>SELECT Pid, Name, CommandLine, Exe 
+FROM pslist()
+WHERE Name =~ "chrome|msedge"</code></pre>
+
+                <h3>2.3 Defining Stored Queries (<code>LET</code> Variable Binding)</h3>
+                <p>You can declare queries as variables using the <code>LET</code> keyword. Stored queries are <strong>lazy</strong> and will only be executed when you reference them!</p>
+                <pre><code>-- Declare the stored query (not evaluated yet!)
+LET FindBrowsers = SELECT Pid, Name, Exe 
+                   FROM pslist() 
+                   WHERE Name =~ "chrome|msedge|firefox"
+
+-- Execute the query and limit the results to 3
+SELECT * FROM FindBrowsers 
+LIMIT 3</code></pre>
+
+                <h3>2.4 Multi-line Raw Strings (<code>'''</code>)</h3>
+                <p>Windows file paths use backslashes (<code>\</code>). Standard strings require escaping (<code>"C:\\Windows\\System32"</code>). To avoid escaping nightmares, VQL provides <strong>raw strings</strong> using triple single-quotes (<code>'''</code>). Inside a raw string, everything is literal!</p>
+                <pre><code>-- Escaping required:
+SELECT * FROM glob(globs="C:\\Windows\\System32\\*.exe")
+
+-- No escaping required (Raw string):
+SELECT * FROM glob(globs='''C:\Windows\System32\*.exe''')</code></pre>
+
+                <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 2rem 0;">
+
+                <h2 id="3-foreach-memoize--subqueries">3. Level 2: Foreach, Memoize & Subqueries</h2>
+                
+                <p>In standard SQL, you combine two tables using <code>JOIN</code>. Because VQL has no static tables or static indexes, it <strong>does not have a JOIN operator</strong>. Instead, VQL uses the <strong><code>foreach()</code> plugin</strong> and <strong><code>memoize()</code> function</strong> to combine dynamic data.</p>
+
+                <h3>3.1 The Mighty <code>foreach()</code> Loop</h3>
+                <p>The <code>foreach()</code> plugin runs an inner query for <strong>every row</strong> returned by an outer query.</p>
+                
+                <h4>Syntax:</h4>
+                <pre><code>SELECT * FROM foreach(
+  row={ SELECT Exe, Pid FROM pslist() },
+  query={ SELECT Pid, ModTime, Size, FullPath FROM stat(filename=Exe) }
+)</code></pre>
+                <p>In this query:</p>
+                <ol>
+                    <li><code>row</code> query runs first, yielding process executables (<code>Exe</code>).</li>
+                    <li>For <em>each</em> row, VQL creates a nested scope containing <code>Exe</code> and runs the <code>query</code> subquery.</li>
+                    <li>The <code>stat()</code> plugin takes the <code>Exe</code> variable from the outer row and returns file details.</li>
+                </ol>
+
+                <h3>3.2 Dynamic Join: Processes and Network Connections</h3>
+                <p>Let's write a query to map active network connections (<code>netstat()</code>) to their respective process names (<code>pslist()</code>).</p>
+                <pre><code>SELECT * FROM foreach(
+  row={
+    SELECT Family, Type, Laddr.IP AS LocalIP, Laddr.Port AS LocalPort, 
+           Raddr.IP AS RemoteIP, Raddr.Port AS RemotePort, Pid
+    FROM netstat()
+    WHERE RemoteIP != "0.0.0.0" AND RemoteIP != "127.0.0.1"
+  },
+  query={
+    SELECT Name AS ProcessName, Exe AS ProcessPath, LocalIP, LocalPort, RemoteIP, RemotePort, Pid
+    FROM pslist(pid=Pid)
+  }
+)</code></pre>
+                
+                <blockquote style="border-left: 3px solid var(--primary-purple); background: rgba(139, 92, 246, 0.03);">
+                    <strong>⚠️ Performance Alert:</strong> This query is extremely slow on busy systems! Why? Because for <em>every single socket</em> returned by <code>netstat()</code>, the <code>pslist()</code> plugin runs again to find the process name. If there are 300 sockets, <code>pslist()</code> runs 300 times!
+                </blockquote>
+
+                <h3>3.3 Solving Performance with Materialization (<code>&lt;=</code>)</h3>
+                <p>To solve the slow nested-query problem, we can <strong>materialize</strong> the process list into memory using the <code>&lt;=</code> operator.</p>
+                <ul>
+                    <li><code>LET x = query</code> (Lazy - runs the query <em>every time</em> it is referenced).</li>
+                    <li><code>LET x &lt;= query</code> (Materialized - runs the query <em>once</em>, caches the results in an in-memory array, and accesses it instantly).</li>
+                </ul>
+                <pre><code>-- Step 1: Cache the process list in memory (runs exactly ONCE)
+LET ProcessCache &lt;= SELECT Pid AS ProcessPid, Name AS ProcessName, Exe AS ProcessPath 
+                    FROM pslist()
+
+-- Step 2: Query netstat and map using a fast in-memory subquery lookup
+SELECT Laddr.IP AS LocalIP, Laddr.Port AS LocalPort, 
+       Raddr.IP AS RemoteIP, Raddr.Port AS RemotePort, Pid,
+       {
+         SELECT ProcessName 
+         FROM ProcessCache 
+         WHERE ProcessPid = Pid 
+       } AS ProcessName
+FROM netstat()
+WHERE RemoteIP != "0.0.0.0" AND RemoteIP != "127.0.0.1"</code></pre>
+                <p>This materialized lookup runs in <strong>milliseconds</strong> instead of seconds!</p>
+
+                <h3>3.4 Speeding up with <code>memoize()</code></h3>
+                <p>For large lookups, you can use the <code>memoize()</code> function. It builds an indexed hash map in memory on a specific key:</p>
+                <pre><code>-- Re-cache every 10 seconds (10000ms)
+LET ProcessLookup &lt;= memoize(
+  key="ProcessPid",
+  query={ SELECT Pid AS ProcessPid, Name, Exe FROM pslist() },
+  period=10000
+)
+
+-- Access the cached process details using get() in O(1) time!
+SELECT Laddr.IP AS LocalIP, Laddr.Port AS LocalPort, Pid,
+       get(item=ProcessLookup, field=Pid).Name AS ProcessName
+FROM netstat()</code></pre>
+
+                <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 2rem 0;">
+
+                <h2 id="4-grok-csv-and-aggregate-functions">4. Level 3: Log Parser (Grok, CSV, and Aggregate Functions)</h2>
+                
+                <p>Log parsing is a fundamental task for detection engineers. VQL handles CSVs, JSONs, XMLs, and unstructured text files beautifully.</p>
+
+                <h3>4.1 Parsing Structured CSV Logs</h3>
+                <p>Let's parse a CSV log file on the fly using <code>parse_csv()</code>.</p>
+                <pre><code>LET RawLogs = '''Timestamp,User,Action,IPAddress
+2026-05-19T10:00:00Z,admin,login_success,192.168.1.50
+2026-05-19T10:01:05Z,attacker,login_failed,45.2.3.9
+2026-05-19T10:02:10Z,attacker,login_failed,45.2.3.9
+2026-05-19T10:03:00Z,attacker,login_success,45.2.3.9
+'''
+
+SELECT Timestamp, User, Action, IPAddress
+FROM parse_csv(accessor="data", filename=RawLogs)
+WHERE Action = "login_success"</code></pre>
+
+                <h3>4.2 Grouping and Aggregate Analysis (<code>GROUP BY</code>)</h3>
+                <p>Let's group the failed logins by user and calculate counts using the aggregate <code>count()</code> function:</p>
+                <pre><code>SELECT User, count() AS TotalFailedAttempts
+FROM parse_csv(accessor="data", filename=RawLogs)
+WHERE Action = "login_failed"
+GROUP BY User</code></pre>
+                <p><em>Output:</em></p>
+                <pre><code>[
+ {
+  "User": "attacker",
+  "TotalFailedAttempts": 2
+ }
+]</code></pre>
+
+                <h3>4.3 Parsing Unstructured Logs with <code>grok()</code></h3>
+                <p>When logs are unstructured text files (like web IIS logs or Linux syslogs), you can extract fields using <strong>Grok expressions</strong> (named regex patterns).</p>
+                <p>Let's parse raw web server log lines:</p>
+                <pre><code>LET WebServerLogs = '''192.168.1.100 - - [19/May/2026:10:00:01 -0700] "GET /index.html HTTP/1.1" 200 452
+192.168.1.150 - - [19/May/2026:10:01:45 -0700] "POST /login.php HTTP/1.1" 401 234
+192.168.1.180 - - [19/May/2026:10:02:15 -0700] "GET /admin/cmd.aspx?cmd=whoami HTTP/1.1" 404 125
+'''
+
+-- Parse lines and extract fields using a custom Grok expression
+LET parsed_lines = SELECT grok(
+  grok="%{IP:ClientIP} - - \\[%{HTTPDATE:Timestamp}\\] \"%{WORD:Method} %{NOTSPACE:URI} HTTP/%{NUMBER:Version}\" %{NUMBER:StatusCode:int} %{NUMBER:ResponseBytes:int}",
+  data=Line
+) AS LogRecord
+FROM parse_lines(accessor="data", filename=WebServerLogs)
+
+-- Use foreach to deconstruct the parsed dictionaries into individual columns
+SELECT * FROM foreach(row=parsed_lines, column="LogRecord")
+WHERE StatusCode >= 400</code></pre>
+                <p><em>Output:</em></p>
+                <pre><code>[
+ {
+  "ClientIP": "192.168.1.150",
+  "Timestamp": "19/May/2026:10:01:45 -0700",
+  "Method": "POST",
+  "URI": "/login.php",
+  "Version": "1.1",
+  "StatusCode": 401,
+  "ResponseBytes": 234
+ },
+ {
+  "ClientIP": "192.168.1.180",
+  "Timestamp": "19/May/2026:10:02:15 -0700",
+  "Method": "GET",
+  "URI": "/admin/cmd.aspx?cmd=whoami",
+  "Version": "1.1",
+  "StatusCode": 404,
+  "ResponseBytes": 125
+ }
+]</code></pre>
+
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <p>&copy; 2025 Husam Gameel (Oppenheim3r). All rights reserved.</p>
+                <div class="social-links">
+                    <a href="https://github.com/Oppenheim3r" class="social-link" title="GitHub" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="https://www.linkedin.com/in/husam-gameel-712596276/" class="social-link" title="LinkedIn" target="_blank"><i class="fab fa-linkedin"></i></a>
+
+                    <a href="mailto:oppe@oppenheim3r.me.ye" class="social-link" title="Email"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="../assets/js/main.js"></script>
+</body>
+</html>
